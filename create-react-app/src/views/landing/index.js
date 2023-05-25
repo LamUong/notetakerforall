@@ -27,12 +27,13 @@ const Landing = () => {
                       <Logo />
                     </Link>
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={2}></Grid>
+                  <Grid item xs={8}>
                     <Grid container direction={matchDownSM ? 'column-reverse' : 'row'} alignItems="center" justifyContent="center">
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                            Get notes with NoteTakerForAll
+                            Get notes with AINotes
                           </Typography>
                           <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : 'inherit'}>
                             Stop taking notes by hand. With NoteTakerForAll you can turn any audio recording or uploaded video/audio 
@@ -42,6 +43,7 @@ const Landing = () => {
                       </Grid>
                     </Grid>
                   </Grid>
+                  <Grid item xs={2}></Grid>
                   <Grid item xs={12}>
                     <p>hello 2</p>
                   </Grid>
