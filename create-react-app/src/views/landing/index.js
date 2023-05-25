@@ -29,7 +29,7 @@ const Landing = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <Grid item xs={2}></Grid>
-                    <Grid item alignItems="center" justifyContent="center">
+                    <Grid item xs={8} alignItems="center" justifyContent="center">
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
