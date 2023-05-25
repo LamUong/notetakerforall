@@ -27,7 +27,7 @@ const Landing = () => {
                       <Logo />
                     </Link>
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid container>
                     <Grid item xs={2}></Grid>
                     <Grid item xs={8} alignItems="center" justifyContent="center">
                       <Grid item>
