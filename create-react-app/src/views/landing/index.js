@@ -27,8 +27,7 @@ const Landing = () => {
                       <Logo />
                     </Link>
                   </Grid>
-                  <Grid item xs={2}></Grid>
-                  <Grid item xs={8}>
+                  <Grid item xs={12}>
                     <Grid container direction={matchDownSM ? 'column-reverse' : 'row'} alignItems="center" justifyContent="center">
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
@@ -43,7 +42,6 @@ const Landing = () => {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item xs={2}></Grid>
                   <Grid item xs={12}>
                     <p>hello 2</p>
                   </Grid>
