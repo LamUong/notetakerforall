@@ -28,8 +28,8 @@ const Landing = () => {
                     </Link>
                   </Grid>
                   <Grid container>
-                    <Grid item xs={2}></Grid>
-                    <Grid item xs={8} alignItems="center" justifyContent="center">
+                    <Grid item xs={3}></Grid>
+                    <Grid item xs={6} alignItems="center" justifyContent="center">
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
@@ -42,7 +42,7 @@ const Landing = () => {
                         </Stack>
                       </Grid>
                     </Grid>
-                    <Grid item xs={2}></Grid>
+                    <Grid item xs={3}></Grid>
                   </Grid>
                   <Grid item xs={12}>
                     <p>hello 2</p>
