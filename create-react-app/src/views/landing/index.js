@@ -2,7 +2,9 @@ import { Link } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
+import { Divider, Grid, Stack, Typography, useMediaQuery, Button } from '@mui/material';
+import MicIcon from "@material-ui/icons/Mic";
+
 
 // project imports
 import Logo from 'ui-component/Logo';
@@ -40,6 +42,9 @@ const Landing = () => {
                             Automatically get transcript, summaries, highlights and bullet points without hassel. Ask questions
                             and answers from your notes powered by ChatGPT.
                           </Typography>
+                          <Button variant="contained" endIcon={<MicIcon />}>
+                            Start Recording
+                          </Button>
                         </Stack>
                       </Grid>
                     </Grid>
