@@ -36,7 +36,7 @@ const Landing = () => {
                             Get notes with AINotes
                           </Typography>
                           <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : 'inherit'}>
-                            Stop taking notes by hand. With NoteTakerForAll you can turn any audio recording or uploaded video/audio 
+                            Stop taking notes by hand. With AINotes you can turn any audio recording or uploaded video/audio 
                             into notes automatically. Get transcript, summary and bullet points without hassel. 
                           </Typography>
                         </Stack>
