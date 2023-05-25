@@ -36,8 +36,8 @@ const Landing = () => {
                             Get notes with AINotes
                           </Typography>
                           <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : 'inherit'}>
-                            Stop taking notes by hand. Turn any audio recording or uploaded video/audio 
-                            into notes automatically. Get transcript, summary and bullet points without hassel. Ask questions
+                            Stop taking notes by hand. Get notes with real time audio recording or uploaded video/audio.
+                            Automatically get transcript, summaries, highlights and bullet points without hassel. Ask questions
                             and answers from your notes powered by ChatGPT.
                           </Typography>
                         </Stack>
