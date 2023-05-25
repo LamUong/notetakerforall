@@ -32,10 +32,11 @@ const Landing = () => {
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                            Hi, Welcome Back
+                            Get notes with NoteTakerForAll
                           </Typography>
                           <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : 'inherit'}>
-                            Enter your credentials to continue
+                            Stop taking notes by hand. With NoteTakerForAll you can turn any audio recording or uploaded video/audio 
+                            into notes automatically. Get transcript, summary and bullet points without hassel. 
                           </Typography>
                         </Stack>
                       </Grid>
