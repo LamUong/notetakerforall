@@ -6,7 +6,7 @@ import MainCard from 'ui-component/cards/MainCard';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
-const SamplePage = () => (
+const SamplePage = () => {
   const location = useLocation();
   console.log(location.state.file);
   return (
@@ -19,6 +19,6 @@ const SamplePage = () => (
         </Typography>
       </MainCard>
   );
-);
+};
 
 export default SamplePage;
