@@ -58,8 +58,10 @@ async def websocket_endpoint(websocket: WebSocket):
 @app.post(path="/upload_file")
 async def transcribe_audio_file(file: UploadFile):
     with open("temp.mp4", "wb") as buffer:
+        print("file.content_type")
+        print(file.content_type)
         shutil.copyfileobj(file.file, buffer)
-        source = {'buffer': audio, 'mimetype': file.content_type}
+        source = {'buffer': buffer, 'mimetype': file.content_type}
         # Send the audio to Deepgram and get the response
         response = await asyncio.create_task(
             deepgram.transcription.prerecorded(
