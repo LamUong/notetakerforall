@@ -36,12 +36,12 @@ const Landing = () => {
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                            Get notes with Berry
+                            Your AI-powered note taker
                           </Typography>
                           <Typography variant="caption" fontSize="16px" textAlign="center" >
-                            Stop taking notes by hand. Get notes with real time audio recording or uploaded video/audio.
-                            Automatically get transcript, summaries, highlights and bullet points without hassel. Ask questions
-                            and answers from your notes powered by ChatGPT.
+                            Never take notes by hand again. Real time audio recording or uploaded video/audio that
+                            produce transcript, summaries, highlights and bullet points without hassel. 
+                            Ask questions and answers from your notes powered by ChatGPT.
                           </Typography>
                           <Button variant="contained" endIcon={<MicIcon />} sx={{ marginTop: '30px !important' }}>
                             Start Recording
