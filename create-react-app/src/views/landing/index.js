@@ -42,7 +42,7 @@ const Landing = () => {
                             Automatically get transcript, summaries, highlights and bullet points without hassel. Ask questions
                             and answers from your notes powered by ChatGPT.
                           </Typography>
-                          <Button variant="contained" endIcon={<MicIcon />} marginTop="30px !important" >
+                          <Button variant="contained" endIcon={<MicIcon />} sx={{ marginTop: '30px !important' }}>
                             Start Recording
                           </Button>
                           <Grid item xs={12} width="100%" >
