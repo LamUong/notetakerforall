@@ -4,13 +4,16 @@ from fastapi.templating import Jinja2Templates
 from typing import Dict, Callable
 from deepgram import Deepgram
 from dotenv import load_dotenv
+import asyncio
 import os
+import shutil
+import asyncio
 
 load_dotenv()
 
 app = FastAPI()
 
-dg_client = Deepgram(os.getenv('DEEPGRAM_API_KEY'))
+dg_client = Deepgram("39a146d814142a35358db89c15a936727975bcb6")
 
 templates = Jinja2Templates(directory="templates")
 
@@ -59,15 +62,18 @@ async def websocket_endpoint(websocket: WebSocket):
     path="/upload"
 )
 async def transcribe_audio_file(file: UploadFile):
-    """
-    Receive File, store to disk & return it
-    """
-    # Write file to disk. This simulates some business logic that results in a file sotred on disk
-    with open(os.path.join(tmp_file_dir, file.filename), 'wb') as disk_file:
-        file_bytes = await file.read()
+    with open("temp.mp4", "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        source = {'buffer': audio, 'mimetype': file.content_type}
+        # Send the audio to Deepgram and get the response
+        response = await asyncio.create_task(
+            deepgram.transcription.prerecorded(
+              source,
+              {
+                'punctuate': True,
+                'model': 'nova',
+              }
+            )
+        )
+        print(json.dumps(response, indent=4))
 
-        disk_file.write(file_bytes)
-
-        print(f"Received file named {file.filename} containing {len(file_bytes)} bytes. ")
-
-        return FileResponse(disk_file.name, media_type=file.content_type)
