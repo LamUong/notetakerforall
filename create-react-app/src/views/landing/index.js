@@ -79,25 +79,9 @@ const Landing = () => {
                     </Grid>
                     <Grid item xs={3}></Grid>
                   </Grid>
-                  <Grid item xs={12}>
-                    <p>hello 2</p>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Divider />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Grid item container direction="column" alignItems="center" xs={12}>
-                      <Typography component={Link} to="/pages/register/register3" variant="subtitle1" sx={{ textDecoration: 'none' }}>
-                        Don&apos;t have an account?
-                      </Typography>
-                    </Grid>
-                  </Grid>
                 </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
-          <p>hello 3</p>
         </Grid>
       </Grid>
   );
