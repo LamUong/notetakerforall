@@ -45,6 +45,29 @@ const Landing = () => {
                           <Button variant="contained" endIcon={<MicIcon />} marginTop="30px" >
                             Start Recording
                           </Button>
+                          <Grid item xs={12}>
+                            <Box sx={{ alignItems: 'center', display: 'flex' }}>
+                              <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
+                              <Button
+                                variant="outlined"
+                                sx={{
+                                  cursor: 'unset',
+                                  m: 2,
+                                  py: 0.5,
+                                  px: 7,
+                                  borderColor: `${theme.palette.grey[100]} !important`,
+                                  color: `${theme.palette.grey[900]}!important`,
+                                  fontWeight: 500,
+                                  borderRadius: `${customization.borderRadius}px`
+                                }}
+                                disableRipple
+                                disabled
+                              >
+                                OR
+                              </Button>
+                              <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
+                            </Box>
+                          </Grid>
                         </Stack>
                       </Grid>
                     </Grid>
