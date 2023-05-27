@@ -55,9 +55,7 @@ async def websocket_endpoint(websocket: WebSocket):
     finally:
         await websocket.close()
  
-@app.get(
-    path="/upload"
-)
+@app.post(path="/upload_file")
 async def transcribe_audio_file(file: UploadFile):
     with open("temp.mp4", "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
