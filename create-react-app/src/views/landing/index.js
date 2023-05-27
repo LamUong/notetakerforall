@@ -58,7 +58,7 @@ const Landing = () => {
                                   borderColor: `${theme.palette.grey[100]} !important`,
                                   color: `${theme.palette.grey[900]}!important`,
                                   fontWeight: 500,
-                                  borderRadius: `${customization.borderRadius}px`
+                                  borderRadius: 5px
                                 }}
                                 disableRipple
                                 disabled
