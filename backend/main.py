@@ -38,7 +38,7 @@ async def connect_to_deepgram(transcript_received_handler: Callable[[Dict], None
  
 @app.get("/", response_class=HTMLResponse)
 def get(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return {"hi": "hi there"}
 
 @app.websocket("/listen")
 async def websocket_endpoint(websocket: WebSocket):
