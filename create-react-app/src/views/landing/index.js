@@ -56,7 +56,7 @@ const ContentSection = ({ matchDownSM }) => {
           </Grid>
           <Drop
             onLoaded={async (files) => {
-              log(files);
+                navigate('/sample-page',{state:{file:files[0]}});
             }}
           />
         </Stack>
