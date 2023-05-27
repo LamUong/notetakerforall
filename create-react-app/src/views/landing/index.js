@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery, Button, Box } from '@mui/material';
 import MicIcon from "@material-ui/icons/Mic";
+import Drop from "./Drop";
 
 
 // project imports
@@ -68,6 +69,11 @@ const Landing = () => {
                               <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
                             </Box>
                           </Grid>
+                          <Drop
+                            onLoaded={async (files) => {
+                              log("hello");
+                            }}
+                          />
                         </Stack>
                       </Grid>
                     </Grid>
