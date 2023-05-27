@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, WebSocket
+from fastapi import FastAPI, Request, WebSocket, UploadFile
 from fastapi.responses import HTMLResponse
 from typing import Dict, Callable
 from deepgram import Deepgram
