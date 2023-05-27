@@ -71,7 +71,7 @@ const Landing = () => {
                           </Grid>
                           <Drop
                             onLoaded={async (files) => {
-                              log("hello");
+                              log(files);
                             }}
                           />
                         </Stack>
