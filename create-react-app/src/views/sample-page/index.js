@@ -12,7 +12,7 @@ const SamplePage = () => {
       console.log(maybeVideo);
       const formData = new FormData();
       formData.append('video', maybeVideo);
-      axios.post('http://3.125.247.51/upload_file', formData, {
+      axios.post('http://3.125.247.51:8000/upload_file', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
