@@ -1,6 +1,5 @@
 from fastapi import FastAPI, Request, WebSocket
 from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
 from typing import Dict, Callable
 from deepgram import Deepgram
 from dotenv import load_dotenv
@@ -15,7 +14,6 @@ app = FastAPI()
 
 dg_client = Deepgram("39a146d814142a35358db89c15a936727975bcb6")
 
-templates = Jinja2Templates(directory="templates")
 
 async def process_audio(fast_socket: WebSocket):
     async def get_transcript(data: Dict) -> None:
