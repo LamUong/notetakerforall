@@ -35,9 +35,9 @@ const Landing = () => {
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                            Get notes with AINotes
+                            Get notes with Berry
                           </Typography>
-                          <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : 'inherit'}>
+                          <Typography variant="caption" fontSize="16px" textAlign="center" >
                             Stop taking notes by hand. Get notes with real time audio recording or uploaded video/audio.
                             Automatically get transcript, summaries, highlights and bullet points without hassel. Ask questions
                             and answers from your notes powered by ChatGPT.
