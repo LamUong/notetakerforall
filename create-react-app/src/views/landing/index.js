@@ -15,6 +15,7 @@ const LogoSection = () => (
 
 const ContentSection = ({ matchDownSM }) => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   return (
     <Grid item xs={6} alignItems="center" justifyContent="center">
