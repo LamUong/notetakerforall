@@ -1,14 +1,29 @@
-// material-ui
 import { Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-// project imports
+import axios from 'axios';
 import MainCard from 'ui-component/cards/MainCard';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const SamplePage = () => {
   const location = useLocation();
-  console.log(location.state.file);
+  const maybeVideo = location.state.file;
+  if (maybeVideo) {
+      console.log(maybeVideo);
+      const formData = new FormData();
+      formData.append('video', maybeVideo);
+      axios.post('http://3.125.247.51/upload_file', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((response) => {
+        console.log('Video uploaded successfully:', response.data);
+      })
+      .catch((error) => {
+        console.error('Error uploading video:', error);
+      });
+  }
   return (
       <MainCard title="Sample Card">
         <Typography variant="body2">
