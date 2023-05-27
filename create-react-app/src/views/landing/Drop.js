@@ -5,7 +5,8 @@ export default function Drop({ onLoaded }) {
   const styles = {
     container: {
       textAlign: "center",
-      border: "5px",
+      border: "1px dotted",
+      minHeight: "25vh",
       padding: 20,
       marginTop: 12,
       color: "hsl(218,49%,66%)",
@@ -30,7 +31,7 @@ export default function Drop({ onLoaded }) {
   return (
     <div {...getRootProps()} style={styles.container}>
       <input {...getInputProps()} />
-      {isDragActive ? <p>Drop a PDF here</p> : <p>Drag a PDF here</p>}
+      {isDragActive ? <p>Drop a PDF here</p> : <p>Drag or Click Here to Upload a Video/Audio</p>}
     </div>
   );
 }
