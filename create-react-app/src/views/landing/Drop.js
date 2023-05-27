@@ -5,6 +5,10 @@ export default function Drop({ onLoaded }) {
   const styles = {
     container: {
       textAlign: "center",
+      display: "flex",
+      justifyContent: "center",
+      alignContent: "center",
+      flexDirection: "column",
       border: "1px dotted",
       minHeight: "25vh",
       padding: 20,
