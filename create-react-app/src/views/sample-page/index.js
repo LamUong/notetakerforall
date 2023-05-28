@@ -8,10 +8,10 @@ import MainCard from 'ui-component/cards/MainCard';
 
 const SamplePage = () => {
   const [progress, setProgress] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
   const location = useLocation();
   const maybeVideo = location.state.file;
-  if (maybeVideo) {
-      console.log(maybeVideo);
+  const handleUpload = async () => {
       const formData = new FormData();
       formData.append('file', maybeVideo);
       axios.post('http://3.125.247.51:8000/upload_file', formData, {
@@ -30,7 +30,11 @@ const SamplePage = () => {
       .catch((error) => {
         console.error('Error uploading video:', error);
       });
-  }
+  };
+  if (maybeVideo && !isUploading) {
+    setIsUploading(true);
+    handleUpload();
+  };
   return (
       <MainCard title="Sample Card">
         <Typography variant="body2">Progress: {progress}%</Typography>
