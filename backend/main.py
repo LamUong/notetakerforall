@@ -73,21 +73,22 @@ async def websocket_endpoint(websocket: WebSocket):
  
 @app.post(path="/upload_file")
 async def transcribe_audio_file(file: UploadFile):
-    with NamedTemporaryFile(delete=True) as temp_file:
-        print("in")
-        file_content = await file.read()
-        file_buffer = BytesIO(file_content)
-        print("file.content_type")
-        print(file.content_type)
-        source = {'buffer': file_buffer, 'mimetype': file.content_type}
-        # Send the audio to Deepgram and get the response
-        response = await dg_client.transcription.prerecorded(
-                      source,
-                      {
-                        'punctuate': True,
-                         'model': 'whisper-large',
-                      }
-                    )
-        print(response['results']['channels'][0]['alternatives'][0]['transcript'])
-        #print(json.dumps(response, indent=4))
+    print("hello")
+    #with NamedTemporaryFile(delete=True) as temp_file:
+    #    print("in")
+    #    file_content = await file.read()
+    #    file_buffer = BytesIO(file_content)
+    #    print("file.content_type")
+    #    print(file.content_type)
+    #    source = {'buffer': file_buffer, 'mimetype': file.content_type}
+    #    # Send the audio to Deepgram and get the response
+    #    response = await dg_client.transcription.prerecorded(
+    #                  source,
+    #                  {
+    #                    'punctuate': True,
+    #                     'model': 'whisper-large',
+    #                  }
+    #                )
+    #    print(response['results']['channels'][0]['alternatives'][0]['transcript'])
+    #    #print(json.dumps(response, indent=4))
 
