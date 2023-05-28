@@ -26,7 +26,9 @@ const SamplePage = () => {
         onUploadProgress: (progressEvent) => {
           const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
           setProgress(progress);
+          console.log(progress);
           if (progress == 100){
+            console.log("100");
             setIsUploading(false);
             setIsTranscribing(true);
           }
@@ -37,6 +39,7 @@ const SamplePage = () => {
     } catch (error) {
       console.error('Error uploading video:', error);
     } finally {
+      console.log("isUploaded=true");
       setIsUploading(false);
       setIsTranscribing(false);
       isUploaded(true);
