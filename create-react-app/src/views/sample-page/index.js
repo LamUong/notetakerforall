@@ -26,9 +26,8 @@ const SamplePage = () => {
         onUploadProgress: (progressEvent) => {
           const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
           setProgress(progress);
-          console.log(progress);
           if (progress == 100){
-            console.log("100");
+            console.log("transcribing");
             setIsUploading(false);
             setIsTranscribing(true);
           }
@@ -62,8 +61,8 @@ const SamplePage = () => {
       }
       {isTranscribing &&
         <div>
-          <Typography variant="body2">Upload Progress</Typography>
-          <LinearProgress variant="determinate" value={progress} />
+          <Typography variant="body2">Transcribing</Typography>
+          <CircularProgress />
         </div>
       }
       {isUploaded &&
