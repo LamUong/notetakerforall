@@ -65,7 +65,8 @@ async def transcribe_audio_file(file: UploadFile):
         temp_file.seek(0)
         print("file.content_type")
         print(file.content_type)
-        source = {'buffer': temp_file, 'mimetype': file.content_type}
+        audio = open(temp_file, 'rb')
+        source = {'buffer': audio, 'mimetype': file.content_type}
         # Send the audio to Deepgram and get the response
         response = await dg_client.transcription.prerecorded(
                       source,
