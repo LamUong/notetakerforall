@@ -59,8 +59,9 @@ async def websocket_endpoint(websocket: WebSocket):
 @app.post(path="/upload_file")
 async def transcribe_audio_file(file: UploadFile):
     with NamedTemporaryFile(delete=True) as temp_file:
+        print("in")
         # Save the video contents to a temporary file
-        temp_file.write(await video.read())
+        temp_file.write(await file.read())
         temp_file.seek(0)
         print("file.content_type")
         print(file.content_type)
