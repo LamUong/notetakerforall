@@ -31,7 +31,7 @@ async def process_audio(fast_socket: WebSocket):
 
 async def connect_to_deepgram(transcript_received_handler: Callable[[Dict], None]):
     try:
-        socket = await dg_client.transcription.live({'punctuate': True, 'interim_results': False, 'model': 'nova'})
+        socket = await dg_client.transcription.live({'punctuate': True, 'interim_results': False})
         socket.registerHandler(socket.event.CLOSE, lambda c: print(f'Connection closed with code {c}.'))
         socket.registerHandler(socket.event.TRANSCRIPT_RECEIVED, transcript_received_handler)
         
@@ -71,8 +71,7 @@ async def transcribe_audio_file(file: UploadFile):
         response = await dg_client.transcription.prerecorded(
                       source,
                       {
-                        'punctuate': True,
-                        'model': 'nova',
+                        'punctuate': True
                       }
                     )
 
