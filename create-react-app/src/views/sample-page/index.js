@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, LinearProgress } from '@mui/material';
+import { Typography, LinearProgress, CircularProgress } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import MainCard from 'ui-component/cards/MainCard';
@@ -70,8 +70,6 @@ const SamplePage = () => {
           {transcript}
         </div>
       }
-
-      
       <Typography variant="body2">
         Lorem ipsum dolor sit amen, consenter nipissing eli, sed do elusion tempos incident ut laborers et doolie magna alissa. Ut enif ad
         minim venice, quin nostrum exercitation illampu laborings nisi ut liquid ex ea commons construal. Duos aube grue dolor in reprehended
