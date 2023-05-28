@@ -71,7 +71,8 @@ async def transcribe_audio_file(file: UploadFile):
         response = await dg_client.transcription.prerecorded(
                       source,
                       {
-                        'punctuate': True
+                        'punctuate': True,
+                         'model': 'nova',
                       }
                     )
         print(response['results']['channels'][0]['alternatives'][0]['transcript'])
