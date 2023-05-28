@@ -19,6 +19,7 @@ const SamplePage = () => {
           'Content-Type': 'multipart/form-data',
         },
         onUploadProgress: (progressEvent) => {
+          console.log("onUploadProgress");
           const progress = progressEvent.loaded / progressEvent.total;
           setProgress(progress);
         },
