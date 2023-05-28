@@ -63,14 +63,13 @@ async def transcribe_audio_file(file: UploadFile):
         shutil.copyfileobj(file.file, buffer)
         source = {'buffer': buffer, 'mimetype': file.content_type}
         # Send the audio to Deepgram and get the response
-        response = await asyncio.create_task(
-            dg_client.transcription.prerecorded(
-              source,
-              {
-                'punctuate': True,
-                'model': 'nova',
-              }
-            )
-        )
+        response = await dg_client.transcription.prerecorded(
+                      source,
+                      {
+                        'punctuate': True,
+                        'model': 'nova',
+                      }
+                    )
+        
         print(json.dumps(response, indent=4))
 
