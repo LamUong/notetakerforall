@@ -57,7 +57,7 @@ async def websocket_endpoint(websocket: WebSocket):
  
 @app.post(path="/upload_file")
 async def transcribe_audio_file(file: UploadFile):
-    with open("temp.mp4", "wb") as buffer:
+    with open("temp.mp4", "rb") as buffer:
         print("file.content_type")
         print(file.content_type)
         shutil.copyfileobj(file.file, buffer)
