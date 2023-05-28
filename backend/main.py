@@ -74,7 +74,6 @@ async def websocket_endpoint(websocket: WebSocket):
 @app.post(path="/upload_file")
 async def transcribe_audio_file(file: UploadFile):
     with NamedTemporaryFile(delete=True) as temp_file:
-        print("in")
         file_content = await file.read()
         file_buffer = BytesIO(file_content)
         print("file.content_type")
@@ -84,11 +83,17 @@ async def transcribe_audio_file(file: UploadFile):
         response = await dg_client.transcription.prerecorded(
                       source,
                       {
-                        'punctuate': True,
                         'model': 'whisper-large',
+                        'punctuate': True,
                         'detect_language' : True,
+                        'diarize': True,
+                        'paragraphs': True,
+                        'summarize': True,
                       }
                     )
+        json_data = json.dumps(response, indent=4)
+        output_file_path = 'output_file.json'
+        with open(output_file_path, 'w') as output_file:
+            output_file.write(json_data)
         return response['results']['channels'][0]['alternatives'][0]['transcript']
-        #print(json.dumps(response, indent=4))
 
