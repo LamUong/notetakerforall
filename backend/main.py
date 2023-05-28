@@ -72,7 +72,7 @@ async def transcribe_audio_file(file: UploadFile):
                       source,
                       {
                         'punctuate': True,
-                         'model': 'nova',
+                         'model': 'whisper-large',
                       }
                     )
         print(response['results']['channels'][0]['alternatives'][0]['transcript'])
