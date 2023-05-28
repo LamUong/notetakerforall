@@ -1,6 +1,5 @@
 from fastapi import FastAPI, Request, WebSocket, UploadFile
 from fastapi.responses import HTMLResponse
-from io import BufferedReader
 from typing import Dict, Callable
 from deepgram import Deepgram
 from dotenv import load_dotenv
@@ -58,19 +57,21 @@ async def websocket_endpoint(websocket: WebSocket):
  
 @app.post(path="/upload_file")
 async def transcribe_audio_file(file: UploadFile):
-    print("file.content_type")
-    print(file.content_type)
-    buffer = BufferedReader(file.file)
-    print(buffer)
-    source = {'buffer': buffer, 'mimetype': file.content_type}
-    # Send the audio to Deepgram and get the response
-    response = await dg_client.transcription.prerecorded(
-                  source,
-                  {
-                    'punctuate': True,
-                    'model': 'nova',
-                  }
-                )
+    with NamedTemporaryFile(delete=True) as temp_file:
+        # Save the video contents to a temporary file
+        temp_file.write(await video.read())
+        temp_file.seek(0)
+        print("file.content_type")
+        print(file.content_type)
+        source = {'buffer': temp_file, 'mimetype': file.content_type}
+        # Send the audio to Deepgram and get the response
+        response = await dg_client.transcription.prerecorded(
+                      source,
+                      {
+                        'punctuate': True,
+                        'model': 'nova',
+                      }
+                    )
 
-    print(json.dumps(response, indent=4))
+        print(json.dumps(response, indent=4))
 
