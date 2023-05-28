@@ -34,7 +34,7 @@ const SamplePage = () => {
   if (maybeVideo && !isUploading) {
     setIsUploading(true);
     handleUpload();
-  };
+  }
   return (
       <MainCard title="Sample Card">
         <Typography variant="body2">Progress: {progress}%</Typography>
