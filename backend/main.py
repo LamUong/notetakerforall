@@ -74,6 +74,6 @@ async def transcribe_audio_file(file: UploadFile):
                         'punctuate': True
                       }
                     )
-
-        print(json.dumps(response, indent=4))
+        print(response['results']['channels'][0]['alternatives'][0]['transcript'])
+        #print(json.dumps(response, indent=4))
 
