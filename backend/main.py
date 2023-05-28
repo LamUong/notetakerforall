@@ -63,8 +63,7 @@ async def transcribe_audio_file(file: UploadFile):
     with NamedTemporaryFile(delete=True) as temp_file:
         print("in")
         file_content = await file.read()
-        file_buffer = BytesIO(file_content).getvalue()
-        print(file_buffer)
+        file_buffer = BytesIO(file_content)
         print("file.content_type")
         print(file.content_type)
         source = {'buffer': file_buffer, 'mimetype': file.content_type}
