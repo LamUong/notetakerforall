@@ -42,7 +42,7 @@ const SamplePage = () => {
       console.log("isUploaded=true");
       setIsUploading(false);
       setIsTranscribing(false);
-      isUploaded(true);
+      setIsUploaded(true);
     }
   };
 
