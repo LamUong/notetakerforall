@@ -85,7 +85,8 @@ async def transcribe_audio_file(file: UploadFile):
                       source,
                       {
                         'punctuate': True,
-                         'model': 'whisper-large',
+                        'model': 'whisper-large',
+                        'detect_language' : True,
                       }
                     )
         return response['results']['channels'][0]['alternatives'][0]['transcript']
