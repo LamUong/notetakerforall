@@ -136,3 +136,8 @@ async def transcribe_audio_file(file: UploadFile):
                     )
         return get_transcribed_text(response)
 
+@app.post(path="/mock_upload_file")
+async def transcribe_audio_file(file: UploadFile):
+    with open('output_file.json') as json_file:
+        data = json.load(json_file)
+        return get_transcribed_text(response)
