@@ -19,7 +19,7 @@ const SamplePage = () => {
     formData.append('file', maybeVideo);
     try {
       setIsUploading(true);
-      const response = await axios.post('http://3.125.247.51:8000/upload_file', formData, {
+      const response = await axios.post('http://3.125.247.51:8000/mock_upload_file', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
