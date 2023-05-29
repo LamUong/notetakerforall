@@ -65,7 +65,7 @@ const SamplePage = () => {
         </div>
       }
       {isUploaded &&
-        <div>
+        <div style={{whiteSpace: "pre-line"}}>
           {transcript}
         </div>
       }
