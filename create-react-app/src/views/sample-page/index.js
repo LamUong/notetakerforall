@@ -32,6 +32,7 @@ const SamplePage = () => {
           }
         },
       });
+      console.log(response.data);
       setTranscript(response.data.transcript_with_ts);
     } catch (error) {
       console.error('Error uploading video:', error);
