@@ -51,7 +51,7 @@ const SamplePage = () => {
   }, [maybeVideo, isUploaded]);
 
   return (
-    <MainCard title="Sample Card">
+    <MainCard title="Transcript">
       {isUploading &&
         <div>
           <Typography variant="body2">Upload Progress</Typography>
