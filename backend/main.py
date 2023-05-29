@@ -70,7 +70,50 @@ async def websocket_endpoint(websocket: WebSocket):
         raise Exception(f'Could not process audio: {e}')
     finally:
         await websocket.close()
- 
+
+def format_time(timestamp):
+    minutes = timestamp // 60
+    seconds = timestamp % 60
+    return "{:02d}:{:02d}".format(minutes, seconds)
+
+def get_formatted_transcript(paragraphs, get_timestamp=False, get_speaker=False):
+    transcript = ''
+    for paragraph in paragraphs:
+        time_string = format_time(paragraph['start'])
+        text = ""
+        if get_speaker:
+            text += f"<Speaker {paragraph['speaker']}> "
+        if get_timestamp:
+            text += f"{time_string} "
+        text += f"{paragraph['text']} \n"
+        transcript += text
+    return transcript
+
+def get_transcribed_text(response):
+    results = {
+        'paragraphs': [],
+        'transcript': '',
+        'transcript_with_ts': '',
+        'transcript_with_ts_and_speaker': ''
+    }
+    
+    paragraphs = response['results']['channels'][0]['alternatives'][0]['paragraphs']['paragraphs']
+    for paragraph in paragraphs:
+        paragraph_data = {
+            'speaker': paragraph['speaker'],
+            'start': int(paragraph['start']),
+            'end': int(paragraph['end']),
+            'text': ' '.join(sentence['text'] for sentence in paragraph['sentences'])
+        }
+        results['paragraphs'].append(paragraph_data)
+    
+    processed_paragraphs = results['paragraphs']
+    results['transcript'] = get_formatted_transcript(processed_paragraphs)
+    results['transcript_with_ts'] = get_formatted_transcript(processed_paragraphs, get_timestamp=True)
+    results['transcript_with_ts_and_speaker'] = get_formatted_transcript(processed_paragraphs, get_timestamp=True, get_speaker=True)
+    
+    return results
+
 @app.post(path="/upload_file")
 async def transcribe_audio_file(file: UploadFile):
     with NamedTemporaryFile(delete=True) as temp_file:
@@ -91,9 +134,5 @@ async def transcribe_audio_file(file: UploadFile):
                         'summarize': True,
                       }
                     )
-        json_data = json.dumps(response, indent=4)
-        output_file_path = 'output_file.json'
-        with open(output_file_path, 'w') as output_file:
-            output_file.write(json_data)
-        return response['results']['channels'][0]['alternatives'][0]['transcript']
+        return get_transcribed_text(response)
 
