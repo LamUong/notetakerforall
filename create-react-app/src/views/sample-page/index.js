@@ -3,6 +3,39 @@ import { Typography, LinearProgress, CircularProgress } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import MainCard from 'ui-component/cards/MainCard';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+
+const ContentTabs = (props) => {
+  const [value, setValue] = React.useState('1');
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
+  
+  const { component: VideoTranscript } = props;
+
+  return (
+    <Box sx={{ width: '100%', typography: 'body1' }}>
+      <TabContext value={value}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <TabList onChange={handleChange} aria-label="lab API tabs example">
+            <Tab label="Transcript" value="1" />
+            <Tab label="Item Two" value="2" />
+            <Tab label="Item Three" value="3" />
+          </TabList>
+        </Box>
+        <TabPanel value="1"><VideoTranscript /></TabPanel>
+        <TabPanel value="2">Item Two</TabPanel>
+        <TabPanel value="3">Item Three</TabPanel>
+      </TabContext>
+    </Box>
+  );
+}
 
 const VideoUpload = (props) => {
   const [progress, setProgress] = useState(0);
@@ -73,9 +106,11 @@ const VideoUpload = (props) => {
 
 const SamplePage = () => {
   const location = useLocation();
+  
   if (location.state != null && 'file' in location.state){
     console.log(location.state.file);
-    return <VideoUpload file={location.state.file}/>;
+    const VideoTranscript = () => <VideoUpload file={location.state.file}/>;
+    return <ContentTabs component={VideoTranscript} />
   }
   return <div> hello </div>;
 };
