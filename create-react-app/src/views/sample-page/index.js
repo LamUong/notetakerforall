@@ -82,7 +82,7 @@ const VideoUpload = (props) => {
   }, [video]);
 
   return (
-    <MainCard title="Transcript">
+    <MainCard>
       {isUploading &&
         <div>
           <Typography variant="body2">Upload Progress</Typography>
