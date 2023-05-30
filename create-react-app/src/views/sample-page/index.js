@@ -71,6 +71,7 @@ const VideoUpload = (props) => {
       setIsUploading(false);
       setIsTranscribing(false);
       setIsUploaded(true);
+      window.history.replaceState({}, "")
     }
   };
 
