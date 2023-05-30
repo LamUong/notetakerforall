@@ -3,7 +3,6 @@ import { Typography, LinearProgress, CircularProgress } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import MainCard from 'ui-component/cards/MainCard';
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
