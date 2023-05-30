@@ -73,6 +73,7 @@ const VideoUpload = (props) => {
 
 const SamplePage = () => {
   const location = useLocation();
+  console.log(location);
   const maybeVideo = location.state.file;
   if (maybeVideo) {
     return <VideoUpload file={maybeVideo}/>;
