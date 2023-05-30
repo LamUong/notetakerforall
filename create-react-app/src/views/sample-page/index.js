@@ -79,7 +79,7 @@ const VideoUpload = (props) => {
     if (!isUploaded) {
       handleUpload();
     }
-  }, [isUploaded]);
+  }, []);
 
   return (
     <MainCard title="Transcript">
