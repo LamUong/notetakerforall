@@ -4,7 +4,7 @@ import { Divider, Grid, Stack, Typography, useMediaQuery, Button, Box } from '@m
 import MicIcon from "@material-ui/icons/Mic";
 import Drop from "./Drop";
 import Logo from 'ui-component/Logo';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const LogoSection = () => (
   <Grid item sx={{ mb: 3 }}>
@@ -17,6 +17,7 @@ const LogoSection = () => (
 const ContentSection = ({ matchDownSM }) => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <Grid item xs={6} alignItems="center" justifyContent="center">
