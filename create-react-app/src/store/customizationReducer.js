@@ -14,6 +14,7 @@ export const initialState = {
   transcript: '',
   is_uploading: false,
   is_transcribing: false,
+  is_processed: false,
 };
 
 // ==============================|| CUSTOMIZATION REDUCER ||============================== //
@@ -59,11 +60,14 @@ const customizationReducer = (state = initialState, action) => {
         transcript: action.payload, 
       };
     case 'SET_INPUT_TYPE':
-      console.log("Lam is here");
-      console.log(action);
       return {
         ...state,
         input_type: action.payload, 
+      };
+    case 'SET_IS_PROCESSED':
+      return {
+        ...state,
+        is_processed: action.payload, 
       };
     default:
       return state;
