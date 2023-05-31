@@ -9,6 +9,20 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { useDispatch, useSelector } from 'react-redux';
+import { useQuill } from 'react-quilljs';
+
+const Notes = () => {
+  const { quill, quillRef } = useQuill();
+
+  console.log(quill);    // undefined > Quill Object
+  console.log(quillRef); // { current: undefined } > { current: Quill Editor Reference }
+
+  return (
+    <div style={{ width: 500, height: 300 }}>
+      <div ref={quillRef} />
+    </div>
+  );
+};
 
 const ContentTabs = (props) => {
   const [value, setValue] = React.useState('1');
@@ -26,12 +40,10 @@ const ContentTabs = (props) => {
           <TabList onChange={handleChange} aria-label="lab API tabs example">
             <Tab label="Transcript" value="1" />
             <Tab label="Notes" value="2" />
-            <Tab label="Item Three" value="3" />
           </TabList>
         </Box>
         <TabPanel value="1"><VideoTranscript /></TabPanel>
-        <TabPanel value="2">Notes</TabPanel>
-        <TabPanel value="3">Item Three</TabPanel>
+        <TabPanel value="2"><Notes /></TabPanel>
       </TabContext>
     </Box>
   );
