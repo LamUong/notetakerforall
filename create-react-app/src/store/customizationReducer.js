@@ -15,6 +15,7 @@ export const initialState = {
   is_uploading: false,
   is_transcribing: false,
   is_processed: false,
+  is_handle_upload_called: false,
 };
 
 // ==============================|| CUSTOMIZATION REDUCER ||============================== //
@@ -68,6 +69,11 @@ const customizationReducer = (state = initialState, action) => {
       return {
         ...state,
         is_processed: action.payload, 
+      };
+    case 'SET_IS_HANDLE_UPLOAD_CALLED':
+      return {
+        ...state,
+        is_handle_upload_called: action.payload, 
       };
     default:
       return state;
