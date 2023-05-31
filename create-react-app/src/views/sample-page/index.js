@@ -8,6 +8,7 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import { useSelector, useDispatch } from 'react-redux';
 
 const ContentTabs = (props) => {
   const [value, setValue] = React.useState('1');
@@ -106,6 +107,8 @@ const VideoUpload = (props) => {
 
 const SamplePage = () => {
   const location = useLocation();
+  const input_type = useSelector((state) => state.input_type);
+  console.log(input_type);
   
   if (location.state != null && 'file' in location.state){
     console.log(location.state.file);
