@@ -18,7 +18,7 @@ const Notes = () => {
   console.log(value);
 
   return <ReactQuill 
-            theme="snow" value={value} onChange={(value) => setValue(value) />;
+            theme="snow" value={value} onChange={(value) => setValue(value)} />;
 
 };
 
