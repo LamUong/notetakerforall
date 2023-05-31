@@ -9,7 +9,11 @@ export const initialState = {
   defaultId: 'default',
   fontFamily: config.fontFamily,
   borderRadius: config.borderRadius,
-  opened: true
+  opened: true,
+  input_type: null, // One of null, "audio_upload", "audio_recording", "pdf".
+  transcript: '',
+  is_uploading: false,
+  is_transcribing: false,
 };
 
 // ==============================|| CUSTOMIZATION REDUCER ||============================== //
@@ -37,6 +41,23 @@ const customizationReducer = (state = initialState, action) => {
       return {
         ...state,
         borderRadius: action.borderRadius
+      };
+    // STATE
+    case 'SET_IS_UPLOADING':
+      return {
+        is_uploading: action.payload, 
+      };
+    case 'SET_IS_TRANSCRIBING':
+      return {
+        is_transcribing: action.payload, 
+      };
+    case 'SET_TRANSCRIPT':
+      return {
+        transcript: action.payload, 
+      };
+    case 'SET_INPUT_TYPE':
+      return {
+        input_type: action.payload, 
       };
     default:
       return state;
