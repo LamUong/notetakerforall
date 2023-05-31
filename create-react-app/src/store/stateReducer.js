@@ -34,6 +34,6 @@ const reducer = (state = initialState, action) => {
 };
 
 // Create the Redux store
-const store = createStore(reducer);
+const stateReducer = createStore(reducer);
 
-export default store;
+export default stateReducer;
