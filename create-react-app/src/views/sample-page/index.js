@@ -121,9 +121,7 @@ const VideoUpload = (props) => {
         </div>
       }
       {customization.is_processed &&
-        <div>
-          {customization.transcript}
-        </div>
+        <div dangerouslySetInnerHTML={{ __html: customization.transcript }}></div>
       }
     </MainCard>
   );
