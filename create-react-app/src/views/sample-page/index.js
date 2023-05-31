@@ -12,14 +12,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
+
 const Notes = () => {
   const customization = useSelector((state) => state.customization);
   const [value, setValue] = useState(customization.notes);
-  console.log(value);
-
+  const dispatch = useDispatch();
+  
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+    dispatch({ type: 'SET_NOTES', payload: newValue });
+  };
+  
   return <ReactQuill 
-            theme="snow" value={value} onChange={(value) => setValue(value)} />;
-
+            theme="snow" value={value} onChange={handleChange} />;
 };
 
 const ContentTabs = (props) => {
@@ -52,7 +57,15 @@ const VideoUpload = (props) => {
   const dispatch = useDispatch();
   const video = props.file;
   const customization = useSelector((state) => state.customization);
-  console.log(customization);
+    
+  function addParagraphTags(text) {
+    const paragraphs = text.split('\n');
+    const formattedText = paragraphs.map((paragraph, index) => (
+      `<p key="${index}">${paragraph}</p>`
+    )).join('');
+
+    return formattedText;
+  }    
 
   const handleUpload = async () => {
     dispatch({ type: 'SET_IS_HANDLE_UPLOAD_CALLED', payload: true });
@@ -73,15 +86,17 @@ const VideoUpload = (props) => {
           }
         },
       });
-      dispatch({ type: 'SET_TRANSCRIPT', payload: response.data.transcript_with_ts });
-      dispatch({ type: 'SET_NOTES', payload: response.data.transcript_with_ts });
+      
+      const paragraph_transcripts = addParagraphTags(response.data.transcript_with_ts);
+      dispatch({ type: 'SET_TRANSCRIPT', payload: paragraph_transcripts });
+      dispatch({ type: 'SET_NOTES', payload: paragraph_transcripts });
+      
     } catch (error) {
       console.error('Error uploading video:', error);
     } finally {
       dispatch({ type: 'SET_IS_UPLOADING', payload: false });
       dispatch({ type: 'SET_IS_TRANSCRIBING', payload: false });
       dispatch({ type: 'SET_IS_PROCESSED', payload: true });
-      console.log(customization);
     }
   };
   
@@ -106,7 +121,7 @@ const VideoUpload = (props) => {
         </div>
       }
       {customization.is_processed &&
-        <div style={{whiteSpace: "pre-line"}}>
+        <div>
           {customization.transcript}
         </div>
       }
