@@ -8,7 +8,7 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ContentTabs = (props) => {
   const [value, setValue] = React.useState('1');
@@ -39,17 +39,15 @@ const ContentTabs = (props) => {
 
 const VideoUpload = (props) => {
   const [progress, setProgress] = useState(0);
-  const [isUploading, setIsUploading] = useState(false);
-  const [isTranscribing, setIsTranscribing] = useState(false);
-  const [isUploaded, setIsUploaded] = useState(false);
-  const [transcript, setTranscript] = useState("");
+  const dispatch = useDispatch();
   const video = props.file;
+  const customization = useSelector((state) => state.customization);
 
   const handleUpload = async () => {
     const formData = new FormData();
     formData.append('file', video);
     try {
-      setIsUploading(true);
+      dispatch({ type: 'SET_IS_UPLOADING', payload: true });
       const response = await axios.post('http://3.125.247.51:8000/mock_upload_file', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -58,47 +56,43 @@ const VideoUpload = (props) => {
           const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
           setProgress(progress);
           if (progress == 100){
-            setIsUploading(false);
-            setIsTranscribing(true);
+            dispatch({ type: 'SET_IS_UPLOADING', payload: false });
+            dispatch({ type: 'SET_IS_TRANSCRIBING', payload: true });
           }
         },
       });
       console.log(response.data);
-      setTranscript(response.data.transcript_with_ts);
+      dispatch({ type: 'SET_TRANSCRIPT', payload: response.data.transcript_with_ts });
     } catch (error) {
       console.error('Error uploading video:', error);
     } finally {
-      console.log("isUploaded=true");
-      setIsUploading(false);
-      setIsTranscribing(false);
-      setIsUploaded(true);
-      window.history.replaceState({}, "")
+      dispatch({ type: 'SET_IS_UPLOADING', payload: false });
+      dispatch({ type: 'SET_IS_TRANSCRIBING', payload: false });
+      dispatch({ type: 'SET_IS_PROCESSED', payload: true });
     }
   };
-
-  useEffect(() => {
-    if (!isUploaded) {
-      handleUpload();
-    }
-  }, [video]);
+  
+  if(!customization.is_processed) {
+    handleUpload();
+  }
 
   return (
     <MainCard>
-      {isUploading &&
+      {customization.is_uploading &&
         <div>
           <Typography variant="body2">Upload Progress</Typography>
           <LinearProgress variant="determinate" value={progress} />
         </div>
       }
-      {isTranscribing &&
+      {customization.is_transcribing &&
         <div>
           <Typography variant="body2">Transcribing</Typography>
           <CircularProgress />
         </div>
       }
-      {isUploaded &&
+      {customization.is_processed &&
         <div style={{whiteSpace: "pre-line"}}>
-          {transcript}
+          {customization.transcript}
         </div>
       }
     </MainCard>
@@ -108,10 +102,8 @@ const VideoUpload = (props) => {
 const SamplePage = () => {
   const location = useLocation();
   const customization = useSelector((state) => state.customization);
-  console.log(customization.input_type);
   
-  if (location.state != null && 'file' in location.state){
-    console.log(location.state.file);
+  if (customization.input_type =='video'){
     const VideoTranscript = () => <VideoUpload file={location.state.file}/>;
     return <ContentTabs component={VideoTranscript} />
   }
