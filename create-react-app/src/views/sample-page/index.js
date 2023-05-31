@@ -42,6 +42,7 @@ const VideoUpload = (props) => {
   const dispatch = useDispatch();
   const video = props.file;
   const customization = useSelector((state) => state.customization);
+  console.log(customization);
 
   const handleUpload = async () => {
     const formData = new FormData();
@@ -61,7 +62,6 @@ const VideoUpload = (props) => {
           }
         },
       });
-      console.log(response.data);
       dispatch({ type: 'SET_TRANSCRIPT', payload: response.data.transcript_with_ts });
     } catch (error) {
       console.error('Error uploading video:', error);
@@ -69,6 +69,7 @@ const VideoUpload = (props) => {
       dispatch({ type: 'SET_IS_UPLOADING', payload: false });
       dispatch({ type: 'SET_IS_TRANSCRIBING', payload: false });
       dispatch({ type: 'SET_IS_PROCESSED', payload: true });
+      console.log(customization);
     }
   };
   
