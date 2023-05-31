@@ -9,19 +9,14 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { useDispatch, useSelector } from 'react-redux';
-import { useQuill } from 'react-quilljs';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const Notes = () => {
-  const { quill, quillRef } = useQuill();
+  const [value, setValue] = useState('');
 
-  console.log(quill);    // undefined > Quill Object
-  console.log(quillRef); // { current: undefined } > { current: Quill Editor Reference }
+  return <ReactQuill theme="snow" value={value} onChange={setValue} />;
 
-  return (
-    <div style={{ width: 500, height: 300 }}>
-      <div ref={quillRef} />
-    </div>
-  );
 };
 
 const ContentTabs = (props) => {
