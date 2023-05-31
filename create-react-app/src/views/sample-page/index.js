@@ -74,9 +74,11 @@ const VideoUpload = (props) => {
     }
   };
   
-  if(!customization.is_handle_upload_called) {
-    handleUpload();
-  }
+  useEffect(() => {
+    if(!customization.is_handle_upload_called) {
+      handleUpload();
+    }
+  }, []);
 
   return (
     <MainCard>
