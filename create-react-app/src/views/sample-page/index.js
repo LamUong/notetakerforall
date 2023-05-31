@@ -45,6 +45,7 @@ const VideoUpload = (props) => {
   console.log(customization);
 
   const handleUpload = async () => {
+    dispatch({ type: 'SET_IS_HANDLE_UPLOAD_CALLED', payload: true });
     const formData = new FormData();
     formData.append('file', video);
     try {
@@ -73,7 +74,7 @@ const VideoUpload = (props) => {
     }
   };
   
-  if(!customization.is_processed) {
+  if(!customization.is_handle_upload_called) {
     handleUpload();
   }
 
