@@ -12,6 +12,7 @@ export const initialState = {
   opened: true,
   input_type: null, // One of null, "audio_upload", "audio_recording", "pdf".
   transcript: '',
+  notes: '',
   is_uploading: false,
   is_transcribing: false,
   is_processed: false,
@@ -59,6 +60,11 @@ const customizationReducer = (state = initialState, action) => {
       return {
         ...state,
         transcript: action.payload, 
+      };
+    case 'SET_NOTES':
+      return {
+        ...state,
+        notes: action.payload, 
       };
     case 'SET_INPUT_TYPE':
       return {
