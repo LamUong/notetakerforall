@@ -4,6 +4,7 @@ import { Divider, Grid, Stack, Typography, useMediaQuery, Button, Box } from '@m
 import MicIcon from "@material-ui/icons/Mic";
 import Drop from "./Drop";
 import Logo from 'ui-component/Logo';
+import { useSelector, useDispatch } from 'react-redux';
 
 const LogoSection = () => (
   <Grid item sx={{ mb: 3 }}>
@@ -57,7 +58,8 @@ const ContentSection = ({ matchDownSM }) => {
           </Grid>
           <Drop
             onLoaded={async (files) => {
-                navigate('/sample-page',{state:{file:files[0]}});
+                dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
+                navigate('/sample-page', {state: {file: files[0]}});
             }}
           />
         </Stack>
