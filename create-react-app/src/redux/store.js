@@ -3,19 +3,30 @@ import { createStore } from 'redux';
 
 // Define the initial state
 const initialState = {
-  count: 0,
+  input_type: null, // One of null, "audio_upload", "audio_recording", "pdf".
+  transcript: '',
+  is_uploading: false,
+  is_transcribing: false,
 };
 
 // Define the reducer
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'INCREMENT':
+    case 'SET_IS_UPLOADING':
       return {
-        count: state.count + 1,
+        is_uploading: action.payload, 
       };
-    case 'DECREMENT':
+    case 'SET_IS_TRANSCRIBING':
       return {
-        count: state.count - 1,
+        is_transcribing: action.payload, 
+      };
+    case 'SET_TRANSCRIPT':
+      return {
+        transcript: action.payload, 
+      };
+    case 'SET_INPUT_TYPE':
+      return {
+        input_type: action.payload, 
       };
     default:
       return state;
