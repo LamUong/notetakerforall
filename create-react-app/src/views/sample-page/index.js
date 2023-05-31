@@ -13,7 +13,8 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 const Notes = () => {
-  const [value, setValue] = useState('');
+  const customization = useSelector((state) => state.customization);
+  const [value, setValue] = useState(customization.notes);
 
   return <ReactQuill theme="snow" value={value} onChange={setValue} />;
 
@@ -71,6 +72,7 @@ const VideoUpload = (props) => {
         },
       });
       dispatch({ type: 'SET_TRANSCRIPT', payload: response.data.transcript_with_ts });
+      dispatch({ type: 'SET_NOTES', payload: response.data.transcript_with_ts });
     } catch (error) {
       console.error('Error uploading video:', error);
     } finally {
