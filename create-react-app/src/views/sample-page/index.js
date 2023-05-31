@@ -15,8 +15,10 @@ import 'react-quill/dist/quill.snow.css';
 const Notes = () => {
   const customization = useSelector((state) => state.customization);
   const [value, setValue] = useState(customization.notes);
+  console.log(value);
 
-  return <ReactQuill theme="snow" value={value} onChange={setValue} />;
+  return <ReactQuill 
+            theme="snow" value={value} onChange={(value) => setValue(value) />;
 
 };
 
