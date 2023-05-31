@@ -19,8 +19,6 @@ export const initialState = {
 // ==============================|| CUSTOMIZATION REDUCER ||============================== //
 
 const customizationReducer = (state = initialState, action) => {
-  console.log("Lam is here");
-  console.log(action);
   let id;
   switch (action.type) {
     case actionTypes.MENU_OPEN:
@@ -47,18 +45,24 @@ const customizationReducer = (state = initialState, action) => {
     // STATE
     case 'SET_IS_UPLOADING':
       return {
+        ...state,
         is_uploading: action.payload, 
       };
     case 'SET_IS_TRANSCRIBING':
       return {
+        ...state,
         is_transcribing: action.payload, 
       };
     case 'SET_TRANSCRIPT':
       return {
+        ...state,
         transcript: action.payload, 
       };
     case 'SET_INPUT_TYPE':
+      console.log("Lam is here");
+      console.log(action);
       return {
+        ...state,
         input_type: action.payload, 
       };
     default:
