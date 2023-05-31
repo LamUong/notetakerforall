@@ -107,8 +107,8 @@ const VideoUpload = (props) => {
 
 const SamplePage = () => {
   const location = useLocation();
-  const input_type = useSelector((state) => state.input_type);
-  console.log(input_type);
+  const customization = useSelector((state) => state.customization);
+  console.log(customization.input_type);
   
   if (location.state != null && 'file' in location.state){
     console.log(location.state.file);
