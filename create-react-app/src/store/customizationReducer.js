@@ -17,7 +17,8 @@ export const initialState = {
   is_transcribing: false,
   is_processed: false,
   is_handle_upload_called: false,
-  highlighted_notes: '',
+  highlighted_notes: null,
+  highlighted_notes_range: null,
 };
 
 // ==============================|| CUSTOMIZATION REDUCER ||============================== //
@@ -86,6 +87,11 @@ const customizationReducer = (state = initialState, action) => {
       return {
         ...state,
         highlighted_notes: action.payload, 
+      };
+    case 'SET_HIGHLIGHTED_NOTES_RANGE':
+      return {
+        ...state,
+        highlighted_notes_range: action.payload, 
       };
     default:
       return state;
