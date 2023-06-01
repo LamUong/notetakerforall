@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Typography, LinearProgress, CircularProgress, Grid } from '@mui/material';
+import { Typography, LinearProgress, CircularProgress, Grid, Card, Divider } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import MainCard from 'ui-component/cards/MainCard';
@@ -46,7 +46,28 @@ const Notes = () => {
         />
       </Grid>
       <Grid item xs={4}> 
-        <div> Your smart editor</div>
+        <Box sx={{ width: '100%' }}>
+          <Box sx={{ my: 3, mx: 2 }}>
+            <Typography color="text.secondary" variant="body2">
+              Smart Editor
+            </Typography>
+          </Box>
+          <Divider variant="middle" />
+          <Box sx={{ m: 2 }}>
+            <Typography gutterBottom variant="body1">
+              Selected Text
+            </Typography>
+            <Stack direction="row" spacing={1}>
+              <Chip label="Extra Soft" />
+              <Chip color="primary" label="Soft" />
+              <Chip label="Medium" />
+              <Chip label="Hard" />
+            </Stack>
+          </Box>
+          <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
+            <Button>Add to cart</Button>
+          </Box>
+        </Box>
       </Grid>
     </Grid>
   );
