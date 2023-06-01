@@ -17,36 +17,24 @@ const Notes = () => {
   const [value, setValue] = useState(customization.notes);
   const dispatch = useDispatch();
 
-  const quillRef = useRef(null);
   const reactQuillRef = useRef(null);
 
-  useEffect(() => {
-    attachQuillRefs();
-  }, []);
 
-  useEffect(() => {
-    attachQuillRefs();
-  });
-
-  const attachQuillRefs = () => {
+  const handleChange = () => {
     console.log("lam is here");
-    console.log(typeof reactQuillRef.current.getEditor);
-    if (typeof reactQuillRef.current.getEditor !== 'function') return;
-    quillRef.current = reactQuillRef.current.getEditor();
+    console.log(reactQuillRef);
+    const editor = reactQuillRef.current.getEditor();
+    const newValue = editor.getContents();
+    setValue(newValue);
+    dispatch({ type: 'SET_NOTES', payload: newValue });
   };
-
-  //const handleChange = () => {
-  //  const newValue = quillRef.current.getContents();
-  //  setValue(newValue);
-  //  dispatch({ type: 'SET_NOTES', payload: newValue });
-  //};
 
   return (
     <ReactQuill
       ref={reactQuillRef}
       theme="snow"
       value={value}
-      //onChange={handleChange}
+      onChange={handleChange}
     />
   );
 };
