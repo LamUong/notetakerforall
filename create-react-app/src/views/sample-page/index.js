@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Typography, LinearProgress, CircularProgress } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -12,19 +12,41 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-
 const Notes = () => {
   const customization = useSelector((state) => state.customization);
   const [value, setValue] = useState(customization.notes);
   const dispatch = useDispatch();
-  
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+
+  const quillRef = useRef(null);
+  const reactQuillRef = useRef(null);
+
+  useEffect(() => {
+    attachQuillRefs();
+  }, []);
+
+  useEffect(() => {
+    attachQuillRefs();
+  });
+
+  const attachQuillRefs = () => {
+    if (typeof reactQuillRef.current.getEditor !== 'function') return;
+    quillRef.current = reactQuillRef.current.getEditor();
+  };
+
+  const handleChange = () => {
+    const newValue = quillRef.current.getContents();
     setValue(newValue);
     dispatch({ type: 'SET_NOTES', payload: newValue });
   };
-  
-  return <ReactQuill 
-            theme="snow" value={value} onChange={handleChange} />;
+
+  return (
+    <ReactQuill
+      ref={reactQuillRef}
+      theme="snow"
+      value={value}
+      onChange={handleChange}
+    />
+  );
 };
 
 const ContentTabs = (props) => {
