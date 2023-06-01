@@ -35,11 +35,11 @@ const Notes = () => {
     quillRef.current = reactQuillRef.current.getEditor();
   };
 
-  const handleChange = () => {
-    const newValue = quillRef.current.getContents();
-    setValue(newValue);
-    dispatch({ type: 'SET_NOTES', payload: newValue });
-  };
+  //const handleChange = () => {
+  //  const newValue = quillRef.current.getContents();
+  //  setValue(newValue);
+  //  dispatch({ type: 'SET_NOTES', payload: newValue });
+  //};
 
   return (
     <ReactQuill
