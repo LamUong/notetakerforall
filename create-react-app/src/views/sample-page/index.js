@@ -29,6 +29,8 @@ const Notes = () => {
   });
 
   const attachQuillRefs = () => {
+    console.log("lam is here");
+    console.log(typeof reactQuillRef.current.getEditor);
     if (typeof reactQuillRef.current.getEditor !== 'function') return;
     quillRef.current = reactQuillRef.current.getEditor();
   };
