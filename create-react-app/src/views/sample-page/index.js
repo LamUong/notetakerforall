@@ -64,6 +64,7 @@ const Notes = () => {
     <Grid container spacing={2}>
       <Grid item xs={8}> 
         <ReactQuill
+          style={{ background: 'white'}}
           ref={quillRef}
           theme="snow"
           value={value}
@@ -72,7 +73,7 @@ const Notes = () => {
         />
       </Grid>
       <Grid item xs={4}> 
-        <Box sx={{ width: '100%', border: '1px solid #ccc', height: '100%' }}>
+        <Box sx={{ width: '100%', border: '1px solid #ccc', height: '100%', background: 'white' }}>
           <Container sx={{ my: 3, mx: 2 }}>
             <Typography color="text.secondary" variant="body2">
               Smart Editor
