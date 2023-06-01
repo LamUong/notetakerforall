@@ -30,6 +30,8 @@ const Notes = () => {
   return (
     <ReactQuill
       ref={(el) => {
+            console.log("getel");
+            console.log(el);
             setReactQuillRef(el);
           }}
       theme="snow"
