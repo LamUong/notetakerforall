@@ -22,7 +22,7 @@ const Notes = () => {
     console.log(quillRef);
   //  const editor = quillRef.current.getEditor();
   //  const newValue = editor.getContents();
-  //  setValue(newValue);
+    setValue(customization.notes);
     dispatch({ type: 'SET_NOTES', payload: customization.notes });
   };
 
