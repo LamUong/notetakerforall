@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Typography, LinearProgress, CircularProgress } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -15,28 +15,19 @@ import 'react-quill/dist/quill.snow.css';
 const Notes = () => {
   const customization = useSelector((state) => state.customization);
   const [value, setValue] = useState(customization.notes);
+  const quillRef = useRef();
   const dispatch = useDispatch();
-  const [reactQuillRef, setReactQuillRef] = useState(null);
 
-  const handleChange = () => {
-    console.log("lam is here");
-    console.log(reactQuillRef);
-    const editor = reactQuillRef.getEditor();
-    const newValue = editor.getContents();
-    setValue(newValue);
-    dispatch({ type: 'SET_NOTES', payload: newValue });
-  };
+  useEffect(() => {
+    console.log(quillRef.current);
+  }, [quillRef]);
 
   return (
     <ReactQuill
-      ref={(el) => {
-            console.log("getel");
-            console.log(el);
-            setReactQuillRef(el);
-          }}
+      ref={quillRef}
       theme="snow"
       value={value}
-      onChange={handleChange}
+      onChange={setValue}
     />
   );
 };
