@@ -24,7 +24,7 @@ const Notes = () => {
   //  const newValue = editor.getContents();
   //  setValue(newValue);
     dispatch({ type: 'SET_NOTES', payload: customization.notes });
-  //};
+  };
 
   useEffect(() => {
     console.log(quillRef.current);
