@@ -26,12 +26,6 @@ const MyCard = () => {
           <div style="max-height: 150px; overflow: 'auto' " dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}></div>
         }
                 
-        //<Grid container spacing={2}>
-        //  <Chip label="Title" />
-        //  <Chip color="Summary" />
-        //  <Chip label="Bullet points" />
-        //  <Chip label="Table" />
-        //</Grid>
       </CardContent>
     </Card>
   );
