@@ -16,7 +16,7 @@ const MyCard = () => {
   const customization = useSelector((state) => state.customization);
 
   return (
-    <Card>
+    <Card sx={{ borderColor: '#ccc', borderStyle: 'solid' }}>
       <CardContent>
         {customization.highlighted_notes &&
           <div>
