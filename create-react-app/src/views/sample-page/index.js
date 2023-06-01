@@ -17,14 +17,17 @@ const MyCard = () => {
     <Card>
       <CardContent>
         <Typography variant="h5" component="div" sx={{ maxHeight: '70px' }}>
-          Title
+          Here is your selected text:
         </Typography>
         <Typography variant="body1" sx={{ maxHeight: '150px', overflow: 'auto' }}>
           
         </Typography>
-        <Typography variant="body2" color="textSecondary" sx={{ maxHeight: '80px' }}>
-          Ending text
-        </Typography>
+        <Grid container spacing={2}>
+          <Chip label="Title" />
+          <Chip color="Summary" />
+          <Chip label="Bullet points" />
+          <Chip label="Table" />
+        </Grid>
       </CardContent>
     </Card>
   );
@@ -38,8 +41,6 @@ const Notes = () => {
 
   const handleChange = (newValue) => {
     console.log(quillRef);
-  //  const editor = quillRef.current.getEditor();
-  //  const newValue = editor.getContents();
     if (value != newValue) {
       setValue(newValue);
       dispatch({ type: 'SET_NOTES', payload: newValue });
@@ -73,14 +74,8 @@ const Notes = () => {
           <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
           <Box sx={{ m: 2 }}>
             <Typography gutterBottom variant="body1">
-              Selected Text
+              Please highlight some text to edit.
             </Typography>
-            <Stack direction="row" spacing={1}>
-              <Chip label="Extra Soft" />
-              <Chip color="primary" label="Soft" />
-              <Chip label="Medium" />
-              <Chip label="Hard" />
-            </Stack>
           </Box>
           <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
             <Button>Add to cart</Button>
