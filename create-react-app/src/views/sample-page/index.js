@@ -13,15 +13,19 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 const MyCard = () => {
+  const customization = useSelector((state) => state.customization);
+
   return (
     <Card>
       <CardContent>
         <Typography variant="h5" component="div" sx={{ maxHeight: '70px' }}>
           Here is your selected text:
         </Typography>
-        <Typography variant="body1" sx={{ maxHeight: '150px', overflow: 'auto' }}>
-          
-        </Typography>
+
+        {customization.highlighted_notes &&
+          <div style="max-height: 150px; overflow: 'auto' " dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}></div>
+        }
+                
         <Grid container spacing={2}>
           <Chip label="Title" />
           <Chip color="Summary" />
@@ -48,9 +52,17 @@ const Notes = () => {
   };
   
   const handleChangeSelection = (range) => {
-    const editor = quillRef.current.getEditor();
-    console.log(editor);
-    editor.deleteText(range.index, range.length);
+    console.log("handleChangeSelection");
+    if (range.length > 0 ){
+      console.log("range.length > 0");
+      const editor = quillRef.current.getEditor();
+      dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: editor.getText(range.index, range.length) });
+      dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: {'index': range.index, 'length': range.length} });
+    } else {
+      console.log("range.length = 0");
+      dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: null });
+      dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: null });
+    }
   }
 
   return (
@@ -77,9 +89,7 @@ const Notes = () => {
               Please highlight some text to edit.
             </Typography>
           </Box>
-          <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
-            <Button>Add to cart</Button>
-          </Box>
+          <MyCard />
         </Box>
       </Grid>
     </Grid>
