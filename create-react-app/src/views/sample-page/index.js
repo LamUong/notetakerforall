@@ -46,7 +46,7 @@ const Notes = () => {
       ref={reactQuillRef}
       theme="snow"
       value={value}
-      onChange={handleChange}
+      //onChange={handleChange}
     />
   );
 };
