@@ -17,6 +17,14 @@ const Notes = () => {
   const [value, setValue] = useState(customization.notes);
   const quillRef = useRef();
   const dispatch = useDispatch();
+  
+  const handleChange = () => {
+    console.log(quillRef);
+    const editor = quillRef.current.getEditor();
+    const newValue = editor.getContents();
+    setValue(newValue);
+    dispatch({ type: 'SET_NOTES', payload: newValue });
+  };
 
   useEffect(() => {
     console.log(quillRef.current);
@@ -27,7 +35,7 @@ const Notes = () => {
       ref={quillRef}
       theme="snow"
       value={value}
-      onChange={setValue}
+      onChange={handleChange}
     />
   );
 };
