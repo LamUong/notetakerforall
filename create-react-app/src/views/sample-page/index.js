@@ -46,13 +46,13 @@ const Notes = () => {
         />
       </Grid>
       <Grid item xs={4}> 
-        <Box sx={{ width: '100%', border: '1px solid #ccc' }}>
+        <Box sx={{ width: '100%', border: '1px solid #ccc', height: '100%' }}>
           <Container sx={{ my: 3, mx: 2 }}>
             <Typography color="text.secondary" variant="body2">
               Smart Editor
             </Typography>
           </Container>
-          <Divider variant="middle" />
+          <Divider variant="fullWidth" />
           <Box sx={{ m: 2 }}>
             <Typography gutterBottom variant="body1">
               Selected Text
