@@ -18,16 +18,15 @@ const Notes = () => {
   const quillRef = useRef();
   const dispatch = useDispatch();
 
-  const handleChange = () => {
+  const handleChange = (newValue) => {
     console.log(quillRef);
   //  const editor = quillRef.current.getEditor();
   //  const newValue = editor.getContents();
-    dispatch({ type: 'SET_NOTES', payload: customization.notes });
+    if (value != newValue) {
+      setValue(newValue);
+      dispatch({ type: 'SET_NOTES', payload: newValue });
+    }
   };
-
-  useEffect(() => {
-    console.log(quillRef.current);
-  }, [quillRef]);
 
   return (
     <ReactQuill
