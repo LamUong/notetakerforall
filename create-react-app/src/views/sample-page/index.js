@@ -18,13 +18,15 @@ const MyCard = () => {
   return (
     <Card>
       <CardContent>
-        <Typography variant="h5" component="div" sx={{ maxHeight: '70px' }}>
-          Here is your selected text:
-        </Typography>
-
         {customization.highlighted_notes &&
-          <div style={{ maxHeight: '150px', overflow: 'auto' }}
-                dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}></div>
+          <div>
+              <Typography variant="h5" component="div" sx={{ maxHeight: '70px' }}>
+              Here is your selected text:
+              </Typography>
+              <br />
+              <div style={{ maxHeight: '150px', overflow: 'auto' }}
+                dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}></div>     
+          </div>
         }
                 
       </CardContent>
