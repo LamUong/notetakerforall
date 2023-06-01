@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Typography, LinearProgress, CircularProgress } from '@mui/material';
+import { Typography, LinearProgress, CircularProgress, Grid } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import MainCard from 'ui-component/cards/MainCard';
@@ -35,13 +35,20 @@ const Notes = () => {
   }
 
   return (
-    <ReactQuill
-      ref={quillRef}
-      theme="snow"
-      value={value}
-      onChange={handleChange}
-      onChangeSelection={handleChangeSelection}
-    />
+    <Grid container spacing={2}>
+      <Grid item xs={8}> 
+        <ReactQuill
+          ref={quillRef}
+          theme="snow"
+          value={value}
+          onChange={handleChange}
+          onChangeSelection={handleChangeSelection}
+        />
+      </Grid>
+      <Grid item xs={4}> 
+        <div> Your smart editor</div>
+      </Grid>
+    </Grid>
   );
 };
 
