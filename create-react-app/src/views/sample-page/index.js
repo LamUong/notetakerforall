@@ -16,23 +16,28 @@ const MyCard = () => {
   const customization = useSelector((state) => state.customization);
 
   return (
-    <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
-      <CardContent>
-        {customization.highlighted_notes &&
-          <div>
-              <Typography variant="body1" component="div" sx={{ maxHeight: '70px' }}>
-              Here is your selected text:
-              </Typography>
-              <br />
-              <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
-
-              <div style={{ maxHeight: '150px', overflow: 'auto' }}
-                dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}></div>     
-          </div>
-        }
-                
-      </CardContent>
-    </Card>
+    <div>
+    {customization.highlighted_notes &&
+      <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
+        <CardContent>
+            <div>
+                <Typography variant="body1" component="div" sx={{ maxHeight: '70px' }}>
+                Here is your selected text:
+                </Typography>
+                <br />
+                <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
+                  
+                <Typography variant="body2" component="div" sx={{ maxHeight: '70px' }}>
+                  <div style={{ maxHeight: '150px', overflow: 'auto' }}
+                    dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}></div>   
+                </Typography>  
+            </div>
+        </CardContent>
+      </Card>
+    }
+    
+    </div>
+    
   );
 };
 
