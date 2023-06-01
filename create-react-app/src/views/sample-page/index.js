@@ -27,6 +27,12 @@ const Notes = () => {
       dispatch({ type: 'SET_NOTES', payload: newValue });
     }
   };
+  
+  const handleChangeSelection = (range, source, editor) => {
+    console.log(range);
+    console.log(source);
+    console.log(editor);
+  }
 
   return (
     <ReactQuill
@@ -34,6 +40,7 @@ const Notes = () => {
       theme="snow"
       value={value}
       onChange={handleChange}
+      onChangeSelection={handleChangeSelection}
     />
   );
 };
