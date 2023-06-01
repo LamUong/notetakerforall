@@ -28,7 +28,7 @@ const Notes = () => {
     }
   };
   
-  const handleChangeSelection = (range, source, editor) => {
+  const handleChangeSelection = (range) => {
     const editor = quillRef.current.getEditor();
     console.log(editor);
     editor.deleteText(range.index, range.length);
