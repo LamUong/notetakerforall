@@ -16,14 +16,16 @@ const MyCard = () => {
   const customization = useSelector((state) => state.customization);
 
   return (
-    <Card sx={{ borderColor: '#ccc', borderStyle: 'solid' }}>
+    <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
       <CardContent>
         {customization.highlighted_notes &&
           <div>
-              <Typography variant="h5" component="div" sx={{ maxHeight: '70px' }}>
+              <Typography variant="body1" component="div" sx={{ maxHeight: '70px' }}>
               Here is your selected text:
               </Typography>
               <br />
+              <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
+
               <div style={{ maxHeight: '150px', overflow: 'auto' }}
                 dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}></div>     
           </div>
