@@ -46,7 +46,7 @@ const Notes = () => {
         />
       </Grid>
       <Grid item xs={4}> 
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%', border: '1px solid #ccc' }}>
           <Container sx={{ my: 3, mx: 2 }}>
             <Typography color="text.secondary" variant="body2">
               Smart Editor
