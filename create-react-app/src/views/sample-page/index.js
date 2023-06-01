@@ -23,7 +23,8 @@ const MyCard = () => {
         </Typography>
 
         {customization.highlighted_notes &&
-          <div style="max-height: 150px; overflow: 'auto' " dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}></div>
+          <div sx={{ maxHeight: '150px', overflow: 'auto' }}
+                dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}></div>
         }
                 
       </CardContent>
