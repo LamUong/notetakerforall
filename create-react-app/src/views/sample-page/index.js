@@ -52,7 +52,7 @@ const Notes = () => {
               Smart Editor
             </Typography>
           </Container>
-          <Divider variant="fullWidth" />
+          <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
           <Box sx={{ m: 2 }}>
             <Typography gutterBottom variant="body1">
               Selected Text
