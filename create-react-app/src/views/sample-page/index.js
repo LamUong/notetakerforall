@@ -16,14 +16,12 @@ const Notes = () => {
   const customization = useSelector((state) => state.customization);
   const [value, setValue] = useState(customization.notes);
   const dispatch = useDispatch();
-
-  const reactQuillRef = useRef(null);
-
+  const [reactQuillRef, setReactQuillRef] = useState(null);
 
   const handleChange = () => {
     console.log("lam is here");
     console.log(reactQuillRef);
-    const editor = reactQuillRef.current.getEditor();
+    const editor = reactQuillRef.getEditor();
     const newValue = editor.getContents();
     setValue(newValue);
     dispatch({ type: 'SET_NOTES', payload: newValue });
@@ -31,7 +29,9 @@ const Notes = () => {
 
   return (
     <ReactQuill
-      ref={reactQuillRef}
+      ref={(el) => {
+            setReactQuillRef(el);
+          }}
       theme="snow"
       value={value}
       onChange={handleChange}
