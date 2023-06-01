@@ -12,6 +12,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
+const MyCard = () => {
+  return (
+    <Card>
+      <CardContent>
+        <Typography variant="h5" component="div" sx={{ maxHeight: '70px' }}>
+          Title
+        </Typography>
+        <Typography variant="body1" sx={{ maxHeight: '150px', overflow: 'auto' }}>
+          
+        </Typography>
+        <Typography variant="body2" color="textSecondary" sx={{ maxHeight: '80px' }}>
+          Ending text
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+};
+
 const Notes = () => {
   const customization = useSelector((state) => state.customization);
   const [value, setValue] = useState(customization.notes);
