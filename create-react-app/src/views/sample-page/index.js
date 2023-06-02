@@ -31,11 +31,22 @@ const MyCard = () => {
                 <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em' }}
                   dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}>
                 </div>
+
+                <Grid container rowSpacing={2} columnSpacing={2}>
+                  <Grid item >
+                    <Chip label="Title" variant="outlined" />
+                  </Grid>
+                  <Grid item >
+                    <Chip label="Summary" variant="outlined" />
+                  </Grid>
+                  <Grid item >
+                    <Chip label="Bullet points" variant="outlined" />
+                  </Grid>
+                  <Grid item >
+                    <Chip label="Table" variant="outlined" />
+                  </Grid>
+                </Grid>
                 <br />
-                <Chip label="Title" variant="outlined" />
-                <Chip label="Summary" variant="outlined" />
-                <Chip label="Bullet Points" variant="outlined" />
-                <Chip label="Table" variant="outlined" />
             </div>
         </CardContent>
       </Card>
