@@ -85,18 +85,17 @@ const Notes = () => {
       const editor = quillRef.current.getEditor();
       
       const text = editor.getText(range.index, range.length);
-      const delta = editor.getContents(range.index, range.length); 
-      
+      const delta = editor.getContents(range.index, range.length);       
+ 
+      dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: {'text': text, 'delta': delta} });
+      dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: {'index': range.index, 'length': range.length} });
       if (customization.highlighted_notes_range) {
-
         editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
           'color': 'red',
           'background-color': 'blue'
         }); 
-      }      
- 
-      dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: {'text': text, 'delta': delta} });
-      dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: {'index': range.index, 'length': range.length} });
+      }
+      
     } else {
       console.log("range.length = 0");
       const editor = quillRef.current.getEditor();
