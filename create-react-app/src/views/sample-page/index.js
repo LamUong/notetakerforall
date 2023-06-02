@@ -31,8 +31,9 @@ const MyCard = () => {
                 <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em' }}
                   dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}>
                 </div>
+                <br />
 
-                <Grid container rowSpacing={2} columnSpacing={2}>
+                <Grid container rowSpacing={1} columnSpacing={1}>
                   <Grid item >
                     <Chip label="Title" variant="outlined" />
                   </Grid>
@@ -46,7 +47,6 @@ const MyCard = () => {
                     <Chip label="Table" variant="outlined" />
                   </Grid>
                 </Grid>
-                <br />
             </div>
         </CardContent>
       </Card>
