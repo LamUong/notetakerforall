@@ -32,8 +32,10 @@ const MyCard = () => {
                   dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}>
                 </div>
                 <br />
-                <br />
-                <Chip label="Chip Outlined" variant="outlined" />
+                <Chip label="Title" variant="outlined" />
+                <Chip label="Summary" variant="outlined" />
+                <Chip label="Bullet Points" variant="outlined" />
+                <Chip label="Table" variant="outlined" />
             </div>
         </CardContent>
       </Card>
