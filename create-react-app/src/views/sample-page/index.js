@@ -82,12 +82,13 @@ const Notes = () => {
     console.log("handleChangeSelection");
     
     const editor = quillRef.current.getEditor();
-    if (customization.highlighted_notes_range) {
-       editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
-        'background-color': 'white'
-      });  
-    }   
+ 
     if (range.length > 0 ){
+      if (customization.highlighted_notes_range) {
+         editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
+          'background-color': 'white'
+        });  
+      }  
       console.log("range.length > 0");
       const text = editor.getText(range.index, range.length);
       const delta = editor.getContents(range.index, range.length);       
