@@ -76,6 +76,7 @@ const Notes = () => {
     if (range.length > 0 ){
       console.log("range.length > 0");
       const editor = quillRef.current.getEditor();
+      console.log(editor.getFormat(range.index, range.length)); 
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: editor.getText(range.index, range.length) });
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: {'index': range.index, 'length': range.length} });
     } else {
