@@ -80,6 +80,11 @@ const Notes = () => {
   
   const handleChangeSelection = (range) => {
     console.log("handleChangeSelection");
+    if (customization.highlighted_notes_range) {
+       editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
+        'background-color': 'white'
+      });  
+    }   
     if (range.length > 0 ){
       console.log("range.length > 0");
       const editor = quillRef.current.getEditor();
@@ -95,13 +100,7 @@ const Notes = () => {
       
     } else {
       console.log("range.length = 0");
-      const editor = quillRef.current.getEditor();
-      
-      if (customization.highlighted_notes_range) {
-         editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
-          'background-color': 'white'
-        });  
-      }      
+      const editor = quillRef.current.getEditor();   
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: null });
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: null });
     }
