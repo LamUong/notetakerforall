@@ -51,7 +51,7 @@ const MyCard = () => {
                     <Chip label="Bullet points" variant="outlined" />
                   </Grid>
                   <Grid item >
-                    <Chip label="Table" variant="outlined" />
+                    <Chip label="Outline" variant="outlined" />
                   </Grid>
                 </Grid>
             </div>
