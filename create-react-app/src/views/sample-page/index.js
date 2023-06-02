@@ -21,7 +21,7 @@ const MyCard = () => {
       <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
         <CardContent>
             <div>
-                <Typography variant="h1" component="h1" sx={{ maxHeight: '40px' }}>
+                <Typography variant="body1" component="body1" sx={{ maxHeight: '40px' }}>
                 Here is your selected text:
                 </Typography>
                 <br />
