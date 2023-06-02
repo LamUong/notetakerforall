@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Typography, LinearProgress, CircularProgress, Grid, Divider, Container, Card, CardContent } from '@mui/material';
+import { Typography, LinearProgress, CircularProgress, Grid, Divider, Container, Card, CardContent, Chip } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import MainCard from 'ui-component/cards/MainCard';
@@ -29,7 +29,11 @@ const MyCard = () => {
                 <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
                   
                 <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em' }}
-                  dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}></div>   
+                  dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}>
+                </div>
+                <br />
+                <br />
+                <Chip label="Chip Outlined" variant="outlined" />
             </div>
         </CardContent>
       </Card>
