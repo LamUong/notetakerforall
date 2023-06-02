@@ -35,10 +35,6 @@ const MyCard = () => {
                 <br />
                 <br />
                 <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
-                  
-                <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em' }}
-                  dangerouslySetInnerHTML={{ __html: customization.highlighted_notes.text }}>
-                </div>
                 <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em' }}
                   dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
                 </div>
