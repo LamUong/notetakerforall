@@ -90,8 +90,7 @@ const Notes = () => {
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: {'text': text, 'delta': delta} });
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: {'index': range.index, 'length': range.length} });
       editor.formatText(range.index, range.length, {
-        'color': 'red',
-        'background-color': 'blue'
+        'background-color': '#ccc'
       }); 
       
     } else {
@@ -100,7 +99,6 @@ const Notes = () => {
       
       if (customization.highlighted_notes_range) {
          editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
-          'color': 'black',
           'background-color': 'white'
         });  
       }      
