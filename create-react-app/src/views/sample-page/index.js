@@ -11,14 +11,16 @@ import TabPanel from '@mui/lab/TabPanel';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 
 const MyCard = () => {
   const customization = useSelector((state) => state.customization);
   
-  const quillHtml = (deltaOps) => {
-    const temp = new Quill(document.createElement('div'))
-    temp.setContents(deltaOps)
-    return temp.root.innerHTML 
+  function deltaToHtml(delta: string) {
+    const _delta = JSON.parse(delta);
+    const converter = new QuillDeltaToHtmlConverter(_delta.ops, cfg);
+    const html = converter.convert();
+    return html;
   }
 
   return (
@@ -38,7 +40,7 @@ const MyCard = () => {
                   dangerouslySetInnerHTML={{ __html: customization.highlighted_notes.text }}>
                 </div>
                 <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em' }}
-                  dangerouslySetInnerHTML={{ __html: quillHtml(customization.highlighted_notes.delta) }}>
+                  dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
                 </div>
                 <br />
 
