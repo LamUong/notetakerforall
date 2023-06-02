@@ -80,6 +80,8 @@ const Notes = () => {
   
   const handleChangeSelection = (range) => {
     console.log("handleChangeSelection");
+    
+    const editor = quillRef.current.getEditor();
     if (customization.highlighted_notes_range) {
        editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
         'background-color': 'white'
@@ -87,17 +89,13 @@ const Notes = () => {
     }   
     if (range.length > 0 ){
       console.log("range.length > 0");
-      const editor = quillRef.current.getEditor();
-      
       const text = editor.getText(range.index, range.length);
       const delta = editor.getContents(range.index, range.length);       
- 
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: {'text': text, 'delta': delta} });
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: {'index': range.index, 'length': range.length} });
       editor.formatText(range.index, range.length, {
         'background-color': '#ccc'
       }); 
-      
     } else {
       console.log("range.length = 0");
       const editor = quillRef.current.getEditor();   
