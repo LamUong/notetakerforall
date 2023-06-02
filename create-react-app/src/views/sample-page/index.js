@@ -89,12 +89,10 @@ const Notes = () => {
  
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: {'text': text, 'delta': delta} });
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: {'index': range.index, 'length': range.length} });
-      if (customization.highlighted_notes_range) {
-        editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
-          'color': 'red',
-          'background-color': 'blue'
-        }); 
-      }
+      editor.formatText(range.index, range.length, {
+        'color': 'red',
+        'background-color': 'blue'
+      }); 
       
     } else {
       console.log("range.length = 0");
