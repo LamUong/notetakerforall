@@ -28,7 +28,7 @@ const MyCard = () => {
                 <br />
                 <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
                   
-                <div style={{ maxHeight: '150px', overflow: 'auto' }}
+                <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em' }}
                   dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}></div>   
             </div>
         </CardContent>
