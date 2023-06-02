@@ -21,13 +21,13 @@ const MyCard = () => {
       <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
         <CardContent>
             <div>
-                <Typography variant="body1" component="div" sx={{ maxHeight: '40px' }}>
+                <Typography variant="h1" component="h1" sx={{ maxHeight: '40px' }}>
                 Here is your selected text:
                 </Typography>
                 <br />
                 <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
                   
-                <Typography variant="body2" component="div" sx={{ maxHeight: '150px' }}>
+                <Typography variant="body2" component="body2" sx={{ maxHeight: '150px' }}>
                   <div style={{ height: '100%', overflow: 'auto' }}
                     dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}></div>   
                 </Typography>  
