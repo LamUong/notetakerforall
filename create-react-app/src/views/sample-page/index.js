@@ -11,6 +11,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 
 const MyCard = () => {
   const customization = useSelector((state) => state.customization);
@@ -29,7 +30,10 @@ const MyCard = () => {
                 <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
                   
                 <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em' }}
-                  dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}>
+                  dangerouslySetInnerHTML={{ __html: customization.highlighted_notes.text }}>
+                </div>
+                <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em' }}
+                  dangerouslySetInnerHTML={{ __html: customization.highlighted_notes.html }}>
                 </div>
                 <br />
 
@@ -76,8 +80,12 @@ const Notes = () => {
     if (range.length > 0 ){
       console.log("range.length > 0");
       const editor = quillRef.current.getEditor();
-      console.log(editor.getFormat(range.index, range.length)); 
-      dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: editor.getText(range.index, range.length) });
+      
+      const notes_text = editor.getText(range.index, range.length);
+      const converter = new QuillDeltaToHtmlConverter(editor.getContents(range.index, range.length), {});
+      const convertedHtml = converter.convert();
+      
+      dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: {'text': notes_text, 'html': convertedHtml} });
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: {'index': range.index, 'length': range.length} });
     } else {
       console.log("range.length = 0");
