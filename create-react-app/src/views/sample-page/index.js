@@ -82,9 +82,12 @@ const Notes = () => {
       const editor = quillRef.current.getEditor();
       
       const notes_text = editor.getText(range.index, range.length);
-      const converter = new QuillDeltaToHtmlConverter(editor.getContents(range.index, range.length), {});
+      const delta = editor.getContents(range.index, range.length);
+      const converter = new QuillDeltaToHtmlConverter(delta, {});
       const convertedHtml = converter.convert();
-      
+      console.log(convertedHtml);
+      console.log(delta);
+
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: {'text': notes_text, 'html': convertedHtml} });
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: {'index': range.index, 'length': range.length} });
     } else {
