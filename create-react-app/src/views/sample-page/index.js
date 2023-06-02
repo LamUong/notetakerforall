@@ -17,6 +17,7 @@ const MyCard = () => {
   const customization = useSelector((state) => state.customization);
   
   function deltaToHtml(delta: string) {
+    const cfg = {};
     const converter = new QuillDeltaToHtmlConverter(delta.ops, cfg);
     const html = converter.convert();
     return html;
