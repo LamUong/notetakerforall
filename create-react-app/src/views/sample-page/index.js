@@ -25,12 +25,11 @@ const MyCard = () => {
                 Here is your selected text:
                 </Typography>
                 <br />
+                <br />
                 <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
                   
-                <Typography variant="body2" component="body2" sx={{ maxHeight: '150px' }}>
-                  <div style={{ height: '100%', overflow: 'auto' }}
-                    dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}></div>   
-                </Typography>  
+                <div style={{ maxHeight: '150px', overflow: 'auto' }}
+                  dangerouslySetInnerHTML={{ __html: customization.highlighted_notes }}></div>   
             </div>
         </CardContent>
       </Card>
