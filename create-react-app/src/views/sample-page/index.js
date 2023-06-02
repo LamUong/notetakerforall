@@ -87,7 +87,7 @@ const Notes = () => {
       const text = editor.getText(range.index, range.length);
       const delta = editor.getContents(range.index, range.length); 
       
-      editor.formatText(customization., range.length, {
+      editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
         'color': 'red',
         'background-color': 'blue'
       }); 
