@@ -98,7 +98,6 @@ const Notes = () => {
       }); 
     } else {
       console.log("range.length = 0");
-      const editor = quillRef.current.getEditor();   
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: null });
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: null });
     }
