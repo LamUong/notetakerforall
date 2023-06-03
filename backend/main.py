@@ -211,7 +211,7 @@ async def stream(websocket: WebSocket):
     # Receive message from the WebSocket
     data = await websocket.receive_text()
     print(f"Received: {data}")
-    data = json.load(data)
+    data = json.loads(data)
 
     answer = ""
     response = get_chat_response(data['input_text'], data['input_type'])
