@@ -81,6 +81,16 @@ def get_bullet_points(input_text):
     response = get_gpt_chat_response(message)
     return response
 
+def get_chat_response(input_text, input_type):
+    if input_type == 'Title':
+        return get_title(input_text)
+    if input_type == 'Summary':
+        return get_summary(input_text) 
+    if input_type == 'BulletPoints':
+        return get_bullet_points(input_text) 
+    if input_type == 'Outline':
+        return get_outline(input_text) 
+
 async def process_audio(fast_socket: WebSocket):
     async def get_transcript(data: Dict) -> None:
         if 'channel' in data:
@@ -197,17 +207,19 @@ async def transcribe_audio_file(file: UploadFile):
 @app.websocket("/stream_chat")
 async def stream(websocket: WebSocket):
     await websocket.accept()
+    
+    # Receive message from the WebSocket
+    data = await websocket.receive_text()
+    print(f"Received: {data}")
 
-    while True:
-        # Receive message from the WebSocket
-        data = await websocket.receive_text()
-        print(f"Received: {data}")
+    answer = ""
+    response = get_chat_response(data['input_text'], data['input_type'])
 
-        # Streaming data back to the client
-        for i in range(1, 20):
-            await websocket.send_text(f"Streamed data {i}")
-            await asyncio.sleep(1)
+    for chunk in response:
+        chunk_message = chunk["choices"][0]["delta"]  # extract the message
+        if "content" in chunk_message:
+            answer += chunk_message["content"]
+        await websocket.send_text(f"Streamed data {answer}")
 
-        await websocket.close()
-        break
+    await websocket.close()
         
