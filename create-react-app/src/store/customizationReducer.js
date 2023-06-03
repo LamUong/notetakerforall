@@ -101,6 +101,7 @@ const customizationReducer = (state = initialState, action) => {
         chat_response: action.payload, 
       };
     case 'SET_CHAT_ACTION_TYPE':
+      console.log(action.payload);
       return {
         ...state,
         chat_action_type: action.payload, 
