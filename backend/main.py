@@ -31,7 +31,7 @@ app.add_middleware(
 
 dg_client = Deepgram("39a146d814142a35358db89c15a936727975bcb6")
 
-openai.api_key = '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'
+openai.api_key = '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'
 
 def get_gpt_chat_response(messages, model="gpt-3.5-turbo", temperature=0.3, stream=True):
     max_retries = 5
