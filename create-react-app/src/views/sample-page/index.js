@@ -47,7 +47,9 @@ const MyCard = () => {
       const data = event.data;
       console.log('Received:', data);
       dispatch({ type: 'SET_CHAT_RESPONSE', payload: data });
-      
+      console.log(state);
+      console.log(customization);
+
       // Update state or perform any necessary actions with the received data
     });
 
