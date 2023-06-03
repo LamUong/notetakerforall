@@ -25,10 +25,10 @@ const MyCard = () => {
     return html;
   }
   
-  const chatStream = (valueType) => {
+  const chatStream = (valueType, state) => {
     console.log(valueType);
     dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: valueType });
-    console.log(customization);
+    console.log(state);
 
     socketRef.current = new WebSocket('ws://3.125.247.51:8000/stream_chat');
     
@@ -83,16 +83,16 @@ const MyCard = () => {
                 ) : (
                   <Grid container rowSpacing={1} columnSpacing={1} >
                     <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label="Title" variant="outlined" onClick={() => chatStream('Title')} />
+                      <Chip style={{ fontSize: '0.6em' }} label="Title" variant="outlined" onClick={() => chatStream('Title', customization)} />
                     </Grid>
                     <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label="Summary" variant="outlined" onClick={() => chatStream('Summary')} />
+                      <Chip style={{ fontSize: '0.6em' }} label="Summary" variant="outlined" onClick={() => chatStream('Summary', customization)} />
                     </Grid>
                     <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints')} />
+                      <Chip style={{ fontSize: '0.6em' }} label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints', customization)} />
                     </Grid>
                     <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
+                      <Chip style={{ fontSize: '0.6em' }} label="Outline" variant="outlined" onClick={() => chatStream('Outline', customization)}  />
                     </Grid>
                   </Grid>
                 )}
