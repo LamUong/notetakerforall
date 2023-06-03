@@ -192,3 +192,20 @@ async def transcribe_audio_file(file: UploadFile):
     with open('output_file.json') as json_file:
         response = json.load(json_file)
         return get_transcribed_text(response)
+ 
+
+@app.websocket("/stream_chat")
+async def stream(websocket: WebSocket):
+    await websocket.accept()
+
+    while True:
+        # Receive message from the WebSocket
+        data = await websocket.receive_text()
+        print(f"Received: {data}")
+
+        # Streaming data back to the client
+        for i in range(1, 20):
+            await websocket.send_text(f"Streamed data {i}")
+            await asyncio.sleep(1)
+
+        await websocket.close()
