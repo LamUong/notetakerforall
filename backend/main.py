@@ -10,6 +10,8 @@ import shutil
 from io import BytesIO
 import json
 from fastapi.middleware.cors import CORSMiddleware
+import openai
+import time
 
 load_dotenv()
 
@@ -29,6 +31,55 @@ app.add_middleware(
 
 dg_client = Deepgram("39a146d814142a35358db89c15a936727975bcb6")
 
+openai.my_api_key = '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'
+
+def get_gpt_chat_response(messages, model="gpt-3.5-turbo", temperature=0.3, stream=True):
+    max_retries = 5
+    backoff_factor = 2
+    initial_delay = 0.1  # in seconds
+
+    for retry in range(max_retries):
+        try:
+            # Call the GPT-3 API
+            response = openai.ChatCompletion.create(
+                model=model,
+                messages=messages,
+                n=1,
+                stream=stream,
+                temperature=temperature,
+            )
+            return response
+
+        except openai.error.RateLimitError as e:
+            if retry == max_retries - 1:
+                raise e
+            else:
+                sleep_time = initial_delay * (backoff_factor**retry)
+                time.sleep(sleep_time)
+
+def get_outline(input_text):
+    prompt = f"The following is a transcription of a video which might have timestamps in seconds:\n\n{input_text}\n\n . If there are timestamps please make sure to keep the timestamps in seconds from the original input text. Then, please provide an outline of the content while mentioning the important timestamps, if they exist, in this example format: 'At timestamp <time_stamp>,'."
+    message = [{"role": "system", "content": prompt}]
+    response = get_gpt_chat_response(message)
+    return response
+
+def get_title(input_text):
+    prompt = f"The following is a transcription of a video:\n\n{input_text}\n\n . Please provide a Title for the content."
+    message = [{"role": "system", "content": prompt}]
+    response = get_gpt_chat_response(message)
+    return response
+
+def get_summary(input_text):
+    prompt = f"The following is a transcription of a video:\n\n{input_text}\n\n . Please provide a Summary for the content."
+    message = [{"role": "system", "content": prompt}]
+    response = get_gpt_chat_response(message)
+    return response
+
+def get_bullet_points(input_text):
+    prompt = f"The following is a transcription of a video:\n\n{input_text}\n\n . Can you keep all the sentences that contain specific details and output them in bullet points?"
+    message = [{"role": "system", "content": prompt}]
+    response = get_gpt_chat_response(message)
+    return response
 
 async def process_audio(fast_socket: WebSocket):
     async def get_transcript(data: Dict) -> None:
