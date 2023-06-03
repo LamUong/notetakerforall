@@ -27,7 +27,8 @@ const MyCard = () => {
   
   const chatStream = (valueType) => {
     console.log(valueType);
-    
+    dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: valueType });
+
     socketRef.current = new WebSocket('ws://3.125.247.51:8000/stream_chat');
     
     socketRef.current.addEventListener('open', () => {
@@ -71,28 +72,34 @@ const MyCard = () => {
                   dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
                 </div>
                 <br />
-                <Grid container rowSpacing={1} columnSpacing={1} >
-                  <Grid item >
-                    <Chip style={{ fontSize: '0.6em' }} label="Title" variant="outlined" onClick={() => chatStream('Title')} />
+                {customization.chat_action_type ? (
+                  <Grid container rowSpacing={1} columnSpacing={1} >
+                    <Grid item >
+                      <Chip style={{ fontSize: '0.6em' }} label={customization.chat_action_type} variant="outlined" />
+                    </Grid>
                   </Grid>
-                  <Grid item >
-                    <Chip style={{ fontSize: '0.6em' }} label="Summary" variant="outlined" onClick={() => chatStream('Summary')} />
+                ) : (
+                  <Grid container rowSpacing={1} columnSpacing={1} >
+                    <Grid item >
+                      <Chip style={{ fontSize: '0.6em' }} label="Title" variant="outlined" onClick={() => chatStream('Title')} />
+                    </Grid>
+                    <Grid item >
+                      <Chip style={{ fontSize: '0.6em' }} label="Summary" variant="outlined" onClick={() => chatStream('Summary')} />
+                    </Grid>
+                    <Grid item >
+                      <Chip style={{ fontSize: '0.6em' }} label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints')} />
+                    </Grid>
+                    <Grid item >
+                      <Chip style={{ fontSize: '0.6em' }} label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
+                    </Grid>
                   </Grid>
-                  <Grid item >
-                    <Chip style={{ fontSize: '0.6em' }} label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints')} />
-                  </Grid>
-                  <Grid item >
-                    <Chip style={{ fontSize: '0.6em' }} label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
-                  </Grid>
-                </Grid>
-                {customization.chat_response ? (
+                )}
+                {customization.chat_response &&
                   <div
                     style={{ fontSize: '0.6em' }}
                     dangerouslySetInnerHTML={{ __html: customization.chat_response }}>
                   </div>
-                ) : (
-                  <div>No chat response.</div>
-                )}
+                }
             </div>
         </CardContent>
       </Card>
@@ -147,6 +154,7 @@ const Notes = () => {
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: null });
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: null });
       dispatch({ type: 'SET_CHAT_RESPONSE', payload: null });
+      dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: null });
     }
   }
 
