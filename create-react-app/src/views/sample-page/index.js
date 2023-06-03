@@ -43,11 +43,10 @@ const MyCard = () => {
     // Handle received messages
     socketRef.current.addEventListener('message', () => {
       console.log(customization.chat_action_type);
-      if (customization.chat_action_type) {
-        const data = event.data;
-        console.log('Received:', data);
-        dispatch({ type: 'SET_CHAT_RESPONSE', payload: data });
-      }
+      const data = event.data;
+      console.log('Received:', data);
+      dispatch({ type: 'SET_CHAT_RESPONSE', payload: data });
+      
       // Update state or perform any necessary actions with the received data
     });
 
@@ -125,8 +124,9 @@ const Notes = () => {
   };
   
   const handleChangeSelection = (range) => {
-    console.log("handleChangeSelection");
-    
+    console.log("athandleChangeSelection");
+    console.log(customization.chat_action_type);
+
     const editor = quillRef.current.getEditor();
  
     if (range.length > 0 ){
@@ -162,6 +162,9 @@ const Notes = () => {
       dispatch({ type: 'SET_CHAT_RESPONSE', payload: null });
       dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: null });
     }
+    
+    console.log("atendhandleChangeSelection");
+    console.log(customization.chat_action_type);
   }
 
   return (
