@@ -25,7 +25,7 @@ const MyCard = () => {
   }
   
   useEffect(() => {
-    socketRef.current = new WebSocket('http://3.125.247.51:8000/stream_chat');
+    socketRef.current = new WebSocket('ws://3.125.247.51:8000/stream_chat');
     // Handle received messages
     socketRef.current.onmessage = (event) => {
       const data = event.data;
