@@ -209,3 +209,5 @@ async def stream(websocket: WebSocket):
             await asyncio.sleep(1)
 
         await websocket.close()
+        break
+        
