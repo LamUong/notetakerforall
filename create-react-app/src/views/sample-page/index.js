@@ -131,6 +131,7 @@ const Notes = () => {
       const delta = editor.getContents(range.index, range.length);       
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: {'text': text, 'delta': delta} });
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: {'index': range.index, 'length': range.length} });
+      dispatch({ type: 'SET_CHAT_RESPONSE', payload: null });
       editor.formatText(range.index, range.length, {
         'background-color': '#ccc'
       }); 
@@ -144,6 +145,7 @@ const Notes = () => {
       } 
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: null });
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: null });
+      dispatch({ type: 'SET_CHAT_RESPONSE', payload: null });
     }
   }
 
