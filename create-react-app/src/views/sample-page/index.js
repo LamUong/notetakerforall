@@ -42,6 +42,7 @@ const MyCard = () => {
     
     // Handle received messages
     socketRef.current.addEventListener('message', () => {
+      console.log(customization.chat_action_type);
       if (customization.chat_action_type) {
         const data = event.data;
         console.log('Received:', data);
