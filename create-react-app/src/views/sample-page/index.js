@@ -128,7 +128,7 @@ const Notes = () => {
   
   const handleChangeSelection = (range) => {
     console.log("athandleChangeSelection");
-    console.log(customization.chat_action_type);
+    console.log(customization);
 
     const editor = quillRef.current.getEditor();
  
@@ -167,7 +167,7 @@ const Notes = () => {
     }
     
     console.log("atendhandleChangeSelection");
-    console.log(customization.chat_action_type);
+    console.log(customization);
   }
 
   return (
