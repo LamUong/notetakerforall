@@ -32,7 +32,8 @@ const MyCard = () => {
     socketRef.current.addEventListener('open', () => {
       // Send additional data to the server
       const additionalData = {
-        value_type: valueType,
+        input_type: valueType,
+        input_text: customization.highlighted_notes.text
       };
       socketRef.current.send(JSON.stringify(additionalData));
     });
