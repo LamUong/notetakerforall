@@ -19,6 +19,7 @@ export const initialState = {
   is_handle_upload_called: false,
   highlighted_notes: null,
   highlighted_notes_range: null,
+  chat_response: null,
 };
 
 // ==============================|| CUSTOMIZATION REDUCER ||============================== //
@@ -92,6 +93,11 @@ const customizationReducer = (state = initialState, action) => {
       return {
         ...state,
         highlighted_notes_range: action.payload, 
+      };
+    case 'SET_CHAT_RESPONSE':
+      return {
+        ...state,
+        chat_response: action.payload, 
       };
     default:
       return state;
