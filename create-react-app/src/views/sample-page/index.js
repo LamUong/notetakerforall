@@ -87,6 +87,7 @@ const MyCard = () => {
                 </Grid>
                 {customization.chat_response ? (
                   <div
+                    style={{ maxHeight: '150px', fontSize: '0.6em' }}
                     dangerouslySetInnerHTML={{ __html: customization.chat_response }}>
                   </div>
                 ) : (
