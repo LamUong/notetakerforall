@@ -25,10 +25,10 @@ const MyCard = () => {
     return html;
   }
   
-  const chatStream = (valueType, state) => {
+  const chatStream = (valueType) => {
     console.log(valueType);
     dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: valueType });
-    console.log(state);
+    console.log(customization);
 
     socketRef.current = new WebSocket('ws://3.125.247.51:8000/stream_chat');
     
@@ -47,7 +47,6 @@ const MyCard = () => {
       const data = event.data;
       console.log('Received:', data);
       dispatch({ type: 'SET_CHAT_RESPONSE', payload: data });
-      console.log(state);
       console.log(customization);
 
       // Update state or perform any necessary actions with the received data
@@ -85,16 +84,16 @@ const MyCard = () => {
                 ) : (
                   <Grid container rowSpacing={1} columnSpacing={1} >
                     <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label="Title" variant="outlined" onClick={() => chatStream('Title', customization)} />
+                      <Chip style={{ fontSize: '0.6em' }} label="Title" variant="outlined" onClick={() => chatStream('Title')} />
                     </Grid>
                     <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label="Summary" variant="outlined" onClick={() => chatStream('Summary', customization)} />
+                      <Chip style={{ fontSize: '0.6em' }} label="Summary" variant="outlined" onClick={() => chatStream('Summary')} />
                     </Grid>
                     <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints', customization)} />
+                      <Chip style={{ fontSize: '0.6em' }} label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints')} />
                     </Grid>
                     <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label="Outline" variant="outlined" onClick={() => chatStream('Outline', customization)}  />
+                      <Chip style={{ fontSize: '0.6em' }} label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
                     </Grid>
                   </Grid>
                 )}
