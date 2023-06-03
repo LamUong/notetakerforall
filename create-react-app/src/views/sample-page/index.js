@@ -16,6 +16,7 @@ import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 const MyCard = () => {
   const customization = useSelector((state) => state.customization);
   const socketRef = useRef(null);
+  const dispatch = useDispatch();
 
   function deltaToHtml(delta: string) {
     const cfg = {};
@@ -42,6 +43,8 @@ const MyCard = () => {
     socketRef.current.addEventListener('message', () => {
       const data = event.data;
       console.log('Received:', data);
+      dispatch({ type: 'SET_CHAT_RESPONSE', payload: data });
+
       // Update state or perform any necessary actions with the received data
     });
 
@@ -68,7 +71,6 @@ const MyCard = () => {
                   dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
                 </div>
                 <br />
-
                 <Grid container rowSpacing={1} columnSpacing={1}>
                   <Grid item >
                     <Chip label="Title" variant="outlined" onClick={() => chatStream('Title')} />
@@ -83,6 +85,13 @@ const MyCard = () => {
                     <Chip label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
                   </Grid>
                 </Grid>
+                {customization.chat_response ? (
+                  <div
+                    dangerouslySetInnerHTML={{ __html: customization.chat_response }}>
+                  </div>
+                ) : (
+                  <div>No chat response.</div>
+                )}
             </div>
         </CardContent>
       </Card>
