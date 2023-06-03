@@ -28,6 +28,7 @@ const MyCard = () => {
   const chatStream = (valueType) => {
     console.log(valueType);
     dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: valueType });
+    console.log(customization.chat_action_type);
 
     socketRef.current = new WebSocket('ws://3.125.247.51:8000/stream_chat');
     
