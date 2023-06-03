@@ -26,24 +26,28 @@ const MyCard = () => {
   
   useEffect(() => {
     socketRef.current = new WebSocket('ws://3.125.247.51:8000/stream_chat');
+    
+    socketRef.current.addEventListener('open', () => {
+      // Send additional data to the server
+      const additionalData = {
+        foo: 'bar',
+        baz: 123,
+      };
+      socketRef.current.send(JSON.stringify(additionalData));
+    });
+    
     // Handle received messages
-    socketRef.current.onmessage = (event) => {
+    socketRef.current.addEventListener('message', () => {
       const data = event.data;
       console.log('Received:', data);
       // Update state or perform any necessary actions with the received data
     };
 
-    // Send additional data to the server
-    const additionalData = {
-      foo: 'bar',
-      baz: 123,
-    };
-    socketRef.current.send(JSON.stringify(additionalData));
-
-    // Clean up WebSocket connection
-    return () => {
-      socketRef.current.close();
-    };
+    socketRef.current.addEventListener('close', () => {
+      return () => {
+        socketRef.current.close();
+      };
+    });
   }, []);
 
   return (
