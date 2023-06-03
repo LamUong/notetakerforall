@@ -42,10 +42,11 @@ const MyCard = () => {
     
     // Handle received messages
     socketRef.current.addEventListener('message', () => {
-      const data = event.data;
-      console.log('Received:', data);
-      dispatch({ type: 'SET_CHAT_RESPONSE', payload: data });
-
+      if (customization.chat_action_type) {
+        const data = event.data;
+        console.log('Received:', data);
+        dispatch({ type: 'SET_CHAT_RESPONSE', payload: data });
+      }
       // Update state or perform any necessary actions with the received data
     });
 
