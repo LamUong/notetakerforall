@@ -97,6 +97,7 @@ const MyCard = () => {
                     </Grid>
                   </Grid>
                 )}
+                <br />
                 {customization.chat_response &&
                   <div
                     style={{ fontSize: '0.6em' }}
