@@ -20,6 +20,7 @@ export const initialState = {
   highlighted_notes: null,
   highlighted_notes_range: null,
   chat_response: null,
+  chat_action_type: null,
 };
 
 // ==============================|| CUSTOMIZATION REDUCER ||============================== //
@@ -98,6 +99,11 @@ const customizationReducer = (state = initialState, action) => {
       return {
         ...state,
         chat_response: action.payload, 
+      };
+    case 'SET_CHAT_ACTION_TYPE':
+      return {
+        ...state,
+        chat_action_type: action.payload, 
       };
     default:
       return state;
