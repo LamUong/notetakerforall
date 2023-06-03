@@ -71,23 +71,23 @@ const MyCard = () => {
                   dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
                 </div>
                 <br />
-                <Grid container rowSpacing={1} columnSpacing={1}>
+                <Grid container rowSpacing={1} columnSpacing={1} >
                   <Grid item >
-                    <Chip label="Title" variant="outlined" onClick={() => chatStream('Title')} />
+                    <Chip style={{ fontSize: '0.6em' }} label="Title" variant="outlined" onClick={() => chatStream('Title')} />
                   </Grid>
                   <Grid item >
-                    <Chip label="Summary" variant="outlined" onClick={() => chatStream('Summary')} />
+                    <Chip style={{ fontSize: '0.6em' }} label="Summary" variant="outlined" onClick={() => chatStream('Summary')} />
                   </Grid>
                   <Grid item >
-                    <Chip label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints')} />
+                    <Chip style={{ fontSize: '0.6em' }} label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints')} />
                   </Grid>
                   <Grid item >
-                    <Chip label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
+                    <Chip style={{ fontSize: '0.6em' }} label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
                   </Grid>
                 </Grid>
                 {customization.chat_response ? (
                   <div
-                    style={{ maxHeight: '150px', fontSize: '0.6em' }}
+                    style={{ fontSize: '0.6em' }}
                     dangerouslySetInnerHTML={{ __html: customization.chat_response }}>
                   </div>
                 ) : (
