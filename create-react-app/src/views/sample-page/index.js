@@ -24,14 +24,15 @@ const MyCard = () => {
     return html;
   }
   
-  useEffect(() => {
+  const chatStream = (valueType) => {
+    console.log(valueType);
+    
     socketRef.current = new WebSocket('ws://3.125.247.51:8000/stream_chat');
     
     socketRef.current.addEventListener('open', () => {
       // Send additional data to the server
       const additionalData = {
-        foo: 'bar',
-        baz: 123,
+        value_type: valueType,
       };
       socketRef.current.send(JSON.stringify(additionalData));
     });
@@ -48,7 +49,7 @@ const MyCard = () => {
         socketRef.current.close();
       };
     });
-  }, []);
+  };
 
   return (
     <div>
@@ -69,16 +70,16 @@ const MyCard = () => {
 
                 <Grid container rowSpacing={1} columnSpacing={1}>
                   <Grid item >
-                    <Chip label="Title" variant="outlined" />
+                    <Chip label="Title" variant="outlined" onClick={() => chatStream('Title')} />
                   </Grid>
                   <Grid item >
-                    <Chip label="Summary" variant="outlined" />
+                    <Chip label="Summary" variant="outlined" onClick={() => chatStream('Summary')} />
                   </Grid>
                   <Grid item >
-                    <Chip label="Bullet points" variant="outlined" />
+                    <Chip label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints')} />
                   </Grid>
                   <Grid item >
-                    <Chip label="Outline" variant="outlined" />
+                    <Chip label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
                   </Grid>
                 </Grid>
             </div>
