@@ -78,7 +78,7 @@ const MyCard = () => {
                 {customization.chat_action_type ? (
                   <Grid container rowSpacing={1} columnSpacing={1} >
                     <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label={customization.chat_action_type} variant="outlined" />
+                      <Chip style={{ fontSize: '0.6em' }} label={customization.chat_action_type} variant="filled" />
                     </Grid>
                   </Grid>
                 ) : (
