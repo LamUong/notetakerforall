@@ -41,7 +41,7 @@ const MyCard = () => {
       const data = event.data;
       console.log('Received:', data);
       // Update state or perform any necessary actions with the received data
-    };
+    });
 
     socketRef.current.addEventListener('close', () => {
       return () => {
