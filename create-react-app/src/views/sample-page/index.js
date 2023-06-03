@@ -166,8 +166,10 @@ const Notes = () => {
       dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: null });
     }
     
+    const local_ = useSelector((state) => state.customization);
+
     console.log("atendhandleChangeSelection");
-    console.log(customization);
+    console.log(local_);
   }
 
   return (
