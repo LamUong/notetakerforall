@@ -15,13 +15,36 @@ import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 
 const MyCard = () => {
   const customization = useSelector((state) => state.customization);
-  
+  const socketRef = useRef(null);
+
   function deltaToHtml(delta: string) {
     const cfg = {};
     const converter = new QuillDeltaToHtmlConverter(delta.ops, cfg);
     const html = converter.convert();
     return html;
   }
+  
+  useEffect(() => {
+    socketRef.current = new WebSocket('http://3.125.247.51:8000/stream_chat');
+    // Handle received messages
+    socketRef.current.onmessage = (event) => {
+      const data = event.data;
+      console.log('Received:', data);
+      // Update state or perform any necessary actions with the received data
+    };
+
+    // Send additional data to the server
+    const additionalData = {
+      foo: 'bar',
+      baz: 123,
+    };
+    socketRef.current.send(JSON.stringify(additionalData));
+
+    // Clean up WebSocket connection
+    return () => {
+      socketRef.current.close();
+    };
+  }, []);
 
   return (
     <div>
@@ -58,9 +81,7 @@ const MyCard = () => {
         </CardContent>
       </Card>
     }
-    
     </div>
-    
   );
 };
 
