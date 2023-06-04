@@ -16,6 +16,7 @@ import 'react-quill/dist/quill.snow.css';
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Tooltip from '@mui/material/Tooltip';
+import './index.css';
 
 const MyCard = () => {
   const customization = useSelector((state) => state.customization);
