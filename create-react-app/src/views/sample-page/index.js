@@ -29,6 +29,11 @@ const MyCard = () => {
     return html;
   }
   
+  const copyToClipBoard = () => {
+    console.log(state.customization.chat_response);
+    navigator.clipboard.writeText(state.customization.chat_response);
+  }
+  
   const chatStream = (valueType) => {
     dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: valueType });
 
@@ -111,7 +116,7 @@ const MyCard = () => {
                             </IconButton>
                           </Tooltip>
                           <Tooltip title="Copy to clipboard" style={{ visibility: customization.chat_response && customization.is_streaming_chat_response == false ? 'visible': 'hidden'}}>
-                            <IconButton>
+                            <IconButton onClick={() => copyToClipBoard()}>
                               <ContentCopyIcon />
                             </IconButton>
                           </Tooltip>
