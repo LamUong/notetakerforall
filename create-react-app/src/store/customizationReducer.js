@@ -20,6 +20,7 @@ export const initialState = {
   highlighted_notes: null,
   highlighted_notes_range: null,
   chat_response: null,
+  is_streaming_chat_response: null,
   chat_action_type: null,
 };
 
@@ -105,6 +106,12 @@ const customizationReducer = (state = initialState, action) => {
       return {
         ...state,
         chat_action_type: action.payload, 
+      };
+    case 'SET_IS_STREAMING_CHAT_RESPONSE':
+      console.log(action.payload);
+      return {
+        ...state,
+        is_streaming_chat_response: action.payload, 
       };
     default:
       return state;
