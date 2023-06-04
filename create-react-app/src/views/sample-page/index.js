@@ -26,9 +26,7 @@ const MyCard = () => {
   }
   
   const chatStream = (valueType) => {
-    console.log(valueType);
     dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: valueType });
-    console.log(customization);
 
     socketRef.current = new WebSocket('ws://3.125.247.51:8000/stream_chat');
     
@@ -43,17 +41,16 @@ const MyCard = () => {
     
     // Handle received messages
     socketRef.current.addEventListener('message', () => {
-      console.log(customization.chat_action_type);
       const data = event.data;
-      console.log('Received:', data);
       dispatch({ type: 'SET_CHAT_RESPONSE', payload: data });
-      console.log(customization);
+      dispatch({ type: 'SET_IS_STREAMING_CHAT_RESPONSE', payload: true });
 
       // Update state or perform any necessary actions with the received data
     });
 
     socketRef.current.addEventListener('close', () => {
       return () => {
+        dispatch({ type: 'SET_IS_STREAMING_CHAT_RESPONSE', payload: false });
         socketRef.current.close();
       };
     });
@@ -104,6 +101,15 @@ const MyCard = () => {
                     dangerouslySetInnerHTML={{ __html: customization.chat_response }}>
                   </div>
                 }
+                <br />
+                  
+                {(customization.chat_response && customization.is_streaming_chat_response == false) &&
+                  <Grid container rowSpacing={1} columnSpacing={1} >
+                    <Grid item >
+                      <Chip style={{ fontSize: '0.6em' }} label="Replace" variant="outlined" />
+                    </Grid>
+                  </Grid>
+                }
             </div>
         </CardContent>
       </Card>
@@ -126,15 +132,7 @@ const Notes = () => {
     }
   };
   
-  const handleChangeSelection = (range) => {
-    console.log("athandleChangeSelection");
-    console.log(customization);
-
-    const editor = quillRef.current.getEditor();
- 
-    if (range.length > 0 ){
-      console.log("range.length > 0");
-
+  const clearChatArea = () => {
       if (customization.highlighted_notes_range) {
          editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
           'background-color': 'white'
@@ -144,7 +142,17 @@ const Notes = () => {
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: null });
       dispatch({ type: 'SET_CHAT_RESPONSE', payload: null });
       dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: null });
-
+      dispatch({ type: 'SET_IS_STREAMING_CHAT_RESPONSE', payload: null });
+  };
+  
+  const handleChangeSelection = (range) => {
+    
+    const editor = quillRef.current.getEditor();
+    
+ 
+    if (range.length > 0 ){
+      console.log("range.length > 0");
+      clearChatArea();
       const text = editor.getText(range.index, range.length);
       const delta = editor.getContents(range.index, range.length);       
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: {'text': text, 'delta': delta} });
@@ -154,20 +162,9 @@ const Notes = () => {
       }); 
     } else {
       console.log("range.length = 0");
-
-      if (customization.highlighted_notes_range) {
-         editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
-          'background-color': 'white'
-        });  
-      } 
-      dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: null });
-      dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: null });
-      dispatch({ type: 'SET_CHAT_RESPONSE', payload: null });
-      dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: null });
+      clearChatArea();
     }
     
-    console.log("atendhandleChangeSelection");
-    console.log(customization);
   }
 
   return (
