@@ -77,28 +77,28 @@ const MyCard = () => {
         <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em', padding: '0px 10px 0px 10px' }}
           dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
         </div>
+        <br />
+        {customization.chat_action_type ? (
+          <div></div>          
+          ) : (
+            <Grid container rowSpacing={1} columnSpacing={1} >
+              <Grid item >
+                <Chip style={{ fontSize: '0.6em' }} label="Title" variant="outlined" onClick={() => chatStream('Title')} />
+              </Grid>
+              <Grid item >
+                <Chip style={{ fontSize: '0.6em' }} label="Summary" variant="outlined" onClick={() => chatStream('Summary')} />
+              </Grid>
+              <Grid item >
+                <Chip style={{ fontSize: '0.6em' }} label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints')} />
+              </Grid>
+              <Grid item >
+                <Chip style={{ fontSize: '0.6em' }} label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
+              </Grid>
+            </Grid>
+          )}
+          <br />
         <CardContent>
-            <div>
-                {customization.chat_action_type ? (
-                  <br />
-                ) : (
-                  <Grid container rowSpacing={1} columnSpacing={1} >
-                    <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label="Title" variant="outlined" onClick={() => chatStream('Title')} />
-                    </Grid>
-                    <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label="Summary" variant="outlined" onClick={() => chatStream('Summary')} />
-                    </Grid>
-                    <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints')} />
-                    </Grid>
-                    <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
-                    </Grid>
-                  </Grid>
-                )}
-                <br />
-               
+            <div>      
                 {(customization.chat_response && customization.chat_action_type) &&
                   <Card sx={{ borderColor: '#ccc', borderStyle: 'solid'}}>
                     <CardHeader
