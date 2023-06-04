@@ -73,17 +73,12 @@ const MyCard = () => {
         />
         <CardContent>
             <div>
-                <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
                 <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em' }}
                   dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
                 </div>
                 <br />
                 {customization.chat_action_type ? (
-                  <Grid container rowSpacing={1} columnSpacing={1} >
-                    <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label={customization.chat_action_type} variant="filled" />
-                    </Grid>
-                  </Grid>
+                  <br />
                 ) : (
                   <Grid container rowSpacing={1} columnSpacing={1} >
                     <Grid item >
@@ -101,11 +96,22 @@ const MyCard = () => {
                   </Grid>
                 )}
                 <br />
-                {customization.chat_response &&
-                  <div
-                    style={{ fontSize: '0.6em' }}
-                    dangerouslySetInnerHTML={{ __html: customization.chat_response }}>
-                  </div>
+               
+                {(customization.chat_response && customization.chat_action_type) &&
+                  <Card sx={{ borderColor: '#ccc', borderStyle: 'solid'}}>
+                    <CardHeader
+                      subheader="Here is your " + {customization.chat_action_type} + ":"
+                      sx={{
+                        borderBottom: '1px solid',
+                        borderColor: '#ccc',
+                      }}
+                    />
+
+                    <div
+                      style={{ fontSize: '0.6em' }}
+                      dangerouslySetInnerHTML={{ __html: customization.chat_response }}>
+                    </div>
+                  </Card>
                 }
                 <br />
                   
