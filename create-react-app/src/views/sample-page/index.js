@@ -65,9 +65,12 @@ const MyCard = () => {
     {customization.highlighted_notes &&
       <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
         <CardHeader
-          title="Here is your selected text:"
+          subheader="Here is your selected text:"
+          sx={{
+            borderBottom: '1px solid',
+            borderColor: '#ccc',
+          }}
         />
-          
         <CardContent>
             <div>
                 <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
