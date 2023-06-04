@@ -49,8 +49,9 @@ const MyCard = () => {
     });
 
     socketRef.current.addEventListener('close', () => {
+      console.log("close");
+      dispatch({ type: 'SET_IS_STREAMING_CHAT_RESPONSE', payload: false });
       return () => {
-        dispatch({ type: 'SET_IS_STREAMING_CHAT_RESPONSE', payload: false });
         socketRef.current.close();
       };
     });
