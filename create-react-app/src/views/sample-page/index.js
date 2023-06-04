@@ -96,13 +96,18 @@ const MyCard = () => {
           customization.chat_response && customization.chat_action_type && (
             <div>
               <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
-              <div style={{ padding: '10px' }}>
+              <div style={{ padding: '10px', width: '100%', display: 'inline-flex' }}>
                 <span style={{ fontWeight: '600', color: '#808080' }}>
                   {customization.chat_action_type}
                 </span>
                 {(customization.chat_response && customization.is_streaming_chat_response == false) &&
-                  <div>
+                  <div style={{ marginLeft: 'auto' }}>
                     <Grid container rowSpacing={1} columnSpacing={1} >
+                      <Grid item >
+                        <IconButton aria-label="Example">
+                          <PublishedWithChangesIcon />
+                        </IconButton>
+                      </Grid>
                       <Grid item >
                         <IconButton aria-label="Example">
                           <PublishedWithChangesIcon />
