@@ -65,8 +65,8 @@ const MyCard = () => {
     {customization.highlighted_notes &&
       <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
         
-        <div sx={{ padding: '10px 10px 10px 10px' }}>
-          <span sx={{ fontWeight: '600', color: 'grey' }}>"Selected text"</span>
+        <div style={{ padding: '10px 10px 10px 10px' }}>
+          <span style={{ fontWeight: '600', color: 'grey' }}>"Selected text"</span>
         </div>
         <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em', padding: '0px 10px 0px 10px' }}
           dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
