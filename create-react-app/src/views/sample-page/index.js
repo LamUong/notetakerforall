@@ -70,7 +70,7 @@ const MyCard = () => {
             borderColor: '#ccc',
           }}
           titleTypographyProps={{
-            fontSize: '0.7em',
+            fontSize: '0.4em',
           }}
         />
         <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em', padding: '0px 10px 0px 10px' }}
