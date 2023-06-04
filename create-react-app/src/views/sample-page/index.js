@@ -74,11 +74,11 @@ const MyCard = () => {
             fontSize: '0.6em',
           }}
         />
+        <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em', padding: '10px' }}
+          dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
+        </div>
         <CardContent>
             <div>
-                <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em' }}
-                  dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
-                </div>
                 <br />
                 {customization.chat_action_type ? (
                   <br />
