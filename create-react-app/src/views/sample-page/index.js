@@ -184,6 +184,9 @@ const Notes = () => {
   };
   
   const handleChangeSelection = (range) => {
+    if (range == null){
+      return ;
+    }
     
     const editor = quillRef.current.getEditor();
     if (range.length > 0 ){
