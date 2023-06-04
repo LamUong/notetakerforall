@@ -65,10 +65,9 @@ const MyCard = () => {
     {customization.highlighted_notes &&
       <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
         <CardHeader
-          title="Selected text:"
-          titleTypographyProps={{variant:'h1' }}
-          sx={{
-            borderColor: '#ccc',
+          title="Selected text"
+          titleTypographyProps={{
+            fontSize: '0.3em',
           }}
         />
         <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em', padding: '0px 10px 0px 10px' }}
@@ -100,7 +99,7 @@ const MyCard = () => {
             <CardHeader
               title={"Your " + customization.chat_action_type + ":"}
               titleTypographyProps={{
-            fontSize: '0.7em',
+                fontSize: '0.7em',
               }}
             />
 
