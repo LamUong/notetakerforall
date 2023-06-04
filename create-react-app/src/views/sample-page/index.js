@@ -95,42 +95,38 @@ const MyCard = () => {
                 <Chip style={{ fontSize: '0.6em' }} label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
               </Grid>
             </Grid>
-          )}
-          <br />
-        <CardContent>
-            <div>      
-                {(customization.chat_response && customization.chat_action_type) &&
-                  <Card sx={{ borderColor: '#ccc', borderStyle: 'solid'}}>
-                    <CardHeader
-                      subheader={"Here is your " + customization.chat_action_type + ":"}
-                      sx={{
-                        borderBottom: '1px solid',
-                        borderColor: '#ccc',
-                      }}
-                      subheaderTypographyProps={{
-                        fontSize: '0.6em',
-                      }}
-                    />
+          )
+        }
+        
+        {(customization.chat_response && customization.chat_action_type) &&
+          <Card sx={{ borderColor: '#ccc', borderStyle: 'solid'}}>
+            <CardHeader
+              subheader={"Here is your " + customization.chat_action_type + ":"}
+              sx={{
+                borderBottom: '1px solid',
+                borderColor: '#ccc',
+              }}
+              subheaderTypographyProps={{
+                fontSize: '0.6em',
+              }}
+            />
 
-                    <div
-                      style={{ fontSize: '0.6em' }}
-                      dangerouslySetInnerHTML={{ __html: customization.chat_response }}>
-                    </div>
-                  </Card>
-                }
-                <br />
-                  
-                {(customization.chat_response && customization.is_streaming_chat_response == false) &&
-                  <Grid container rowSpacing={1} columnSpacing={1} >
-                    <Grid item >
-                      <IconButton aria-label="Example">
-                        <PublishedWithChangesIcon />
-                      </IconButton>
-                    </Grid>
-                  </Grid>
-                }
+            <div
+              style={{ fontSize: '0.6em' }}
+              dangerouslySetInnerHTML={{ __html: customization.chat_response }}>
             </div>
-        </CardContent>
+          </Card>
+        }
+
+        {(customization.chat_response && customization.is_streaming_chat_response == false) &&
+          <Grid container rowSpacing={1} columnSpacing={1} >
+            <Grid item >
+              <IconButton aria-label="Example">
+                <PublishedWithChangesIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
+        }
       </Card>
     }
     </div>
