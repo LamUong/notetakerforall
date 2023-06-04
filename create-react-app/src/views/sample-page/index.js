@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
+import CardHeader from '@mui/material/CardHeader';
 
 const MyCard = () => {
   const customization = useSelector((state) => state.customization);
@@ -63,13 +64,12 @@ const MyCard = () => {
     <div>
     {customization.highlighted_notes &&
       <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
+        <CardHeader
+          title="Here is your selected text:"
+        />
+          
         <CardContent>
             <div>
-                <Typography variant="body1" component="body1" sx={{ maxHeight: '40px' }}>
-                Here is your selected text:
-                </Typography>
-                <br />
-                <br />
                 <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
                 <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em' }}
                   dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
