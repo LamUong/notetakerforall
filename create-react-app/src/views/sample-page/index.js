@@ -15,6 +15,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import Tooltip from '@mui/material/Tooltip';
 
 const MyCard = () => {
   const customization = useSelector((state) => state.customization);
@@ -104,14 +105,16 @@ const MyCard = () => {
                   <div style={{ marginLeft: 'auto' }}>
                     <Grid container rowSpacing={1} columnSpacing={1} >
                         <Grid item >
-                          <IconButton aria-label="Example" style={{ visibility: customization.chat_response && customization.is_streaming_chat_response == false ? 'visible': 'hidden'}}>
-                            <PublishedWithChangesIcon />
-                          </IconButton>
-                        </Grid>
-                        <Grid item >
-                          <IconButton aria-label="Example" style={{ visibility: customization.chat_response && customization.is_streaming_chat_response == false ? 'visible': 'hidden'}}>
-                            <ContentCopyIcon />
-                          </IconButton>
+                          <Tooltip title="Replace selected text in editor" style={{ visibility: customization.chat_response && customization.is_streaming_chat_response == false ? 'visible': 'hidden'}}>
+                            <IconButton>
+                              <PublishedWithChangesIcon />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="Copy to clipboard" style={{ visibility: customization.chat_response && customization.is_streaming_chat_response == false ? 'visible': 'hidden'}}>
+                            <IconButton>
+                              <ContentCopyIcon />
+                            </IconButton>
+                          </Tooltip>
                         </Grid>
                     </Grid>
                  </div>
