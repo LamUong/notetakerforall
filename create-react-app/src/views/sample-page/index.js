@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Typography, LinearProgress, CircularProgress, Grid, Divider, Container, Card, CardContent, Chip } from '@mui/material';
+import { Typography, LinearProgress, CircularProgress, Grid, Divider, Container, Card, Chip } from '@mui/material';
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import IconButton from '@mui/material/IconButton';
 import { useLocation } from 'react-router-dom';
