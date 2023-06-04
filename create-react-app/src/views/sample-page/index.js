@@ -65,12 +65,12 @@ const MyCard = () => {
     {customization.highlighted_notes &&
       <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
         <CardHeader
-          title="Your selected text:"
+          title="Selected text:"
           sx={{
             borderColor: '#ccc',
           }}
           titleTypographyProps={{
-            fontSize: '0.4em',
+            fontSize: '10px',
           }}
         />
         <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em', padding: '0px 10px 0px 10px' }}
