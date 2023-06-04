@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const MyCard = () => {
   const customization = useSelector((state) => state.customization);
@@ -110,7 +111,7 @@ const MyCard = () => {
                       </Grid>
                       <Grid item >
                         <IconButton aria-label="Example">
-                          <PublishedWithChangesIcon />
+                          <ContentCopyIcon />
                         </IconButton>
                       </Grid>
                     </Grid>
