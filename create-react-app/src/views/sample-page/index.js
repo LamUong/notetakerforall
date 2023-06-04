@@ -100,7 +100,7 @@ const MyCard = () => {
                 {(customization.chat_response && customization.chat_action_type) &&
                   <Card sx={{ borderColor: '#ccc', borderStyle: 'solid'}}>
                     <CardHeader
-                      subheader="Here is your " + {customization.chat_action_type} + ":"
+                      subheader={"Here is your " + customization.chat_action_type + ":"}
                       sx={{
                         borderBottom: '1px solid',
                         borderColor: '#ccc',
