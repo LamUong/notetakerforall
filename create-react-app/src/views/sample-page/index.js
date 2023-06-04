@@ -81,7 +81,7 @@ const MyCard = () => {
         {customization.chat_action_type ? (
           <div></div>          
           ) : (
-            <Grid container rowSpacing={1} columnSpacing={1} style={{ padding: '10px 10px 10px 10px' }>
+            <Grid container rowSpacing={1} columnSpacing={1} style={{ padding: '10px 10px 10px 10px' }}>
               <Grid item >
                 <Chip style={{ fontSize: '0.6em' }} label="Title" variant="outlined" onClick={() => chatStream('Title')} />
               </Grid>
