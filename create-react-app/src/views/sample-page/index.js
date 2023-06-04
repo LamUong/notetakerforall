@@ -101,22 +101,22 @@ const MyCard = () => {
                 <span style={{ fontWeight: '600', color: '#808080' }}>
                   {customization.chat_action_type}
                 </span>
-                {(customization.chat_response && customization.is_streaming_chat_response == false) &&
                   <div style={{ marginLeft: 'auto' }}>
                     <Grid container rowSpacing={1} columnSpacing={1} >
-                      <Grid item >
-                        <IconButton aria-label="Example">
-                          <PublishedWithChangesIcon />
-                        </IconButton>
-                      </Grid>
-                      <Grid item >
-                        <IconButton aria-label="Example">
-                          <ContentCopyIcon />
-                        </IconButton>
-                      </Grid>
+                      {(customization.chat_response && customization.is_streaming_chat_response == false) &&
+
+                        <Grid item style={{ visibility: customization.chat_response && customization.is_streaming_chat_response == false ? 'visible': 'hidden'}} >
+                          <IconButton aria-label="Example">
+                            <PublishedWithChangesIcon />
+                          </IconButton>
+                        </Grid>
+                        <Grid item >
+                          <IconButton aria-label="Example">
+                            <ContentCopyIcon />
+                          </IconButton>
+                        </Grid>
                     </Grid>
                  </div>
-                }
               </div>
               <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
               <div style={{ fontSize: '0.6em', padding: '10px' }} dangerouslySetInnerHTML={{ __html: customization.chat_response }}></div>
