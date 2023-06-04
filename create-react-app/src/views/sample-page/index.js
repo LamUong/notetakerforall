@@ -70,6 +70,9 @@ const MyCard = () => {
             borderBottom: '1px solid',
             borderColor: '#ccc',
           }}
+          subheaderTypographyProps={{
+            fontSize: '0.6em',
+          }}
         />
         <CardContent>
             <div>
@@ -104,6 +107,9 @@ const MyCard = () => {
                       sx={{
                         borderBottom: '1px solid',
                         borderColor: '#ccc',
+                      }}
+                      subheaderTypographyProps={{
+                        fontSize: '0.6em',
                       }}
                     />
 
