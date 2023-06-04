@@ -64,10 +64,11 @@ const MyCard = () => {
     <div>
     {customization.highlighted_notes &&
       <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
-        
         <div style={{ padding: '10px 10px 10px 10px' }}>
           <span style={{ fontWeight: '600', color: '#808080' }}>Selected text</span>
         </div>
+        <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
+
         <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em', padding: '0px 10px 0px 10px' }}
           dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
         </div>
@@ -93,16 +94,17 @@ const MyCard = () => {
         }
         
         {(customization.chat_response && customization.chat_action_type) &&
-          <Card sx={{ borderColor: '#ccc', borderStyle: 'solid'}}>
-            <CardHeader
-              subheader={"Your " + customization.chat_action_type + ":"}
-            />
+          <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
 
-            <div
-              style={{ fontSize: '0.6em' }}
-              dangerouslySetInnerHTML={{ __html: customization.chat_response }}>
-            </div>
-          </Card>
+           <div style={{ padding: '10px 10px 10px 10px' }}>
+              <span style={{ fontWeight: '600', color: '#808080' }}>{"Your " + customization.chat_action_type + ":"}</span>
+           </div>
+          <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
+
+          <div
+            style={{ fontSize: '0.6em' }}
+            dangerouslySetInnerHTML={{ __html: customization.chat_response }}>
+          </div>
         }
 
         {(customization.chat_response && customization.is_streaming_chat_response == false) &&
