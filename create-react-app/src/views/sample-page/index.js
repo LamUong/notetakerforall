@@ -133,7 +133,11 @@ const Notes = () => {
     }
   };
   
-  const clearChatArea = () => {
+  const handleChangeSelection = (range) => {
+    
+    const editor = quillRef.current.getEditor();
+    if (range.length > 0 ){
+      console.log("range.length > 0");
       if (customization.highlighted_notes_range) {
          editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
           'background-color': 'white'
@@ -144,16 +148,7 @@ const Notes = () => {
       dispatch({ type: 'SET_CHAT_RESPONSE', payload: null });
       dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: null });
       dispatch({ type: 'SET_IS_STREAMING_CHAT_RESPONSE', payload: null });
-  };
-  
-  const handleChangeSelection = (range) => {
-    
-    const editor = quillRef.current.getEditor();
-    
- 
-    if (range.length > 0 ){
-      console.log("range.length > 0");
-      clearChatArea();
+      
       const text = editor.getText(range.index, range.length);
       const delta = editor.getContents(range.index, range.length);       
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: {'text': text, 'delta': delta} });
@@ -163,7 +158,16 @@ const Notes = () => {
       }); 
     } else {
       console.log("range.length = 0");
-      clearChatArea();
+      if (customization.highlighted_notes_range) {
+         editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
+          'background-color': 'white'
+        });  
+      } 
+      dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: null });
+      dispatch({ type: 'SET_HIGHLIGHTED_NOTES_RANGE', payload: null });
+      dispatch({ type: 'SET_CHAT_RESPONSE', payload: null });
+      dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: null });
+      dispatch({ type: 'SET_IS_STREAMING_CHAT_RESPONSE', payload: null });
     }
     
   }
