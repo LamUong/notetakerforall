@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Typography, LinearProgress, CircularProgress, Grid, Divider, Container, Card, CardContent, Chip } from '@mui/material';
+import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import MainCard from 'ui-component/cards/MainCard';
@@ -107,7 +108,7 @@ const MyCard = () => {
                 {(customization.chat_response && customization.is_streaming_chat_response == false) &&
                   <Grid container rowSpacing={1} columnSpacing={1} >
                     <Grid item >
-                      <Chip style={{ fontSize: '0.6em' }} label="Replace" variant="outlined" />
+                      <Chip icon={<PublishedWithChangesIcon />} variant="outlined" />
                     </Grid>
                   </Grid>
                 }
