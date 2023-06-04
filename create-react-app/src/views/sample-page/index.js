@@ -30,8 +30,8 @@ const MyCard = () => {
   }
   
   const copyToClipBoard = () => {
-    console.log(state.customization.chat_response);
-    navigator.clipboard.writeText(state.customization.chat_response);
+    console.log(customization.chat_response);
+    navigator.clipboard.writeText(customization.chat_response);
   }
   
   const chatStream = (valueType) => {
