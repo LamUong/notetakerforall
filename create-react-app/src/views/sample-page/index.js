@@ -93,18 +93,19 @@ const MyCard = () => {
           )
         }
         
-        {(customization.chat_response && customization.chat_action_type) &&
-          <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
-
-           <div style={{ padding: '10px 10px 10px 10px' }}>
-              <span style={{ fontWeight: '600', color: '#808080' }}>{"Your " + customization.chat_action_type + ":"}</span>
-           </div>
-          <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
-
-          <div
-            style={{ fontSize: '0.6em' }}
-            dangerouslySetInnerHTML={{ __html: customization.chat_response }}>
-          </div>
+        {
+          customization.chat_response && customization.chat_action_type && (
+            <div>
+              <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
+              <div style={{ padding: '10px' }}>
+                <span style={{ fontWeight: '600', color: '#808080' }}>
+                  {"Your " + customization.chat_action_type + ":"}
+                </span>
+              </div>
+              <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
+              <div style={{ fontSize: '0.6em' }} dangerouslySetInnerHTML={{ __html: customization.chat_response }}></div>
+            </div>
+          )
         }
 
         {(customization.chat_response && customization.is_streaming_chat_response == false) &&
