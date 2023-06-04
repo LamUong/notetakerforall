@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
-import CardHeader from '@mui/material/CardHeader';
 
 const MyCard = () => {
   const customization = useSelector((state) => state.customization);
