@@ -103,15 +103,13 @@ const MyCard = () => {
                 </span>
                   <div style={{ marginLeft: 'auto' }}>
                     <Grid container rowSpacing={1} columnSpacing={1} >
-                      {(customization.chat_response && customization.is_streaming_chat_response == false) &&
-
-                        <Grid item style={{ visibility: customization.chat_response && customization.is_streaming_chat_response == false ? 'visible': 'hidden'}} >
-                          <IconButton aria-label="Example">
+                        <Grid item >
+                          <IconButton aria-label="Example" style={{ visibility: customization.chat_response && customization.is_streaming_chat_response == false ? 'visible': 'hidden'}}>
                             <PublishedWithChangesIcon />
                           </IconButton>
                         </Grid>
                         <Grid item >
-                          <IconButton aria-label="Example">
+                          <IconButton aria-label="Example" style={{ visibility: customization.chat_response && customization.is_streaming_chat_response == false ? 'visible': 'hidden'}}>
                             <ContentCopyIcon />
                           </IconButton>
                         </Grid>
