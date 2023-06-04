@@ -96,7 +96,7 @@ const MyCard = () => {
           customization.chat_response && customization.chat_action_type && (
             <div>
               <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
-              <div style={{ padding: '10px', width: '100%', display: 'inline-flex' }}>
+              <div style={{ padding: '0px 10px 0px 10px', width: '100%', display: 'inline-flex', alignItems: 'center' }}>
                 <span style={{ fontWeight: '600', color: '#808080' }}>
                   {customization.chat_action_type}
                 </span>
