@@ -98,24 +98,27 @@ const MyCard = () => {
               <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
               <div style={{ padding: '10px' }}>
                 <span style={{ fontWeight: '600', color: '#808080' }}>
-                  {"Your " + customization.chat_action_type + ":"}
+                  {customization.chat_action_type}
                 </span>
+                {(customization.chat_response && customization.is_streaming_chat_response == false) &&
+                  <div>
+                    <Grid container rowSpacing={1} columnSpacing={1} >
+                      <Grid item >
+                        <IconButton aria-label="Example">
+                          <PublishedWithChangesIcon />
+                        </IconButton>
+                      </Grid>
+                    </Grid>
+                 </div>
+                }
               </div>
               <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
-              <div style={{ fontSize: '0.6em' }} dangerouslySetInnerHTML={{ __html: customization.chat_response }}></div>
+              <div style={{ fontSize: '0.6em', padding: '10px' }} dangerouslySetInnerHTML={{ __html: customization.chat_response }}></div>
             </div>
           )
         }
 
-        {(customization.chat_response && customization.is_streaming_chat_response == false) &&
-          <Grid container rowSpacing={1} columnSpacing={1} >
-            <Grid item >
-              <IconButton aria-label="Example">
-                <PublishedWithChangesIcon />
-              </IconButton>
-            </Grid>
-          </Grid>
-        }
+        
       </Card>
     }
     </div>
