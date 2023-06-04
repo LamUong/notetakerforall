@@ -65,10 +65,7 @@ const MyCard = () => {
     {customization.highlighted_notes &&
       <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
         <CardHeader
-          title="Selected text"
-          titleTypographyProps={{
-            variant: 'h3',
-          }}
+          subheader="Selected text"
         />
         <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em', padding: '0px 10px 0px 10px' }}
           dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
@@ -97,10 +94,7 @@ const MyCard = () => {
         {(customization.chat_response && customization.chat_action_type) &&
           <Card sx={{ borderColor: '#ccc', borderStyle: 'solid'}}>
             <CardHeader
-              title={"Your " + customization.chat_action_type + ":"}
-              titleTypographyProps={{
-                variant: 'h3',
-              }}
+              subheader={"Your " + customization.chat_action_type + ":"}
             />
 
             <div
