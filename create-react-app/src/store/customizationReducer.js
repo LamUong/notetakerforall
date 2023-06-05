@@ -50,68 +50,56 @@ const customizationReducer = (state = initialState, action) => {
         ...state,
         borderRadius: action.borderRadius
       };
+      
     // STATE
     case 'SET_IS_UPLOADING':
-      return {
-        ...state,
+      return Object.assign({}, state, {
         is_uploading: action.payload, 
-      };
+      })
     case 'SET_IS_TRANSCRIBING':
-      return {
-        ...state,
+      return Object.assign({}, state, {
         is_transcribing: action.payload, 
-      };
+      })
     case 'SET_TRANSCRIPT':
-      return {
-        ...state,
+      return Object.assign({}, state, {
         transcript: action.payload, 
-      };
+      })
     case 'SET_NOTES':
-      return {
-        ...state,
+      return Object.assign({}, state, {
         notes: action.payload, 
-      };
+      })
     case 'SET_INPUT_TYPE':
-      return {
-        ...state,
+      return Object.assign({}, state, {
         input_type: action.payload, 
-      };
+      })
     case 'SET_IS_PROCESSED':
-      return {
-        ...state,
+      return Object.assign({}, state, {
         is_processed: action.payload, 
-      };
+      })
     case 'SET_IS_HANDLE_UPLOAD_CALLED':
-      return {
-        ...state,
+      return Object.assign({}, state, {
         is_handle_upload_called: action.payload, 
-      };      
+      })
     case 'SET_HIGHLIGHTED_NOTES':
-      return {
-        ...state,
+      return Object.assign({}, state, {
         highlighted_notes: action.payload, 
-      };
+      })
     case 'SET_HIGHLIGHTED_NOTES_RANGE':
       return Object.assign({}, state, {
         highlighted_notes_range: action.payload, 
       })
     case 'SET_CHAT_RESPONSE':
-      return {
-        ...state,
+      return Object.assign({}, state, {
         chat_response: action.payload, 
-      };
+      })
     case 'SET_CHAT_ACTION_TYPE':
-      console.log(action.payload);
-      return {
-        ...state,
+      return Object.assign({}, state, {
         chat_action_type: action.payload, 
-      };
+      })
     case 'SET_IS_STREAMING_CHAT_RESPONSE':
-      console.log(action.payload);
-      return {
-        ...state,
+      return Object.assign({}, state, {
         is_streaming_chat_response: action.payload, 
-      };
+      })
     default:
       return state;
   }
