@@ -243,8 +243,7 @@ const Notes = () => {
     const response = customization.chat_response;
     const editor = quillRef.current.getEditor();
     editor.deleteText(start_index, length);
-    editor.insertText(start_index, response);
-
+    editor.clipboard.dangerouslyPasteHTML(start_index, response);
   }
 
   return (
