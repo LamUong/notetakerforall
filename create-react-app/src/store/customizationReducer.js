@@ -92,6 +92,7 @@ const customizationReducer = (state = initialState, action) => {
         highlighted_notes: action.payload, 
       };
     case 'SET_HIGHLIGHTED_NOTES_RANGE':
+      Object.assign(state.highlighted_notes_range, action.payload);
       return {
         ...state,
         highlighted_notes_range: action.payload, 
