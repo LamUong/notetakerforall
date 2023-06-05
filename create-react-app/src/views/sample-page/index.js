@@ -237,8 +237,13 @@ const Notes = () => {
     if(!customization.highlighted_notes_range){
       return ;
     }
-    console.log(customization.highlighted_notes_range);
-    console.log(customization.chat_response);
+    const start_index = customization.highlighted_notes_range.index;
+    const length = customization.highlighted_notes_range.length;
+    const response = customization.chat_response;
+    const editor = quillRef.current.getEditor();
+    editor.deleteText(start_index, length);
+    editor.insertText(start_index, response);
+
   }
 
   return (
