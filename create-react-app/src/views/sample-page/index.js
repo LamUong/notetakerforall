@@ -223,10 +223,9 @@ const Notes = () => {
     }
   }
   
-  const handleOnBlur = (previousRange) => {
-    console.log(customization);
+  const handleOnBlur = () => {
     const editor = quillRef.current.getEditor();
-    editor.formatText(previousRange.index, previousRange.length, {
+    editor.formatText(customization.highlighted_notes_range.index , customization.highlighted_notes_range.length, {
       'background-color': '#ccc'
     }); 
   }
