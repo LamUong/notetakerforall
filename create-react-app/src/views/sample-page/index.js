@@ -67,6 +67,14 @@ const MyCard = () => {
     document.body.removeChild(textArea);
   }
   
+  function replaceHighLightedNotes() { 
+    if(!customization.highlighted_notes_range){
+      return ;
+    }
+    console.log(customization.highlighted_notes_range);
+    console.log(customization.chat_response);
+  }
+  
   const chatStream = (valueType) => {
     dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: valueType });
 
@@ -144,7 +152,7 @@ const MyCard = () => {
                     <Grid container rowSpacing={1} columnSpacing={1} >
                         <Grid item >
                           <Tooltip title="Replace selected text in editor" style={{ visibility: customization.chat_response && customization.is_streaming_chat_response == false ? 'visible': 'hidden'}}>
-                            <IconButton>
+                            <IconButton onClick={() => replaceHighLightedNotes()}>
                               <PublishedWithChangesIcon />
                             </IconButton>
                           </Tooltip>
