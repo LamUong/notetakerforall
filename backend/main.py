@@ -221,7 +221,8 @@ async def stream(websocket: WebSocket):
         chunk_message = chunk["choices"][0]["delta"]  # extract the message
         if "content" in chunk_message:
             answer += chunk_message["content"]
-        await websocket.send_text(f"Streamed data {answer}")
+        print(answer)
+        await websocket.send_text(f"{answer}")
 
     await websocket.close()
         
