@@ -18,7 +18,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Tooltip from '@mui/material/Tooltip';
 import './index.css';
 
-const MyCard = () => {
+const MyCard = ({ onReplaceButtonClick }) => {
   const customization = useSelector((state) => state.customization);
   const socketRef = useRef(null);
   const dispatch = useDispatch();
@@ -65,14 +65,6 @@ const MyCard = () => {
       console.log('Oops, unable to copy');
     }
     document.body.removeChild(textArea);
-  }
-  
-  function replaceHighLightedNotes() { 
-    if(!customization.highlighted_notes_range){
-      return ;
-    }
-    console.log(customization.highlighted_notes_range);
-    console.log(customization.chat_response);
   }
   
   const chatStream = (valueType) => {
@@ -152,7 +144,7 @@ const MyCard = () => {
                     <Grid container rowSpacing={1} columnSpacing={1} >
                         <Grid item >
                           <Tooltip title="Replace selected text in editor" style={{ visibility: customization.chat_response && customization.is_streaming_chat_response == false ? 'visible': 'hidden'}}>
-                            <IconButton onClick={() => replaceHighLightedNotes()}>
+                            <IconButton onClick={() => onReplaceButtonClick()}>
                               <PublishedWithChangesIcon />
                             </IconButton>
                           </Tooltip>
@@ -240,6 +232,14 @@ const Notes = () => {
       'background-color': '#ccc'
     }); 
   }
+  
+  const handleReplaceHighlightedNotes = () => {
+    if(!customization.highlighted_notes_range){
+      return ;
+    }
+    console.log(customization.highlighted_notes_range);
+    console.log(customization.chat_response);
+  }
 
   return (
     <Grid container spacing={2}>
@@ -267,7 +267,7 @@ const Notes = () => {
               Please highlight some text to edit.
             </Typography>
           </Box>
-          <MyCard />
+          <MyCard onReplaceButtonClick={handleReplaceHighlightedNotes} />
         </Box>
       </Grid>
     </Grid>
