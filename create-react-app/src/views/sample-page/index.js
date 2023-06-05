@@ -223,7 +223,14 @@ const Notes = () => {
       dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: null });
       dispatch({ type: 'SET_IS_STREAMING_CHAT_RESPONSE', payload: null });
     }
-    
+  }
+  
+  const handleOnBlur = (previousRange, source, editor) => {
+    console.log("handleOnBlur");
+    console.log(previousRange);
+    console.log(source);
+    console.log(editor);
+
   }
 
   return (
@@ -236,6 +243,7 @@ const Notes = () => {
           value={value}
           onChange={handleChange}
           onChangeSelection={handleChangeSelection}
+          onBlur={handleOnBlur}
         />
       </Grid>
       <Grid item xs={4}> 
