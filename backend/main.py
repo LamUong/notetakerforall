@@ -59,25 +59,25 @@ def get_gpt_chat_response(messages, model="gpt-3.5-turbo", temperature=0.3, stre
                 time.sleep(sleep_time)
 
 def get_outline(input_text):
-    prompt = f"The following is a transcription of a video which might have timestamps in seconds:\n\n{input_text}\n\n . If there are timestamps please make sure to keep the timestamps in seconds from the original input text. Then, please provide an outline of the content while mentioning the important timestamps, if they exist, in this example format: 'At timestamp <time_stamp>,'."
+    prompt = f"The following is a transcription of a video which might have timestamps in seconds:\n\n{input_text}\n\n . If there are timestamps please make sure to keep the timestamps in seconds from the original input text. Then, please provide an outline of the content while mentioning the important timestamps, if they exist, in this example format: 'At timestamp <time_stamp>,'. Please output the outline in HTML format."
     message = [{"role": "system", "content": prompt}]
     response = get_gpt_chat_response(message)
     return response
 
 def get_title(input_text):
-    prompt = f"The following is a transcription of a video:\n\n{input_text}\n\n . Please provide a Title for the content."
+    prompt = f"The following is a transcription of a video:\n\n{input_text}\n\n . Please provide a title for the content. Please output the title in HTML format."
     message = [{"role": "system", "content": prompt}]
     response = get_gpt_chat_response(message)
     return response
 
 def get_summary(input_text):
-    prompt = f"The following is a transcription of a video:\n\n{input_text}\n\n . Please provide a Summary for the content."
+    prompt = f"The following is a transcription of a video:\n\n{input_text}\n\n . Please provide a summary for the content. Please output the summary in HTML format."
     message = [{"role": "system", "content": prompt}]
     response = get_gpt_chat_response(message)
     return response
 
 def get_bullet_points(input_text):
-    prompt = f"The following is a transcription of a video:\n\n{input_text}\n\n . Can you keep all the sentences that contain specific details and output them in bullet points?"
+    prompt = f"The following is a transcription of a video:\n\n{input_text}\n\n . Can you keep all the sentences that contain specific details and output them in bullet points? Please output the bullet points in HTML format."
     message = [{"role": "system", "content": prompt}]
     response = get_gpt_chat_response(message)
     return response
