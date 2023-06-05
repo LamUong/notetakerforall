@@ -84,6 +84,7 @@ const MyCard = ({ onReplaceButtonClick }) => {
     // Handle received messages
     socketRef.current.addEventListener('message', () => {
       const data = event.data;
+      print(data);
       dispatch({ type: 'SET_CHAT_RESPONSE', payload: data });
       dispatch({ type: 'SET_IS_STREAMING_CHAT_RESPONSE', payload: true });
 
