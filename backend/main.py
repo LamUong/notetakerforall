@@ -97,9 +97,13 @@ def generate_outline_html(text):
     lines = text.split('\n')
 
     for line in lines:
-        if line.startswith('At timestamp'):
+        pattern = r'At timestamp .*?, '
+        if re.match(pattern, line):
             timestamp, description = line.split(',', 1)
             bullet_point = f'<li>{timestamp.strip()}:{description.strip()}</li>'
+            bullet_points.append(bullet_point)
+        else:
+            bullet_point = f'<li>{line}</li>'
             bullet_points.append(bullet_point)
 
     bullet_points_html = '<ul>\n' + '\n'.join(bullet_points) + '\n</ul>'
