@@ -92,6 +92,43 @@ def get_chat_response(input_text, input_type):
     if input_type == 'Outline':
         return get_outline(input_text) 
 
+def generate_outline_html(text):
+    bullet_points = []
+    lines = text.split('\n')
+
+    for line in lines:
+        if line.startswith('At timestamp'):
+            timestamp, description = line.split(',', 1)
+            bullet_point = f'<li>{timestamp.strip()}:{description.strip()}</li>'
+            bullet_points.append(bullet_point)
+
+    bullet_points_html = '<ul>\n' + '\n'.join(bullet_points) + '\n</ul>'
+    return bullet_points_html
+
+def generate_bullet_points_html(text):
+    bullet_points = []
+    lines = text.split('\n')
+
+    for line in lines:
+        line = line.strip()
+        if line.startswith('-'):
+            sentence = line[1:].strip()
+            bullet_point = f'<li>{sentence}</li>'
+            bullet_points.append(bullet_point)
+
+    bullet_points_html = '<ul>\n' + '\n'.join(bullet_points) + '\n</ul>'
+    return bullet_points_html
+
+def format_chat_response(input_text, input_type):
+    if input_type == 
+        return f"<h2>{input_text}</h2>"
+    if input_type == 'Summary':
+        return f"<p>{input_text}</p>"
+    if input_type == 'BulletPoints':
+        return generate_bullet_points_html(input_text) 
+    if input_type == 'Outline':
+        return generate_outline_html(input_text) 
+    
 async def process_audio(fast_socket: WebSocket):
     async def get_transcript(data: Dict) -> None:
         if 'channel' in data:
@@ -221,7 +258,7 @@ async def stream(websocket: WebSocket):
         chunk_message = chunk["choices"][0]["delta"]  # extract the message
         if "content" in chunk_message:
             answer += chunk_message["content"]
-        print(answer)
+        formatted_answer = format_chat_response(answer, data['input_type'])
         await websocket.send_text(f"{answer}")
 
     await websocket.close()
