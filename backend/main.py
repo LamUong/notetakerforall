@@ -106,7 +106,7 @@ def generate_outline_html(text):
                 bullet_points.append(bullet_point)
             elif len(bullet_points) > 0:
                 new_bullet_point = bullet_point[-1].replace('</li>', '') 
-                new_bullet_point.append(f". {line}</li>")
+                bullet_points.append(f". {line}</li>")
                 bullet_points[-1] = new_bullet_point
             else:
                 bullet_point = f'<li>{line}</li>'
