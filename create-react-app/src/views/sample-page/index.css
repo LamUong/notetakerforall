@@ -1,3 +1,7 @@
 .ql-container {
   height: 60vh;
 }
+
+.ql-editor ::selection {
+  background-color: yellow;
+}
