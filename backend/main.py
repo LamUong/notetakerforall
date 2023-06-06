@@ -93,20 +93,6 @@ def get_chat_response(input_text, input_type):
     if input_type == 'Outline':
         return get_outline(input_text) 
 
-def generate_bullet_points(text):
-    pattern = r'At timestamp (\d{2}(?::\d{2}){1,2}),'
-    matches = re.findall(pattern, text)
-
-    bullet_points = []
-    for timestamp in matches:
-        description = re.search(f'{timestamp}(.+?)(?=(At timestamp|\Z))', text, re.DOTALL)
-        if description:
-            bullet_point = f'<li>At {timestamp}{description.group(1).strip()}</li>'
-            bullet_points.append(bullet_point)
-
-    bullet_points_html = '<ul>\n' + '\n'.join(bullet_points) + '\n</ul>'
-    return bullet_points_html
-
 def generate_bullet_points_html(text):
     bullet_points = []
     lines = text.split('\n')
@@ -116,6 +102,20 @@ def generate_bullet_points_html(text):
         if line.startswith('-'):
             sentence = line[1:].strip()
             bullet_point = f'<li>{sentence}</li>'
+            bullet_points.append(bullet_point)
+
+    bullet_points_html = '<ul>\n' + '\n'.join(bullet_points) + '\n</ul>'
+    return bullet_points_html
+
+def generate_outline_html(text):
+    pattern = r'At timestamp (\d{2}(?::\d{2}){1,2}),'
+    matches = re.findall(pattern, text)
+
+    bullet_points = []
+    for timestamp in matches:
+        description = re.search(f'{timestamp}(.+?)(?=(At timestamp|\Z))', text, re.DOTALL)
+        if description:
+            bullet_point = f'<li>At {timestamp}{description.group(1).strip()}</li>'
             bullet_points.append(bullet_point)
 
     bullet_points_html = '<ul>\n' + '\n'.join(bullet_points) + '\n</ul>'
