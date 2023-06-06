@@ -108,7 +108,7 @@ def generate_bullet_points_html(text):
     return bullet_points_html
 
 def generate_outline_html(text):
-    pattern = r'At timestamp (\d{2}(?::\d{2}){1,2}),'
+    pattern = r'At timestamp ([\d:]+),'
     matches = re.findall(pattern, text)
 
     bullet_points = []
