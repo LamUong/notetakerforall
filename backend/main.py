@@ -13,6 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import openai
 import time
 import sys
+import re
 
 load_dotenv(sys.path[0] + '/../.env')
 
