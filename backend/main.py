@@ -95,17 +95,18 @@ def get_chat_response(input_text, input_type):
 
 def generate_outline_html(text):
     bullet_points = []
-    lines = text.split('\n')
+    lines = text.split('.')
 
     for line in lines:
-        pattern = r'At timestamp .*?, '
-        if re.match(pattern, line):
-            timestamp, description = line.split(',', 1)
-            bullet_point = f'<li>{timestamp.strip()}:{description.strip()}</li>'
-            bullet_points.append(bullet_point)
-        else:
-            bullet_point = f'<li>{line}</li>'
-            bullet_points.append(bullet_point)
+        if len(line.strip())>0: 
+            pattern = r'At timestamp .*?, '
+            if re.match(pattern, line):
+                timestamp, description = line.split(',', 1)
+                bullet_point = f'<li>{timestamp.strip()}:{description.strip()}</li>'
+                bullet_points.append(bullet_point)
+            else:
+                bullet_point = f'<li>{line}</li>'
+                bullet_points.append(bullet_point)
 
     bullet_points_html = '<ul>\n' + '\n'.join(bullet_points) + '\n</ul>'
     return bullet_points_html
