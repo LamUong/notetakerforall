@@ -104,6 +104,10 @@ def generate_outline_html(text):
                 timestamp, description = line.split(',', 1)
                 bullet_point = f'<li>{timestamp.strip()}:{description.strip()}</li>'
                 bullet_points.append(bullet_point)
+            elif len(bullet_point) > 0:
+                new_bullet_point = bullet_point[-1].replace('</li>', '') 
+                new_bullet_point.append(f". {line}</li>")
+                bullet_points[-1] = new_bullet_point
             else:
                 bullet_point = f'<li>{line}</li>'
                 bullet_points.append(bullet_point)
