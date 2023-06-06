@@ -259,7 +259,7 @@ async def stream(websocket: WebSocket):
         if "content" in chunk_message:
             answer += chunk_message["content"]
         formatted_answer = format_chat_response(answer, data['input_type'])
-        await websocket.send_text(f"{answer}")
+        await websocket.send_text(f"{formatted_answer}")
 
     await websocket.close()
         
