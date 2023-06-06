@@ -260,6 +260,7 @@ async def stream(websocket: WebSocket):
         chunk_message = chunk["choices"][0]["delta"]  # extract the message
         if "content" in chunk_message:
             answer += chunk_message["content"]
+        print(answer)
         formatted_answer = format_chat_response(answer, data['input_type'])
         await websocket.send_text(f"{formatted_answer}")
 
