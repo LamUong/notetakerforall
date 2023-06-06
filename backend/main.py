@@ -93,24 +93,16 @@ def get_chat_response(input_text, input_type):
     if input_type == 'Outline':
         return get_outline(input_text) 
 
-def generate_outline_html(text):
-    bullet_points = []
-    lines = text.split('.')
+def generate_bullet_points(text):
+    pattern = r'At timestamp (\d{2}(?::\d{2}){1,2}),'
+    matches = re.findall(pattern, text)
 
-    for line in lines:
-        if len(line.strip())>0: 
-            pattern = r'At timestamp .*?, '
-            if re.match(pattern, line):
-                timestamp, description = line.split(',', 1)
-                bullet_point = f'<li>{timestamp.strip()}:{description.strip()}</li>'
-                bullet_points.append(bullet_point)
-            elif len(bullet_points) > 0:
-                new_bullet_point = bullet_point[-1].replace('</li>', '') 
-                new_bullet_point += f". {line}</li>"
-                bullet_points[-1] = new_bullet_point
-            else:
-                bullet_point = f'<li>{line}</li>'
-                bullet_points.append(bullet_point)
+    bullet_points = []
+    for timestamp in matches:
+        description = re.search(f'{timestamp}(.+?)(?=(At timestamp|\Z))', text, re.DOTALL)
+        if description:
+            bullet_point = f'<li>At {timestamp}{description.group(1).strip()}</li>'
+            bullet_points.append(bullet_point)
 
     bullet_points_html = '<ul>\n' + '\n'.join(bullet_points) + '\n</ul>'
     return bullet_points_html
