@@ -202,9 +202,7 @@ const Notes = () => {
       return ;
     }
     const editor = quillRef.current.getEditor();
-    editor.formatText(customization.highlighted_notes_range.index , customization.highlighted_notes_range.length, {
-      'background-color': '#ccc'
-    }); 
+    console.log(editor);
   }
   
   const handleReplaceHighlightedNotes = () => {
