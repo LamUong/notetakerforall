@@ -3,6 +3,5 @@
 }
 
 .ql-editor > p::selection {
-  background-color: yellow;
-  color: black;
+
 }
