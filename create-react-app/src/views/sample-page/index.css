@@ -2,7 +2,7 @@
   height: 60vh;
 }
 
-.ql-editor ::selection p {
+.ql-editor > p::selection {
   background-color: yellow;
   color: black;
 }
