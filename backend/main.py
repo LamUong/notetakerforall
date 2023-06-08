@@ -268,4 +268,4 @@ async def stream(websocket: WebSocket):
   
 @app.get("/")
 def hello():
-    return {"Hello": "API"}
+    return "hello"
