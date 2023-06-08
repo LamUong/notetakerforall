@@ -265,4 +265,7 @@ async def stream(websocket: WebSocket):
         await websocket.send_text(f"{formatted_answer}")
 
     await websocket.close()
-        
+  
+@app.get("/")
+def hello():
+    return {"Hello": "API"}
