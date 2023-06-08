@@ -24,12 +24,8 @@ const ContentSection = ({ matchDownSM }) => {
         const socket = new WebSocket('wss://3.125.247.51/back_end_listen');
 
         socket.onopen = () => {
-          console.log('onopen');
           mediaRecorder.addEventListener('dataavailable', event => {
-          console.log('dataavailable');
             if (event.data.size > 0 && socket.readyState == 1) {
-              console.log("event.data.size > 0 && socket.readyState == 1");
-              console.log(event);
               socket.send(event.data);
             }
           })
