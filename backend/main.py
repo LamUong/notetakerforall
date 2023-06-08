@@ -267,5 +267,6 @@ async def stream(websocket: WebSocket):
     await websocket.close()
   
 @app.get("/")
-def hello():
-    return "hello"
+async def root():
+    return {"message": "Hello World"}
+
