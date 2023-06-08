@@ -152,12 +152,8 @@ async def connect_to_deepgram(transcript_received_handler: Callable[[Dict], None
         return socket
     except Exception as e:
         raise Exception(f'Could not open socket: {e}')
- 
-@app.get("/", response_class=HTMLResponse)
-def get(request: Request):
-    return {"hi": "hi there"}
 
-@app.websocket("/listen")
+@app.websocket("/back_end_listen")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
 
@@ -215,7 +211,7 @@ def get_transcribed_text(response):
     
     return results
 
-@app.post(path="/upload_file")
+@app.post(path="/back_end_upload_file")
 async def transcribe_audio_file(file: UploadFile):
     with NamedTemporaryFile(delete=True) as temp_file:
         file_content = await file.read()
@@ -237,14 +233,14 @@ async def transcribe_audio_file(file: UploadFile):
                     )
         return get_transcribed_text(response)
 
-@app.post(path="/mock_upload_file")
+@app.post(path="/back_end_mock_upload_file")
 async def transcribe_audio_file(file: UploadFile):
     with open('output_file.json') as json_file:
         response = json.load(json_file)
         return get_transcribed_text(response)
  
 
-@app.websocket("/stream_chat")
+@app.websocket("/back_end_stream_chat")
 async def stream(websocket: WebSocket):
     await websocket.accept()
     
@@ -266,7 +262,7 @@ async def stream(websocket: WebSocket):
 
     await websocket.close()
   
-@app.get("/")
+@app.get("/back_end")
 async def root():
     return {"message": "Hello World"}
 
