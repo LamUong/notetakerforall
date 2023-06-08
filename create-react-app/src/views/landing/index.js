@@ -21,7 +21,7 @@ const ContentSection = ({ matchDownSM }) => {
   
   navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
         const mediaRecorder = new MediaRecorder(stream);
-        const socket = new WebSocket('ws://3.125.247.51:8000/back_end_listen');
+        const socket = new WebSocket('wss://3.125.247.51/back_end_listen');
 
         socket.onopen = () => {
           console.log({ event: 'onopen' });
