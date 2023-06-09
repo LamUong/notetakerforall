@@ -26,9 +26,11 @@ const AudioRecorder = () => {
   const mediaRecorderRef = useRef(null);
   const recordedChunksRef = useRef([]);
   const dispatch = useDispatch();
+  const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
   const handleStartRecording = () => {
-    const timerId = setInterval(() => {
+    
+    setInterval(() => {
       // Increase seconds
       setSeconds((prevSeconds) => prevSeconds + 1);
 
@@ -45,8 +47,6 @@ const AudioRecorder = () => {
       }
     }, 1000);
     
-    const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then((stream) => {
         const mediaRecorder = new MediaRecorder(stream);
