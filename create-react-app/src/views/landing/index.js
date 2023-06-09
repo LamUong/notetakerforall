@@ -48,11 +48,13 @@ const AudioRecorder = () => {
   };
 
   const handleDataAvailable = (event) => {
+    console.log('dataavailable');
     recordedChunksRef.current.push(event.data);
   };
 
   const handleStop = () => {
     const blob = new Blob(recordedChunksRef.current, { type: 'audio/webm' });
+    console.log(blob);
     navigate('/sample-page', {state: {file: blob}});
   };
 
