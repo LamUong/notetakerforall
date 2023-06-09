@@ -139,7 +139,11 @@ async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
 
     try:
-        deepgramLive = await dg_client.transcription.live({ 'punctuate': True })
+        deepgramLive = await dg_client.transcription.live({ 
+            'punctuate': True,     
+            'model': 'nova',
+            'detect_language' : True
+        })
     except Exception as e:
         print(f'Could not open socket: {e}')
         return
