@@ -29,7 +29,7 @@ const ContentSection = ({ matchDownSM }) => {
               socket.send(event.data);
             }
           })
-          mediaRecorder.start(250)
+          mediaRecorder.start(3000)
         }
 
         socket.onmessage = (message) => {
