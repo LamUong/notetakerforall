@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery, Button, Box } from '@mui/material';
 import MicIcon from "@material-ui/icons/Mic";
+import StopIcon from "@material-ui/icons/Stop";
 import Drop from "./Drop";
 import Logo from 'ui-component/Logo';
 import { useDispatch } from 'react-redux';
@@ -17,6 +18,9 @@ const LogoSection = () => (
 );
 
 const AudioRecorder = () => {
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [hours, setHours] = useState(0);
   const navigate = useNavigate();
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
@@ -24,6 +28,25 @@ const AudioRecorder = () => {
   const dispatch = useDispatch();
 
   const handleStartRecording = () => {
+    const timerId = setInterval(() => {
+      // Increase seconds
+      setSeconds((prevSeconds) => prevSeconds + 1);
+
+      // Update minutes and reset seconds
+      if (seconds === 59) {
+        setMinutes((prevMinutes) => prevMinutes + 1);
+        setSeconds(0);
+      }
+
+      // Update hours and reset minutes
+      if (minutes === 59 && seconds === 59) {
+        setHours((prevHours) => prevHours + 1);
+        setMinutes(0);
+      }
+    }, 1000);
+    
+    const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then((stream) => {
         const mediaRecorder = new MediaRecorder(stream);
@@ -63,11 +86,16 @@ const AudioRecorder = () => {
   return (
     <div>
       {recording ? (
-        <button onClick={handleStopRecording}>Stop Recording</button>
+        <div>
+          <div>{formattedTime}</div>
+          <Button onClick={handleStopRecording} variant="contained" endIcon={<StopIcon />} sx={{ marginTop: '30px !important' }}>
+             Stop Recording
+          </Button>
+        </div>
       ) : (
         <Button onClick={handleStartRecording} variant="contained" endIcon={<MicIcon />} sx={{ marginTop: '30px !important' }}>
-            Start Recording
-         </Button>
+           Start Recording
+        </Button>
       )}
     </div>
   );
