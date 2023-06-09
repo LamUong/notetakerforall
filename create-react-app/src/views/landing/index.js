@@ -14,6 +14,78 @@ const LogoSection = () => (
   </Grid>
 );
 
+const AudioRecorder = () => {
+  const [recording, setRecording] = useState(false);
+  const mediaRecorderRef = useRef(null);
+  const recordedChunksRef = useRef([]);
+
+  const handleStartRecording = () => {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then((stream) => {
+        const mediaRecorder = new MediaRecorder(stream);
+        mediaRecorderRef.current = mediaRecorder;
+
+        mediaRecorder.addEventListener('dataavailable', handleDataAvailable);
+        mediaRecorder.addEventListener('stop', handleStop);
+
+        mediaRecorder.start();
+
+        setRecording(true);
+      })
+      .catch((error) => {
+        console.error('Error accessing microphone:', error);
+      });
+  };
+
+  const handleStopRecording = () => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      mediaRecorderRef.current.stop();
+      setRecording(false);
+    }
+  };
+
+  const handleDataAvailable = (event) => {
+    recordedChunksRef.current.push(event.data);
+  };
+
+  const handleStop = () => {
+    const blob = new Blob(recordedChunksRef.current, { type: 'audio/webm' });
+    const formData = new FormData();
+    formData.append('audio', blob, 'recorded_audio.webm');
+
+    fetch('YOUR_FASTAPI_ENDPOINT', {
+      method: 'POST',
+      body: formData
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log('Audio uploaded successfully!');
+        } else {
+          console.error('Error uploading audio:', response.statusText);
+        }
+      })
+      .catch((error) => {
+        console.error('Error uploading audio:', error);
+      })
+      .finally(() => {
+        recordedChunksRef.current = [];
+      });
+  };
+
+  return (
+    <div>
+      {recording ? (
+        <button onClick={handleStopRecording}>Stop Recording</button>
+      ) : (
+        <Button onClick={handleStartRecording} variant="contained" endIcon={<MicIcon />} sx={{ marginTop: '30px !important' }}>
+            Start Recording
+         </Button>
+      )}
+    </div>
+  );
+};
+
+
 const ContentSection = ({ matchDownSM }) => {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -58,9 +130,7 @@ const ContentSection = ({ matchDownSM }) => {
             produce transcript, summaries, highlights and bullet points without hassle. 
             Ask questions and get answers from your notes powered by ChatGPT.
           </Typography>
-          <Button variant="contained" endIcon={<MicIcon />} sx={{ marginTop: '30px !important' }}>
-            Start Recording
-          </Button>
+          <AudioRecorder />
           <Grid item xs={12} width="100%">
             <Box sx={{ alignItems: 'center', display: 'flex' }}>
               <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
