@@ -309,7 +309,7 @@ const VideoUpload = (props) => {
     formData.append('file', video);
     try {
       dispatch({ type: 'SET_IS_UPLOADING', payload: true });
-      const response = await axios.post('https://3.125.247.51/back_end_mock_upload_file', formData, {
+      const response = await axios.post('https://3.125.247.51/back_end_upload_file', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
