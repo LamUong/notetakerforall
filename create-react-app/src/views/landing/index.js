@@ -91,6 +91,13 @@ const AudioRecorder = () => {
   );
 };
 
+const OrSection = () => (
+  <Grid item sx={{ mb: 3 }}>
+    <Link to="#">
+      <Logo />
+    </Link>
+  </Grid>
+);
 
 const ContentSection = ({ matchDownSM }) => {
   const theme = useTheme();
@@ -111,38 +118,39 @@ const ContentSection = ({ matchDownSM }) => {
             Ask questions and get answers from your notes powered by ChatGPT.
           </Typography>
           <AudioRecorder />
-          { customization.
-              
+          { !customization.is_recording_audio && 
+             <Grid item xs={12} width="100%">
+              <Box sx={{ alignItems: 'center', display: 'flex' }}>
+                <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
+                <Button
+                  variant="outlined"
+                  sx={{
+                    cursor: 'unset',
+                    m: 2,
+                    py: 0.5,
+                    px: 7,
+                    borderColor: `${theme.palette.grey[100]} !important`,
+                    color: `${theme.palette.grey[900]}!important`,
+                    fontWeight: 500,
+                    borderRadius: '5px'
+                  }}
+                  disableRipple
+                  disabled
+                >
+                  OR
+                </Button>
+                <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
+              </Box>
+            </Grid>    
           }
-          <Grid item xs={12} width="100%">
-            <Box sx={{ alignItems: 'center', display: 'flex' }}>
-              <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
-              <Button
-                variant="outlined"
-                sx={{
-                  cursor: 'unset',
-                  m: 2,
-                  py: 0.5,
-                  px: 7,
-                  borderColor: `${theme.palette.grey[100]} !important`,
-                  color: `${theme.palette.grey[900]}!important`,
-                  fontWeight: 500,
-                  borderRadius: '5px'
-                }}
-                disableRipple
-                disabled
-              >
-                OR
-              </Button>
-              <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
-            </Box>
-          </Grid>
-          <Drop
-            onLoaded={async (files) => {
-                dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
-                navigate('/sample-page', {state: {file: files[0]}});
-            }}
-          />
+          { !customization.is_recording_audio && 
+            <Drop
+              onLoaded={async (files) => {
+                  dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
+                  navigate('/sample-page', {state: {file: files[0]}});
+              }}
+            />
+          }
         </Stack>
       </Grid>
     </Grid>
