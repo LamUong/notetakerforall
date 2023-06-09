@@ -129,40 +129,44 @@ const ContentSection = ({ matchDownSM }) => {
             produce transcript, summaries, highlights and bullet points without hassle. 
             Ask questions and get answers from your notes powered by ChatGPT.
           </Typography>
-          <AudioRecorder />
-          { !customization.is_recording_audio && 
-             <Grid item xs={12} width="100%">
-              <Box sx={{ alignItems: 'center', display: 'flex' }}>
-                <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
-                <Button
-                  variant="outlined"
-                  sx={{
-                    cursor: 'unset',
-                    m: 2,
-                    py: 0.5,
-                    px: 7,
-                    borderColor: `${theme.palette.grey[100]} !important`,
-                    color: `${theme.palette.grey[900]}!important`,
-                    fontWeight: 500,
-                    borderRadius: '5px'
-                  }}
-                  disableRipple
-                  disabled
-                >
-                  OR
-                </Button>
-                <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
-              </Box>
-            </Grid>    
-          }
-          { !customization.is_recording_audio && 
-            <Drop
-              onLoaded={async (files) => {
-                  dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
-                  navigate('/sample-page', {state: {file: files[0]}});
-              }}
-            />
-          }
+          <div style={{
+              minHeight: '70vh'
+            }}> 
+              <AudioRecorder />
+              { !customization.is_recording_audio && 
+                 <Grid item xs={12} width="100%">
+                  <Box sx={{ alignItems: 'center', display: 'flex' }}>
+                    <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
+                    <Button
+                      variant="outlined"
+                      sx={{
+                        cursor: 'unset',
+                        m: 2,
+                        py: 0.5,
+                        px: 7,
+                        borderColor: `${theme.palette.grey[100]} !important`,
+                        color: `${theme.palette.grey[900]}!important`,
+                        fontWeight: 500,
+                        borderRadius: '5px'
+                      }}
+                      disableRipple
+                      disabled
+                    >
+                      OR
+                    </Button>
+                    <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
+                  </Box>
+                </Grid>    
+              }
+            { !customization.is_recording_audio && 
+              <Drop
+                onLoaded={async (files) => {
+                    dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
+                    navigate('/sample-page', {state: {file: files[0]}});
+                }}
+              />
+            }
+          </div>
         </Stack>
       </Grid>
     </Grid>
