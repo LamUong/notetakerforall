@@ -78,12 +78,28 @@ const AudioRecorder = () => {
   return (
     <div>
       {recording ? (
-        <div>
-          <div>{formattedTime}</div>
-          <Button onClick={handleStopRecording} variant="contained" endIcon={<StopIcon />} sx={{ marginTop: '30px !important' }}>
-             Stop Recording
-          </Button>
-        </div>
+           <div
+            style={{
+              minHeight: '40vh',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              {formattedTime}
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <Button onClick={handleStopRecording} variant="contained" endIcon={<StopIcon />} sx={{ marginTop: '30px !important' }}>
+                 Stop Recording
+              </Button>
+            </div>
+          </div>
       ) : (
         <Button onClick={handleStartRecording} variant="contained" endIcon={<MicIcon />} sx={{ marginTop: '30px !important' }}>
            Start Recording
