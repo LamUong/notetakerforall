@@ -18,33 +18,23 @@ const LogoSection = () => (
 );
 
 const AudioRecorder = () => {
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [hours, setHours] = useState(0);
+  const [totalSeconds, setTotalSeconds] = useState(0);
   const navigate = useNavigate();
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const recordedChunksRef = useRef([]);
   const dispatch = useDispatch();
-  const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  
+  const formattedTime = `Recording ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
   const handleStartRecording = () => {
     
     setInterval(() => {
-      // Increase seconds
-      setSeconds((prevSeconds) => prevSeconds + 1);
-
-      // Update minutes and reset seconds
-      if (seconds === 59) {
-        setMinutes((prevMinutes) => prevMinutes + 1);
-        setSeconds(0);
-      }
-
-      // Update hours and reset minutes
-      if (minutes === 59 && seconds === 59) {
-        setHours((prevHours) => prevHours + 1);
-        setMinutes(0);
-      }
+      setTotalSeconds((prevTotalSeconds) => prevTotalSeconds + 1);
     }, 1000);
     
     navigator.mediaDevices.getUserMedia({ audio: true })
