@@ -91,14 +91,6 @@ const AudioRecorder = () => {
   );
 };
 
-const OrSection = () => (
-  <Grid item sx={{ mb: 3 }}>
-    <Link to="#">
-      <Logo />
-    </Link>
-  </Grid>
-);
-
 const ContentSection = ({ matchDownSM }) => {
   const theme = useTheme();
   const navigate = useNavigate();
