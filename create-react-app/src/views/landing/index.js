@@ -137,7 +137,7 @@ const ContentSection = ({ matchDownSM }) => {
             </Typography>
           </Stack>
           <Stack style={{
-              minHeight: '40vh',
+              minHeight: '60vh',
               alignItems: 'center',
               justifyContent: 'center',
             }}>
