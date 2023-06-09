@@ -52,26 +52,7 @@ const AudioRecorder = () => {
 
   const handleStop = () => {
     const blob = new Blob(recordedChunksRef.current, { type: 'audio/webm' });
-    const formData = new FormData();
-    formData.append('audio', blob, 'recorded_audio.webm');
-
-    fetch('YOUR_FASTAPI_ENDPOINT', {
-      method: 'POST',
-      body: formData
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log('Audio uploaded successfully!');
-        } else {
-          console.error('Error uploading audio:', response.statusText);
-        }
-      })
-      .catch((error) => {
-        console.error('Error uploading audio:', error);
-      })
-      .finally(() => {
-        recordedChunksRef.current = [];
-      });
+    navigate('/sample-page', {state: {file: blob}});
   };
 
   return (
