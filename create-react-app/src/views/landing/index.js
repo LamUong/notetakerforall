@@ -97,7 +97,7 @@ const AudioRecorder = () => {
               {formattedTime}
             </div>
             <div style={{ textAlign: 'center' }}>
-              <Button onClick={handleStopRecording} variant="contained" endIcon={<StopIcon />} sx={{ marginTop: '30px !important' }}>
+              <Button onClick={handleStopRecording} variant="contained" endIcon={<StopIcon />} sx={{ marginTop: '10px !important' }}>
                  Stop Recording
               </Button>
             </div>
@@ -139,7 +139,6 @@ const ContentSection = ({ matchDownSM }) => {
           <Stack style={{
               minHeight: '60vh',
               alignItems: 'center',
-              justifyContent: 'center',
             }}>
               <AudioRecorder />
               { !customization.is_recording_audio && 
