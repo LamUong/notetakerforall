@@ -21,6 +21,7 @@ const AudioRecorder = () => {
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const recordedChunksRef = useRef([]);
+  const dispatch = useDispatch();
 
   const handleStartRecording = () => {
     navigator.mediaDevices.getUserMedia({ audio: true })
@@ -55,6 +56,7 @@ const AudioRecorder = () => {
   const handleStop = () => {
     const blob = new Blob(recordedChunksRef.current, { type: 'audio/webm' });
     console.log(blob);
+    dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
     navigate('/sample-page', {state: {file: blob}});
   };
 
