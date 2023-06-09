@@ -17,6 +17,7 @@ export const initialState = {
   is_transcribing: false,
   is_processed: false,
   is_handle_upload_called: false,
+  is_recording_audio: false,
   highlighted_notes: null,
   highlighted_notes_range: null,
   chat_response: null,
@@ -99,6 +100,10 @@ const customizationReducer = (state = initialState, action) => {
     case 'SET_IS_STREAMING_CHAT_RESPONSE':
       return Object.assign({}, state, {
         is_streaming_chat_response: action.payload, 
+      })
+    case 'SET_IS_RECORDING_AUDIO':
+      return Object.assign({}, state, {
+        is_recording_audio: action.payload, 
       })
     default:
       return state;
