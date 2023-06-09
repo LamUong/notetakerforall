@@ -121,8 +121,10 @@ const ContentSection = ({ matchDownSM }) => {
     <Grid item xs={6} alignItems="center" justifyContent="center">
       <Grid item>
         <Stack alignItems="center" justifyContent="center" spacing={1}>
-          <div style={{
-              minHeight: '40vh'
+          <Stack style={{
+              minHeight: '40vh',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}>
             <LogoSection />
             <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
@@ -133,7 +135,7 @@ const ContentSection = ({ matchDownSM }) => {
               produce transcript, summaries, highlights and bullet points without hassle. 
               Ask questions and get answers from your notes powered by ChatGPT.
             </Typography>
-          </div>
+          </Stack>
           <div style={{
               minHeight: '60vh'
             }}> 
