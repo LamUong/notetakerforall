@@ -17,6 +17,7 @@ const LogoSection = () => (
 );
 
 const AudioRecorder = () => {
+  const navigate = useNavigate();
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const recordedChunksRef = useRef([]);
