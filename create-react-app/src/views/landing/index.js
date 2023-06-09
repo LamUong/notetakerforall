@@ -33,6 +33,8 @@ const AudioRecorder = () => {
 
   const handleStartRecording = () => {
     
+    dispatch({ type: 'SET_IS_RECORDING_AUDIO', payload: true });
+
     setInterval(() => {
       setTotalSeconds((prevTotalSeconds) => prevTotalSeconds + 1);
     }, 1000);
