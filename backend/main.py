@@ -137,11 +137,10 @@ def format_chat_response(input_text, input_type):
 async def websocket_endpoint(websocket: WebSocket):
     async def get_transcript(data: Dict) -> None:
         if 'channel' in data:
-        transcript = data['channel']['alternatives'][0]['transcript']
-
-        if transcript:
-            print(transcript)
-            await websocket.send_text(transcript)
+            transcript = data['channel']['alternatives'][0]['transcript']
+            if transcript:
+                print(transcript)
+                await websocket.send_text(transcript)
         
     await websocket.accept()
 
