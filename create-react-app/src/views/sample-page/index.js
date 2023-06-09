@@ -51,7 +51,7 @@ const MyCard = ({ onReplaceButtonClick }) => {
   const chatStream = (valueType) => {
     dispatch({ type: 'SET_CHAT_ACTION_TYPE', payload: valueType });
 
-    socketRef.current = new WebSocket('wss://3.125.247.51:8000/backend_stream_chat');
+    socketRef.current = new WebSocket('wss://3.125.247.51/backend_stream_chat');
     
     socketRef.current.addEventListener('open', () => {
       // Send additional data to the server
@@ -309,7 +309,7 @@ const VideoUpload = (props) => {
     formData.append('file', video);
     try {
       dispatch({ type: 'SET_IS_UPLOADING', payload: true });
-      const response = await axios.post('https://3.125.247.51:8000/backend_mock_upload_file', formData, {
+      const response = await axios.post('https://3.125.247.51/backend_mock_upload_file', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
