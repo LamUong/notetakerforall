@@ -7,7 +7,7 @@ import MicIcon from "@material-ui/icons/Mic";
 import StopIcon from "@material-ui/icons/Stop";
 import Drop from "./Drop";
 import Logo from 'ui-component/Logo';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const LogoSection = () => (
   <Grid item sx={{ mb: 3 }}>
@@ -96,6 +96,7 @@ const ContentSection = ({ matchDownSM }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const customization = useSelector((state) => state.customization);
 
   return (
     <Grid item xs={6} alignItems="center" justifyContent="center">
@@ -110,6 +111,9 @@ const ContentSection = ({ matchDownSM }) => {
             Ask questions and get answers from your notes powered by ChatGPT.
           </Typography>
           <AudioRecorder />
+          { customization.
+              
+          }
           <Grid item xs={12} width="100%">
             <Box sx={{ alignItems: 'center', display: 'flex' }}>
               <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
