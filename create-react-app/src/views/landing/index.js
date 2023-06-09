@@ -136,9 +136,11 @@ const ContentSection = ({ matchDownSM }) => {
               Ask questions and get answers from your notes powered by ChatGPT.
             </Typography>
           </Stack>
-          <div style={{
-              minHeight: '60vh'
-            }}> 
+          <Stack style={{
+              minHeight: '40vh',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
               <AudioRecorder />
               { !customization.is_recording_audio && 
                  <Grid item xs={12} width="100%">
@@ -173,7 +175,7 @@ const ContentSection = ({ matchDownSM }) => {
                 }}
               />
             }
-          </div>
+          </Stack>
         </Stack>
       </Grid>
     </Grid>
