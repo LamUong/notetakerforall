@@ -1,3 +1,5 @@
+import React, { useState, useRef } from 'react';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery, Button, Box } from '@mui/material';
@@ -90,33 +92,6 @@ const ContentSection = ({ matchDownSM }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
-  navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-        const mediaRecorder = new MediaRecorder(stream);
-        const socket = new WebSocket('wss://3.125.247.51/back_end_listen');
-
-        socket.onopen = () => {
-          mediaRecorder.addEventListener('dataavailable', event => {
-            if (event.data.size > 0 && socket.readyState == 1) {
-              socket.send(event.data);
-            }
-          })
-          mediaRecorder.start(3000)
-        }
-
-        socket.onmessage = (message) => {
-          console.log('onmessage');
-          console.log(message);
-        }
-
-        socket.onclose = () => {
-          console.log({ event: 'onclose' });
-        }
-
-        socket.onerror = (error) => {
-          console.log({ event: 'onerror', error });
-        }
-  })
 
   return (
     <Grid item xs={6} alignItems="center" justifyContent="center">
