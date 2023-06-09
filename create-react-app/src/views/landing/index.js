@@ -121,16 +121,21 @@ const ContentSection = ({ matchDownSM }) => {
     <Grid item xs={6} alignItems="center" justifyContent="center">
       <Grid item>
         <Stack alignItems="center" justifyContent="center" spacing={1}>
-          <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-            Your AI-powered note taker
-          </Typography>
-          <Typography variant="caption" fontSize="16px" textAlign="center" >
-            Never take notes by hand again. Real time audio recording or uploaded video/audio that
-            produce transcript, summaries, highlights and bullet points without hassle. 
-            Ask questions and get answers from your notes powered by ChatGPT.
-          </Typography>
           <div style={{
-              minHeight: '70vh'
+              minHeight: '40vh'
+            }}>
+            <LogoSection />
+            <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
+              Your AI-powered note taker
+            </Typography>
+            <Typography variant="caption" fontSize="16px" textAlign="center" >
+              Never take notes by hand again. Real time audio recording or uploaded video/audio that
+              produce transcript, summaries, highlights and bullet points without hassle. 
+              Ask questions and get answers from your notes powered by ChatGPT.
+            </Typography>
+          </div>
+          <div style={{
+              minHeight: '60vh'
             }}> 
               <AudioRecorder />
               { !customization.is_recording_audio && 
@@ -183,7 +188,6 @@ const Landing = () => {
         <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
           <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
             <Grid container spacing={2} alignItems="center" justifyContent="center">
-              <LogoSection />
               <Grid container>
                 <Grid item xs={3}></Grid>
                 <ContentSection matchDownSM={matchDownSM} />
