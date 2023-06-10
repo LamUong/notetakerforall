@@ -106,7 +106,7 @@ const AudioRecorder = () => {
             </div>
           </div>
       ) : (
-        <Button onClick={handleStartRecording} variant="contained" endIcon={<MicIcon />} sx={{ marginTop: '10px !important' }}>
+        <Button onClick={handleStartRecording} variant="contained" endIcon={<MicIcon />} sx={{ marginBotton: '20px !important' }}>
            Start Recording
         </Button>
       )}
@@ -144,9 +144,9 @@ const ContentSection = ({ matchDownSM }) => {
               alignItems: 'center',
               marginBottom: '10vh',
               width: '100%',
-              border: '1px solid',
+              border: '1px solid' ,
               borderRadius: '5px',
-              borderColor: '#ccc',
+              borderColor: customization.is_recording_audio? '#ccc' : 'white',
             }}>
               <AudioRecorder />
               { !customization.is_recording_audio && 
