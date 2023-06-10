@@ -95,7 +95,7 @@ const AudioRecorder = () => {
                 alignItems: 'center',
                 flex: "1",
               }}>
-              <Button variant="outlined" startIcon={<RadioButtonCheckedIcon />} >
+              <Button color="red" variant="outlined" startIcon={<RadioButtonCheckedIcon color="red" />} >
                  {formattedTime}
               </Button>
             </div>
