@@ -141,6 +141,9 @@ const ContentSection = ({ matchDownSM }) => {
               alignItems: 'center',
               marginBottom: '10vh',
               width: '100%',
+              border: '1px solid',
+              borderRadius: '5px',
+              borderColor: '#ccc',
             }}>
               <AudioRecorder />
               { !customization.is_recording_audio && 
