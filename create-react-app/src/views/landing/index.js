@@ -95,12 +95,12 @@ const AudioRecorder = () => {
                 alignItems: 'center',
                 flex: "1",
               }}>
-              <Button variant="outlined" startIcon={<RadioButtonCheckedIcon />} disabled >
+              <Button variant="contained" startIcon={<RadioButtonCheckedIcon />} disabled >
                  {formattedTime}
               </Button>
             </div>
             <div style={{ textAlign: 'center' }}>
-              <Button color="error" onClick={handleStopRecording} variant="contained" startIcon={<StopIcon />} sx={{ marginTop: '10px !important' }}>
+              <Button color="error" onClick={handleStopRecording} variant="outlined" startIcon={<StopIcon />} sx={{ marginTop: '10px !important' }}>
                  Stop Recording
               </Button>
             </div>
@@ -144,9 +144,6 @@ const ContentSection = ({ matchDownSM }) => {
               alignItems: 'center',
               marginBottom: '10vh',
               width: '100%',
-              border: '1px solid' ,
-              borderRadius: '5px',
-              borderColor: customization.is_recording_audio? '#ccc' : 'white',
             }}>
               <AudioRecorder />
               { !customization.is_recording_audio && 
