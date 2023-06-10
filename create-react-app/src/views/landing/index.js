@@ -137,8 +137,10 @@ const ContentSection = ({ matchDownSM }) => {
             </Typography>
           </Stack>
           <Stack style={{
-              minHeight: '60vh',
+              minHeight: '50vh',
               alignItems: 'center',
+              marginBottom: '10vh',
+              width: '100%',
             }}>
               <AudioRecorder />
               { !customization.is_recording_audio && 
