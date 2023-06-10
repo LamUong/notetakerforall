@@ -30,7 +30,7 @@ const AudioRecorder = () => {
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
   
-  const formattedTime = `Recording ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
   const handleStartRecording = () => {
     
@@ -95,12 +95,21 @@ const AudioRecorder = () => {
                 alignItems: 'center',
                 flex: "1",
               }}>
-              <Button variant="contained" startIcon={<RadioButtonCheckedIcon />} disabled >
-                 {formattedTime}
-              </Button>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  borderRadius: '10px',
+                  backgroundColor: '#ececf1',
+                  padding: '8px',
+                }}
+              >
+                <RadioButtonCheckedIcon style={{ marginRight: '8px', color: 'red' }} />
+                <span style={{ fontSize: '16px', color: '#323232' }}>{formattedTime}</span>
+              </div>
             </div>
             <div style={{ textAlign: 'center' }}>
-              <Button color="error" onClick={handleStopRecording} variant="outlined" startIcon={<StopIcon />} sx={{ marginTop: '10px !important' }}>
+              <Button color="error" onClick={handleStopRecording} variant="outlined" startIcon={<StopIcon />} sx={{ marginTop: '10px !important', width: '100%' }}>
                  Stop Recording
               </Button>
             </div>
