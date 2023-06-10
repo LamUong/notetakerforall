@@ -106,7 +106,7 @@ const AudioRecorder = () => {
             </div>
           </div>
       ) : (
-        <Button onClick={handleStartRecording} variant="contained" endIcon={<MicIcon />} sx={{ marginBotton: '20px !important' }}>
+        <Button onClick={handleStartRecording} variant="contained" endIcon={<MicIcon />} sx={{ marginBotton: '20px' }}>
            Start Recording
         </Button>
       )}
