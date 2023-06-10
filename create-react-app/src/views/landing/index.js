@@ -8,6 +8,7 @@ import StopIcon from "@material-ui/icons/Stop";
 import Drop from "./Drop";
 import Logo from 'ui-component/Logo';
 import { useDispatch, useSelector } from 'react-redux';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 const LogoSection = () => (
   <Grid item sx={{ mb: 3 }}>
@@ -94,10 +95,12 @@ const AudioRecorder = () => {
                 alignItems: 'center',
                 flex: "1",
               }}>
-              {formattedTime}
+              <Button variant="outlined" startIcon={<RadioButtonCheckedIcon />} >
+                 {formattedTime}
+              </Button>
             </div>
             <div style={{ textAlign: 'center' }}>
-              <Button onClick={handleStopRecording} variant="contained" endIcon={<StopIcon />} sx={{ marginTop: '10px !important' }}>
+              <Button onClick={handleStopRecording} variant="contained" startIcon={<StopIcon />} sx={{ marginTop: '10px !important' }}>
                  Stop Recording
               </Button>
             </div>
