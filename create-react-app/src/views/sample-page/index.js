@@ -244,14 +244,14 @@ const Notes = () => {
         />
       </Grid>
       <Grid item xs={4}> 
-        <Box sx={{ width: '100%', border: '1px solid #ccc', height: '70vh', background: 'white' }}>
-          <Container sx={{ my: 3, mx: 2 }} className = "smart-editor-container" >
+        <Box sx={{ width: '100%', border: '1px solid #ccc', height: '70vh', background: 'white', display: 'flex', flexDirection: 'column' }}>
+          <Container sx={{ my: 3, mx: 2, flex: '0 1 auto' }} className="smart-editor-container">
             <div className="smart-editor-title">
               Smart Editor
             </div>
           </Container>
           <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
-          <div>
+          <div style={{ flex: '1 1 auto', overflowY: 'scroll' }} >
             <Box sx={{ m: 2 }}>
               <Typography gutterBottom variant="body1">
                 Please highlight some text to edit.
