@@ -289,7 +289,6 @@ const ContentTabs = (props) => {
 }
 
 const VideoUpload = (props) => {
-  const [progress, setProgress] = useState(0);
   const dispatch = useDispatch();
   const video = props.file;
   const customization = useSelector((state) => state.customization);
@@ -317,11 +316,11 @@ const VideoUpload = (props) => {
           const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
           console.log(progressEvent);
           console.log(progress);
-
-          setProgress(progress);
+          dispatch({ type: 'SET_UPLOAD_PROGRESS', payload: progress });
           if (progress == 100){
             dispatch({ type: 'SET_IS_UPLOADING', payload: false });
             dispatch({ type: 'SET_IS_TRANSCRIBING', payload: true });
+            dispatch({ type: 'SET_UPLOAD_PROGRESS', payload: 0 });
           }
         },
       });
@@ -350,8 +349,8 @@ const VideoUpload = (props) => {
       {customization.is_uploading &&
         <div>
           <Typography variant="body2">Upload Progress</Typography>
-          {progress}
-          <LinearProgress variant="determinate" value={progress} />
+          {customization.upload_progress}
+          <LinearProgress variant="determinate" value={customization.upload_progress} />
         </div>
       }
       {customization.is_transcribing &&
