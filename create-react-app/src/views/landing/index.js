@@ -46,6 +46,7 @@ const AudioRecorder = () => {
         mediaRecorderRef.current = mediaRecorder;
 
         mediaRecorder.addEventListener('dataavailable', handleDataAvailable);
+        mediaRecorder.addEventListener('stop', handleStop);
 
         mediaRecorder.start();
 
@@ -56,18 +57,24 @@ const AudioRecorder = () => {
   };
 
   const handleStopRecording = () => {
-    mediaRecorderRef.current.stop();
-    const blob = new Blob(recordedChunksRef.current, { type: 'audio/webm' });
-    console.log(recordedChunksRef.current);
-    dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
-    dispatch({ type: 'SET_IS_RECORDING_AUDIO', payload: false });
-    navigate('/sample-page', {state: {file: blob}});
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      mediaRecorderRef.current.stop();
+    }
   };
 
   const handleDataAvailable = (event) => {
     console.log('dataavailable');
     recordedChunksRef.current.push(event.data);
   };
+  
+  const handleStop = () => {
+    const blob = new Blob(recordedChunksRef.current, { type: 'audio/webm' });
+    console.log(blob);
+    dispatch({ type: 'SET_IS_RECORDING_AUDIO', payload: false });
+    dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
+    navigate('/sample-page', {state: {file: blob}});
+  };
+
 
   return (
     <div>
