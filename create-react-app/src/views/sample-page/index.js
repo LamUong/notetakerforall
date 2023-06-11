@@ -244,7 +244,7 @@ const Notes = () => {
         />
       </Grid>
       <Grid item xs={4}> 
-        <Box sx={{ width: '100%', border: '1px solid #ccc', height: '100%', background: 'white' }}>
+        <Box sx={{ width: '100%', border: '1px solid #ccc', height: '80vh', overflowY: 'scroll', background: 'white' }}>
           <Container sx={{ my: 3, mx: 2 }} className = "smart-editor-container" >
             <div className="smart-editor-title">
               Smart Editor
