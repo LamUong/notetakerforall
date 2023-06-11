@@ -350,6 +350,7 @@ const VideoUpload = (props) => {
       {customization.is_uploading &&
         <div>
           <Typography variant="body2">Upload Progress</Typography>
+          {progress}
           <LinearProgress variant="determinate" value={progress} />
         </div>
       }
