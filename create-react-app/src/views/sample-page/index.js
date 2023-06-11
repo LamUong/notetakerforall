@@ -86,11 +86,11 @@ const MyCard = ({ onReplaceButtonClick }) => {
     {customization.highlighted_notes &&
       <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
         <div style={{ padding: '10px 10px 10px 10px' }}>
-          <span style={{ fontWeight: '600', color: '#808080' }}>Selected text</span>
+          <span className = "smart-editor-title" >Selected text</span>
         </div>
         <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
 
-        <div style={{ maxHeight: '150px', overflow: 'auto', fontSize: '0.6em', padding: '0px 10px 0px 10px' }}
+        <div className="selected-text-display" style={{ maxHeight: '150px', overflow: 'auto', padding: '0px 10px 0px 10px' }}
           dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
         </div>
         <br />
@@ -99,16 +99,16 @@ const MyCard = ({ onReplaceButtonClick }) => {
           ) : (
             <Grid container rowSpacing={1} columnSpacing={1} style={{ padding: '10px 10px 10px 10px' }}>
               <Grid item >
-                <Chip style={{ fontSize: '0.6em' }} label="Title" variant="outlined" onClick={() => chatStream('Title')} />
+                <Chip className="chat-action-chip" label="Title" variant="outlined" onClick={() => chatStream('Title')} />
               </Grid>
               <Grid item >
-                <Chip style={{ fontSize: '0.6em' }} label="Summary" variant="outlined" onClick={() => chatStream('Summary')} />
+                <Chip className="chat-action-chip" label="Summary" variant="outlined" onClick={() => chatStream('Summary')} />
               </Grid>
               <Grid item >
-                <Chip style={{ fontSize: '0.6em' }} label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints')} />
+                <Chip className="chat-action-chip" label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints')} />
               </Grid>
               <Grid item >
-                <Chip style={{ fontSize: '0.6em' }} label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
+                <Chip className="chat-action-chip" label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
               </Grid>
             </Grid>
           )
@@ -140,7 +140,7 @@ const MyCard = ({ onReplaceButtonClick }) => {
                  </div>
               </div>
               <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
-              <div style={{ fontSize: '0.6em', padding: '10px' }} dangerouslySetInnerHTML={{ __html: customization.chat_response }}></div>
+              <div style={{padding: '10px' }} className="selected-text-display" dangerouslySetInnerHTML={{ __html: customization.chat_response }}></div>
             </div>
           )
         }
