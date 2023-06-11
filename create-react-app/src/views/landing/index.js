@@ -70,7 +70,7 @@ const AudioRecorder = () => {
 
   return (
     <div>
-      {customization.is_recording_audio ? (
+      {customization.is_recording_audio &&
            <div
             style={{
               minHeight: '40vh',
@@ -105,13 +105,12 @@ const AudioRecorder = () => {
               </Button>
             </div>
           </div>
-      ) : (
-        { !customization.input_type && 
-          <Button onClick={handleStartRecording} variant="contained" endIcon={<MicIcon />} sx={{ marginBotton: '20px' }}>
-             Start Recording
-          </Button>
-        }
-      )}
+      } 
+      { (!customization.input_type && !customization.is_recording_audio) && 
+        <Button onClick={handleStartRecording} variant="contained" endIcon={<MicIcon />} sx={{ marginBotton: '20px' }}>
+           Start Recording
+        </Button>
+      }
     </div>
   );
 };
