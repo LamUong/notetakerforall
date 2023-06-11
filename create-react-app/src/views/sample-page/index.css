@@ -29,6 +29,9 @@
   font-weight: 1000;
   font-style: normal;
   font-family: sans-serif;
+  height: 70vh;
+  overflow-y: scroll;
+  
 }
 
 .transcript-block > p {
