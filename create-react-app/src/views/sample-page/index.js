@@ -246,9 +246,9 @@ const Notes = () => {
       <Grid item xs={4}> 
         <Box sx={{ width: '100%', border: '1px solid #ccc', height: '100%', background: 'white' }}>
           <Container sx={{ my: 3, mx: 2 }}>
-            <Typography color="text.secondary" variant="body2">
+            <div className="smart-editor-title">
               Smart Editor
-            </Typography>
+            </div>
           </Container>
           <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
           <Box sx={{ m: 2 }}>
