@@ -85,11 +85,6 @@ const MyCard = ({ onReplaceButtonClick }) => {
     <div>
     {customization.highlighted_notes &&
       <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
-        <div className = "smart-editor-container">
-          <span className = "smart-editor-title" >Selected text</span>
-        </div>
-        <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
-                
         {
           customization.chat_response && customization.chat_action_type && (
             <div>
@@ -120,11 +115,16 @@ const MyCard = ({ onReplaceButtonClick }) => {
             </div>
           )
         }
-
+        
+        <div className = "smart-editor-container">
+          <span className = "smart-editor-title" >Selected text</span>
+        </div>
+        <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
         <div className="selected-text-display" style={{ maxHeight: '150px', overflow: 'auto', padding: '0px 10px 0px 10px' }}
           dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
         </div>
         <br />
+            
         {customization.chat_action_type ? (
           <div></div>          
           ) : (
