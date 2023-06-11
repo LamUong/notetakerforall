@@ -85,7 +85,7 @@ const MyCard = ({ onReplaceButtonClick }) => {
     <div>
     {customization.highlighted_notes &&
       <Card sx={{ borderColor: '#ccc', borderStyle: 'solid', margin: '10px' }}>
-        <div style={{ padding: '10px 10px 10px 10px' }}>
+        <div className = "smart-editor-container">
           <span className = "smart-editor-title" >Selected text</span>
         </div>
         <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
