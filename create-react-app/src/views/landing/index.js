@@ -104,7 +104,7 @@ const AudioRecorder = () => {
                   padding: '8px',
                 }}
               >
-                <RadioButtonCheckedIcon style={{ marginRight: '8px', color: 'red' }} />
+                <RadioButtonCheckedIcon style={{ marginRight: '8px', color: 'red', height: '10px' }} />
                 <span style={{ fontSize: '16px', color: '#323232' }}>{formattedTime}</span>
               </div>
             </div>
