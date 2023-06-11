@@ -155,7 +155,7 @@ const ContentSection = ({ matchDownSM }) => {
               width: '100%',
             }}>
               <AudioRecorder />
-              { !customization.is_recording_audio && 
+              { !customization.is_recording_audio && !customization.input_type && 
                  <Grid item xs={12} width="100%">
                   <Box sx={{ alignItems: 'center', display: 'flex' }}>
                     <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
