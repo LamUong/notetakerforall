@@ -23,6 +23,7 @@ export const initialState = {
   chat_response: null,
   is_streaming_chat_response: null,
   chat_action_type: null,
+  upload_progress: null,
 };
 
 // ==============================|| CUSTOMIZATION REDUCER ||============================== //
@@ -104,6 +105,10 @@ const customizationReducer = (state = initialState, action) => {
     case 'SET_IS_RECORDING_AUDIO':
       return Object.assign({}, state, {
         is_recording_audio: action.payload, 
+      })
+    case 'SET_UPLOAD_PROGRESS':
+      return Object.assign({}, state, {
+        upload_progress: action.payload, 
       })
     default:
       return state;
