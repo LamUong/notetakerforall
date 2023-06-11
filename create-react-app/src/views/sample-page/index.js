@@ -89,31 +89,7 @@ const MyCard = ({ onReplaceButtonClick }) => {
           <span className = "smart-editor-title" >Selected text</span>
         </div>
         <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
-
-        <div className="selected-text-display" style={{ maxHeight: '150px', overflow: 'auto', padding: '0px 10px 0px 10px' }}
-          dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
-        </div>
-        <br />
-        {customization.chat_action_type ? (
-          <div></div>          
-          ) : (
-            <Grid container rowSpacing={1} columnSpacing={1} style={{ padding: '10px 10px 10px 10px' }}>
-              <Grid item >
-                <Chip className="chat-action-chip" label="Title" variant="outlined" onClick={() => chatStream('Title')} />
-              </Grid>
-              <Grid item >
-                <Chip className="chat-action-chip" label="Summary" variant="outlined" onClick={() => chatStream('Summary')} />
-              </Grid>
-              <Grid item >
-                <Chip className="chat-action-chip" label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints')} />
-              </Grid>
-              <Grid item >
-                <Chip className="chat-action-chip" label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
-              </Grid>
-            </Grid>
-          )
-        }
-        
+                
         {
           customization.chat_response && customization.chat_action_type && (
             <div>
@@ -145,7 +121,29 @@ const MyCard = ({ onReplaceButtonClick }) => {
           )
         }
 
-        
+        <div className="selected-text-display" style={{ maxHeight: '150px', overflow: 'auto', padding: '0px 10px 0px 10px' }}
+          dangerouslySetInnerHTML={{ __html: deltaToHtml(customization.highlighted_notes.delta) }}>
+        </div>
+        <br />
+        {customization.chat_action_type ? (
+          <div></div>          
+          ) : (
+            <Grid container rowSpacing={1} columnSpacing={1} style={{ padding: '10px 10px 10px 10px' }}>
+              <Grid item >
+                <Chip className="chat-action-chip" label="Title" variant="outlined" onClick={() => chatStream('Title')} />
+              </Grid>
+              <Grid item >
+                <Chip className="chat-action-chip" label="Summary" variant="outlined" onClick={() => chatStream('Summary')} />
+              </Grid>
+              <Grid item >
+                <Chip className="chat-action-chip" label="Bullet points" variant="outlined" onClick={() => chatStream('BulletPoints')} />
+              </Grid>
+              <Grid item >
+                <Chip className="chat-action-chip" label="Outline" variant="outlined" onClick={() => chatStream('Outline')}  />
+              </Grid>
+            </Grid>
+          )
+        }
       </Card>
     }
     </div>
