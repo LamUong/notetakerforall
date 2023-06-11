@@ -35,6 +35,11 @@
   color: #697586;
 }
 
+.smart-editor-container {
+  margin: 10px !important;
+  padding: 0;
+}
+
 .selected-text-display > p {
   font-size: 14px;
   font-weight: 1000;
