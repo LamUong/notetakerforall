@@ -1,5 +1,16 @@
+.quill {
+  height: 70vh;
+  display: flex;
+  flex-flow: column;
+}
+
+.ql-toolbar {
+  flex: 0 1 auto;
+}
+
 .ql-container {
-  height: 60vh;
+  flex: 1 1 auto;
+  overflow-y: scroll;
 }
 
 .ql-editor > p {
