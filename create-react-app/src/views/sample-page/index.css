@@ -18,3 +18,7 @@
   font-style: normal;
   font-family: sans-serif;
 }
+
+.transcript-block > p {
+  margin: 5px;
+}
