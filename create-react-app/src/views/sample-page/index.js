@@ -118,11 +118,10 @@ const MyCard = ({ onReplaceButtonClick }) => {
           customization.chat_response && customization.chat_action_type && (
             <div>
               <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
-              <div style={{ width: '100%', display: 'inline-flex', alignItems: 'center' }}
-                className = "smart-editor-container" >
-                <span className="smart-editor-title" >
-                  {customization.chat_action_type}
-                </span>
+                <div style={{ padding: '0px 10px 0px 10px', width: '100%', display: 'inline-flex', alignItems: 'center' }}>
+                  <span style={{ fontWeight: '600', color: '#808080' }}>
+                    {customization.chat_action_type}
+                  </span>
                   <div style={{ marginLeft: 'auto' }}>
                     <Grid container rowSpacing={1} columnSpacing={1} >
                         <Grid item >
