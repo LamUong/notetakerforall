@@ -119,7 +119,7 @@ const MyCard = ({ onReplaceButtonClick }) => {
             <div>
               <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
               <div style={{ padding: '0px 10px 0px 10px', width: '100%', display: 'inline-flex', alignItems: 'center' }}>
-                <span style={{ fontWeight: '600', color: '#808080' }}>
+                <span className="smart-editor-title" >
                   {customization.chat_action_type}
                 </span>
                   <div style={{ marginLeft: 'auto' }}>
