@@ -353,13 +353,13 @@ const VideoUpload = (props) => {
         </div>
       }
       {customization.is_transcribing &&
-        <div>
+        <div className="transcript-block">
           <Typography variant="body2">Transcribing</Typography>
           <CircularProgress />
         </div>
       }
       {customization.is_processed &&
-        <div dangerouslySetInnerHTML={{ __html: customization.transcript }}></div>
+        <div className="transcript-block" dangerouslySetInnerHTML={{ __html: customization.transcript }}></div>
       }
     </MainCard>
   );
