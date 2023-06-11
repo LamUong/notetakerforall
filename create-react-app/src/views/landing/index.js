@@ -21,11 +21,11 @@ const LogoSection = () => (
 const AudioRecorder = () => {
   const [totalSeconds, setTotalSeconds] = useState(0);
   const navigate = useNavigate();
-  const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const recordedChunksRef = useRef([]);
   const dispatch = useDispatch();
-  
+  const customization = useSelector((state) => state.customization);
+
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
@@ -46,11 +46,9 @@ const AudioRecorder = () => {
         mediaRecorderRef.current = mediaRecorder;
 
         mediaRecorder.addEventListener('dataavailable', handleDataAvailable);
-        mediaRecorder.addEventListener('stop', handleStop);
 
         mediaRecorder.start();
 
-        setRecording(true);
       })
       .catch((error) => {
         console.error('Error accessing microphone:', error);
@@ -58,10 +56,11 @@ const AudioRecorder = () => {
   };
 
   const handleStopRecording = () => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
-      mediaRecorderRef.current.stop();
-      setRecording(false);
-    }
+    mediaRecorderRef.current.stop();
+    const blob = new Blob(recordedChunksRef.current, { type: 'audio/webm' });
+    dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
+    dispatch({ type: 'SET_IS_RECORDING_AUDIO', payload: false });
+    navigate('/sample-page', {state: {file: blob}});
   };
 
   const handleDataAvailable = (event) => {
@@ -69,17 +68,9 @@ const AudioRecorder = () => {
     recordedChunksRef.current.push(event.data);
   };
 
-  const handleStop = () => {
-    const blob = new Blob(recordedChunksRef.current, { type: 'audio/webm' });
-    console.log(blob);
-    dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
-    dispatch({ type: 'SET_IS_RECORDING_AUDIO', payload: false });
-    navigate('/sample-page', {state: {file: blob}});
-  };
-
   return (
     <div>
-      {recording ? (
+      {customization.is_recording_audio ? (
            <div
             style={{
               minHeight: '40vh',
@@ -115,9 +106,11 @@ const AudioRecorder = () => {
             </div>
           </div>
       ) : (
-        <Button onClick={handleStartRecording} variant="contained" endIcon={<MicIcon />} sx={{ marginBotton: '20px' }}>
-           Start Recording
-        </Button>
+        { (!customization.input_type) && 
+          <Button onClick={handleStartRecording} variant="contained" endIcon={<MicIcon />} sx={{ marginBotton: '20px' }}>
+             Start Recording
+          </Button>
+        }
       )}
     </div>
   );
