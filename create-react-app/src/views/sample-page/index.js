@@ -315,6 +315,9 @@ const VideoUpload = (props) => {
         },
         onUploadProgress: (progressEvent) => {
           const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+          console.log(progressEvent);
+          console.log(progress);
+
           setProgress(progress);
           if (progress == 100){
             dispatch({ type: 'SET_IS_UPLOADING', payload: false });
