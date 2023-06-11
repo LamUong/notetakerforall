@@ -244,19 +244,21 @@ const Notes = () => {
         />
       </Grid>
       <Grid item xs={4}> 
-        <Box sx={{ width: '100%', border: '1px solid #ccc', height: '70vh', overflowY: 'scroll', background: 'white' }}>
+        <Box sx={{ width: '100%', border: '1px solid #ccc', height: '70vh', background: 'white' }}>
           <Container sx={{ my: 3, mx: 2 }} className = "smart-editor-container" >
             <div className="smart-editor-title">
               Smart Editor
             </div>
           </Container>
           <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
-          <Box sx={{ m: 2 }}>
-            <Typography gutterBottom variant="body1">
-              Please highlight some text to edit.
-            </Typography>
-          </Box>
-          <MyCard onReplaceButtonClick={handleReplaceHighlightedNotes} />
+          <div>
+            <Box sx={{ m: 2 }}>
+              <Typography gutterBottom variant="body1">
+                Please highlight some text to edit.
+              </Typography>
+            </Box>
+            <MyCard onReplaceButtonClick={handleReplaceHighlightedNotes} />
+          </div>
         </Box>
       </Grid>
     </Grid>
