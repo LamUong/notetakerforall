@@ -106,7 +106,7 @@ const AudioRecorder = () => {
             </div>
           </div>
       ) : (
-        { (!customization.input_type) && 
+        { !customization.input_type && 
           <Button onClick={handleStartRecording} variant="contained" endIcon={<MicIcon />} sx={{ marginBotton: '20px' }}>
              Start Recording
           </Button>
