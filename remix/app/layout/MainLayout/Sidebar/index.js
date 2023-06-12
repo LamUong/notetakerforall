@@ -39,8 +39,6 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
             </BrowserView>
             <MobileView>
                 <Box sx={{ px: 2 }}>
-                    <MenuList />
-                    <MenuCard />
                 </Box>
             </MobileView>
         </>
