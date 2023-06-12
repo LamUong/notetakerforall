@@ -157,8 +157,6 @@ const Notes = () => {
   const dispatch = useDispatch();
 
   const handleChange = (newValue) => {
-    console.log(quillRef);
-    console.log(newValue);
     if (value != newValue) {
       setValue(newValue);
       dispatch({ type: 'SET_NOTES', payload: newValue });
@@ -166,11 +164,14 @@ const Notes = () => {
   };
   
   const handleChangeSelection = (range) => {
+    if (range == null) {
+      console.log("range == null");
+      return ;
+    } 
     
     const editor = quillRef.current.getEditor();
-    if (range == null) {
-      console.log("range ==. null");
-    } else if (range.length > 0 ){
+
+    if (range.length > 0 ){
       console.log("range.length > 0");
       if (customization.highlighted_notes_range) {
          editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
@@ -239,11 +240,6 @@ const Notes = () => {
           onChange={handleChange}
           onChangeSelection={handleChangeSelection}
           onBlur={handleOnBlur}
-          modules={{
-            history: {
-              userOnly: true,
-            }
-          }}
         />
       </Grid>
       <Grid item xs={4}> 
