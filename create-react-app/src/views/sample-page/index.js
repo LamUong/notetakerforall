@@ -175,7 +175,7 @@ const Notes = () => {
       if (customization.highlighted_notes_range) {
          editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
           'background-color': 'white'
-        });  
+        }, 'api');  
       } 
       
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: null });
@@ -194,7 +194,7 @@ const Notes = () => {
       if (customization.highlighted_notes_range) {
          editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
           'background-color': 'white'
-        });  
+        }, 'api');  
       } 
 
       dispatch({ type: 'SET_HIGHLIGHTED_NOTES', payload: null });
@@ -239,6 +239,11 @@ const Notes = () => {
           onChange={handleChange}
           onChangeSelection={handleChangeSelection}
           onBlur={handleOnBlur}
+          modules={{
+            history: {
+              userOnly: true,
+            }
+          }}
         />
       </Grid>
       <Grid item xs={4}> 
