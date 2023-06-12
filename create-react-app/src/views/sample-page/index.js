@@ -158,6 +158,7 @@ const Notes = () => {
 
   const handleChange = (newValue) => {
     console.log(quillRef);
+    console.log(newValue);
     if (value != newValue) {
       setValue(newValue);
       dispatch({ type: 'SET_NOTES', payload: newValue });
@@ -165,12 +166,11 @@ const Notes = () => {
   };
   
   const handleChangeSelection = (range) => {
-    if (range == null){
-      return ;
-    }
     
     const editor = quillRef.current.getEditor();
-    if (range.length > 0 ){
+    if (range == null) {
+      console.log("range ==. null");
+    } else if (range.length > 0 ){
       console.log("range.length > 0");
       if (customization.highlighted_notes_range) {
          editor.formatText(customization.highlighted_notes_range.index, customization.highlighted_notes_range.length, {
