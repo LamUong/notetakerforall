@@ -345,7 +345,7 @@ const VideoUpload = (props) => {
   }, []);
 
   return (
-    <MainCard>
+    <MainCard className="scrolling-transcript-container">
       {customization.is_uploading &&
         <div>
           <Typography variant="body2">Upload Progress</Typography>
