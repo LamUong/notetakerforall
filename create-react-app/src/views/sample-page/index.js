@@ -224,8 +224,8 @@ const Notes = () => {
     const length = customization.highlighted_notes_range.length;
     const response = customization.chat_response;
     const editor = quillRef.current.getEditor();
-    editor.deleteText(start_index, length);
-    editor.clipboard.dangerouslyPasteHTML(start_index, response);
+    editor.deleteText(start_index, length, 'user');
+    editor.clipboard.dangerouslyPasteHTML(start_index, response, 'user');
   }
 
   return (
