@@ -24,14 +24,15 @@
   font-family: sans-serif;
 }
 
+.scrolling-transcript-container {
+  height: 70vh;
+  overflow-y: scroll;
+}
 .transcript-block {
   font-size: 14px;
   font-weight: 1000;
   font-style: normal;
-  font-family: sans-serif;
-  height: 70vh;
-  overflow-y: scroll;
-  
+  font-family: sans-serif;  
 }
 
 .transcript-block > p {
