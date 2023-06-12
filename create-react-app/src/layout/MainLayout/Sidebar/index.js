@@ -11,6 +11,8 @@ import { BrowserView, MobileView } from 'react-device-detect';
 // project imports
 import LogoSection from '../LogoSection';
 import { drawerWidth } from 'store/constant';
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
@@ -36,7 +38,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
         >
 
           <Stack direction="row" justifyContent="center" sx={{ mb: 2 }}>
-            <Chip label={process.env.REACT_APP_VERSION} disabled chipcolor="secondary" size="small" sx={{ cursor: 'pointer' }} />
+            <Button variant="outlined" startIcon={<AddIcon />} >New Document</Button>
           </Stack>
         </PerfectScrollbar>
       </BrowserView>
