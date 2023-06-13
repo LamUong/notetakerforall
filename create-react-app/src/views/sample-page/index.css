@@ -19,7 +19,6 @@
 
 .ql-editor {
   font-size: 14px;
-  font-weight: 1000;
   font-style: normal;
   font-family: sans-serif;
 }
@@ -56,14 +55,12 @@
 
 .selected-text-display > p {
   font-size: 14px;
-  font-weight: 1000;
   font-style: normal;
   font-family: sans-serif;
 }
 
 .selected-text-display > ul > li {
   font-size: 14px;
-  font-weight: 1000;
   font-style: normal;
   font-family: sans-serif;
 }
