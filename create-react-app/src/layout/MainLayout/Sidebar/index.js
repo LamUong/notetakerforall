@@ -46,7 +46,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
         <Box sx={{ px: 2 }}>
 
           <Stack direction="row" justifyContent="center" sx={{ mb: 2 }}>
-            <Chip label={process.env.REACT_APP_VERSION} disabled chipcolor="secondary" size="small" sx={{ cursor: 'pointer' }} />
+            <Button variant="outlined" startIcon={<AddIcon />} >New Document</Button>
           </Stack>
         </Box>
       </MobileView>
