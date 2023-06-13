@@ -8,6 +8,8 @@ import { Box, Drawer, Stack, useMediaQuery } from '@mui/material';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { BrowserView, MobileView } from 'react-device-detect';
 
+import { useNavigate } from 'react-router-dom';
+
 // project imports
 import LogoSection from '../LogoSection';
 import { drawerWidth } from 'store/constant';
@@ -19,6 +21,12 @@ import AddIcon from '@mui/icons-material/Add';
 const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
   const theme = useTheme();
   const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
+  const navigate = useNavigate();
+
+  const navigateToLanding = () => {
+    navigate('/');
+  };
+
 
   const drawer = (
     <>
@@ -38,7 +46,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
         >
 
           <Stack direction="row" justifyContent="center" sx={{ mb: 2 }}>
-            <Button variant="outlined" startIcon={<AddIcon />} >New Document</Button>
+            <Button variant="outlined" onClick={navigateToLanding} startIcon={<AddIcon />} >New Document</Button>
           </Stack>
         </PerfectScrollbar>
       </BrowserView>
@@ -46,7 +54,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
         <Box sx={{ px: 2 }}>
 
           <Stack direction="row" justifyContent="center" sx={{ mb: 2 }}>
-            <Button variant="outlined" startIcon={<AddIcon />} >New Document</Button>
+            <Button variant="outlined" onClick={navigateToLanding} startIcon={<AddIcon />} >New Document</Button>
           </Stack>
         </Box>
       </MobileView>
