@@ -110,7 +110,7 @@ const MyCard = ({ onReplaceButtonClick }) => {
                  </div>
               </div>
               <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
-              <div style={{padding: '10px' }} className="selected-text-display" dangerouslySetInnerHTML={{ __html: customization.chat_response }}></div>
+              <div style={{padding: '10px' }} className="chat-output-display" dangerouslySetInnerHTML={{ __html: customization.chat_response }}></div>
               <Divider sx={{ borderColor: '#ccc' }} variant="fullWidth" />
             </div>
           )
