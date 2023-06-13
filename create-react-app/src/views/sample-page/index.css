@@ -72,6 +72,13 @@
   font-family: sans-serif;
 }
 
+.chat-output-display > ul > li {
+  margin: 0;
+  font-size: 14px;
+  font-style: normal;
+  font-family: sans-serif;
+}
+
 .chat-action-chip {
   font-size: 14px;
   font-weight: 1000;
