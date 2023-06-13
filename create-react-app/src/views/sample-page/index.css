@@ -59,6 +59,13 @@
   font-family: sans-serif;
 }
 
+.chat-output-display > p {
+  margin: 0;
+  font-size: 14px;
+  font-style: normal;
+  font-family: sans-serif;
+}
+
 .selected-text-display > ul > li {
   font-size: 14px;
   font-style: normal;
