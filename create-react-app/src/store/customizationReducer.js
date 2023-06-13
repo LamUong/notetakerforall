@@ -110,6 +110,8 @@ const customizationReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         upload_progress: action.payload, 
       })
+    case "RESET":
+      return Object.assign({}, initialState)
     default:
       return state;
   }
