@@ -123,9 +123,9 @@ def generate_outline_html(text):
 
 def format_chat_response(input_text, input_type):
     if input_type == 'Title':
-        return f"<h2>{input_text}</h2>"
+        return f"<br/><h2>{input_text}</h2><br/>"
     if input_type == 'Summary':
-        return f"<p>{input_text}</p>"
+        return f"<br/><p>{input_text}</p><br/>"
     if input_type == 'BulletPoints':
         return generate_bullet_points_html(input_text) 
     if input_type == 'Outline':
