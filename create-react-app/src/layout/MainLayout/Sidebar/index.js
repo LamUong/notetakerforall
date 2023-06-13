@@ -15,6 +15,7 @@ import LogoSection from '../LogoSection';
 import { drawerWidth } from 'store/constant';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
+import { useDispatch } from 'react-redux';
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
@@ -22,8 +23,10 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
   const theme = useTheme();
   const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const navigateToLanding = () => {
+    dispatch({ type: 'RESET'});
     navigate('/');
   };
 
