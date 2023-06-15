@@ -14,7 +14,9 @@ import time
 import sys
 import re
 
-load_dotenv(sys.path[0] + '/../.env')
+print(sys.path[0])
+
+load_dotenv(sys.path[0] + '/.env')
 
 app = FastAPI()
 
