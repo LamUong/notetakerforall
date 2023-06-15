@@ -5,5 +5,5 @@ COPY ./requirements.txt /backend/requirements.txt
 RUN pip install -r requirements.txt
 COPY . /backend
 
-CMD ["uvicorn", "app.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "app.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8000"]
 
