@@ -4,3 +4,6 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt /backend/requirements.txt
 RUN pip install -r requirements.txt
 COPY . /backend
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+
