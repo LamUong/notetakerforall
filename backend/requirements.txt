@@ -2,3 +2,4 @@ fastapi
 uvicorn
 deepgram-sdk
 openai
+python-dotenv
