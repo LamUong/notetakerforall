@@ -129,36 +129,7 @@ def format_chat_response(input_text, input_type):
     if input_type == 'BulletPoints':
         return generate_bullet_points_html(input_text) 
     if input_type == 'Outline':
-        return generate_outline_html(input_text) 
-    
-
-                
-@app.websocket("/back_end_listen")
-async def websocket_endpoint(websocket: WebSocket):
-    async def get_transcript(data: Dict) -> None:
-        if 'channel' in data:
-            transcript = data['channel']['alternatives'][0]['transcript']
-            if transcript:
-                print(transcript)
-                await websocket.send_text(transcript)
-        
-    await websocket.accept()
-
-    try:
-        deepgramLive = await dg_client.transcription.live({ 
-            'punctuate': True,     
-            'model': 'nova',
-        })
-    except Exception as e:
-        print(f'Could not open socket: {e}')
-        return
-    
-    deepgramLive.registerHandler(deepgramLive.event.CLOSE, lambda c: print(f'Connection closed with code {c}.'))
-    deepgramLive.registerHandler(deepgramLive.event.TRANSCRIPT_RECEIVED, get_transcript)
-
-    while True:
-        data = await websocket.receive_bytes()
-        deepgramLive.send(data)        
+        return generate_outline_html(input_text)       
 
 def format_time(timestamp):
     minutes = timestamp // 60
