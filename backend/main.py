@@ -6,7 +6,6 @@ from deepgram import Deepgram
 from dotenv import load_dotenv
 import asyncio
 import os
-import shutil
 from io import BytesIO
 import json
 from fastapi.middleware.cors import CORSMiddleware
