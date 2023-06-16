@@ -3,3 +3,4 @@ uvicorn
 deepgram-sdk
 openai
 python-dotenv
+python-multipart
