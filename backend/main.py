@@ -16,7 +16,7 @@ import re
 
 print(sys.path[0])
 print("lam")
-load_dotenv(sys.path[0] + '/.env')
+load_dotenv(sys.path[0] + '.env')
 
 app = FastAPI()
 
