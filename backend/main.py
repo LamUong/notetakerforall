@@ -14,7 +14,7 @@ import time
 import sys
 import re
 
-assert(sys.path[0] == 'hello')
+print(sys.path[0])
 
 load_dotenv(sys.path[0] + '/.env')
 
