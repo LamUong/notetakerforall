@@ -211,6 +211,7 @@ def get_pdf_text(file: UploadFile):
     with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as temp_file:
     
         temp_file.write(file.file.read())
+        print(file.file.read())
         temp_file.flush()
 
         command = "pdf2txt.py -t html " + temp_file.name
