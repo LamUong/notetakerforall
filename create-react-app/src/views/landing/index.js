@@ -183,6 +183,7 @@ const ContentSection = ({ matchDownSM }) => {
             { (!customization.is_recording_audio && !customization.input_type) && 
               <Drop
                 onLoaded={async (files) => {
+                    console.log(files[0].type)
                     dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
                     navigate('/sample-page', {state: {file: files[0]}});
                 }}
