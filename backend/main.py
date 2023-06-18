@@ -198,27 +198,27 @@ async def transcribe_audio_file(file: UploadFile):
                     )
         return get_transcribed_text(response)
 
-#@app.post(path="/back_end_mock_upload_file")
-#async def transcribe_audio_file(file: UploadFile):
-#    with open('output_file.json') as json_file:
-#        response = json.load(json_file)
-#        return get_transcribed_text(response)
-
 @app.post(path="/back_end_mock_upload_file")
+async def transcribe_audio_file(file: UploadFile):
+    with open('output_file.json') as json_file:
+        response = json.load(json_file)
+        return get_transcribed_text(response)
+
+@app.post(path="/back_end_upload_pdf")
 def get_pdf_text(file: UploadFile):    
     # Create a temporary file to save the uploaded PDF
     text = ""
-    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as temp_file:
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=True) as temp_file:
     
         temp_file.write(file.file.read())
         print(file.file.read())
         temp_file.flush()
 
-        command = "pdf2txt.py -t html " + temp_file.name
+        command = "pdf2txt.py -t text " + temp_file.name
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
-        print(result)
         text = result.stdout
-    return text
+        
+    return {'transcript_with_ts': text}
 
 @app.websocket("/back_end_stream_chat")
 async def stream(websocket: WebSocket):
