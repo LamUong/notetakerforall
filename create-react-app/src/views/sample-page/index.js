@@ -55,7 +55,7 @@ const MyCard = ({ onReplaceButtonClick }) => {
     
     socketRef.current.addEventListener('open', () => {
       // Send additional data to the server
-      const is_pdf = customization.input_type == "application/pdf" ? true : false ;
+      const is_pdf = customization.input_type == "pdf" ? true : false ;
       const additionalData = {
         input_type: valueType,
         input_text: customization.highlighted_notes.text,
