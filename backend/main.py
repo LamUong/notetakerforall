@@ -213,6 +213,7 @@ def get_pdf_text(file: UploadFile):
         shutil.copyfileobj(file.file, temp_file)
         command = "pdf2txt.py -t html " + temp_file.name
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
+        print(result)
         text = result.stdout
     return text
 
