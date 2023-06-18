@@ -35,7 +35,7 @@ export default function Drop({ onLoaded }) {
   return (
     <div {...getRootProps()} style={styles.container}>
       <input {...getInputProps()} />
-      {isDragActive ? <p>Drop a PDF here</p> : <p>Drag or Click Here to Upload a Video/Audio</p>}
+      {isDragActive ? <p>Drop a PDF here</p> : <p>Drag or Click Here to Upload a Video/Audio/PDF</p>}
     </div>
   );
 }
