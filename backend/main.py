@@ -17,9 +17,7 @@ import tempfile
 import shutil
 import subprocess
 
-print(sys.path[0])
-print("lam")
-load_dotenv(sys.path[0] + '.env')
+load_dotenv(dotenv_path = os.path.join(os.getcwd(), '.env'))
 
 app = FastAPI()
 
