@@ -184,8 +184,10 @@ const ContentSection = ({ matchDownSM }) => {
               <Drop
                 onLoaded={async (files) => {
                     if (files[0].type == "application/pdf"){
+                      console.log('pdf');
                       dispatch({ type: 'SET_INPUT_TYPE', payload: 'pdf' });
                     } else {
+                      console.log('video');
                       dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });                    
                     }
                     navigate('/sample-page', {state: {file: files[0]}});
