@@ -208,7 +208,7 @@ async def transcribe_audio_file(file: UploadFile):
 def get_pdf_text(file: UploadFile):    
     # Create a temporary file to save the uploaded PDF
     text = ""
-    with tempfile.NamedTemporaryFile(suffix=".pdf") as temp_file:
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as temp_file:
         # Save the uploaded file to the temporary file
         shutil.copyfileobj(file.file, temp_file)
         command = "pdf2txt.py -t html " + temp_file.name
