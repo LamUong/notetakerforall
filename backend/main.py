@@ -124,7 +124,9 @@ def generate_bullet_points_html(text):
 def generate_outline_with_timestamp_html(text):
     pattern = r'At timestamp ([\d:]+),'
     matches = re.findall(pattern, text)
-
+    if len(matches) == 0:
+        return text
+        
     bullet_points = []
     for timestamp in matches:
         description = re.search(f'{timestamp}(.+?)(?=(At timestamp|\Z))', text, re.DOTALL)
