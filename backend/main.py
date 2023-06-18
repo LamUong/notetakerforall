@@ -178,6 +178,7 @@ def get_transcribed_text(response):
 
 @app.post(path="/back_end_upload_file")
 async def transcribe_audio_file(file: UploadFile):
+    print(file.content_type)
     with NamedTemporaryFile(delete=True) as temp_file:
         file_content = await file.read()
         file_buffer = BytesIO(file_content)
@@ -206,6 +207,7 @@ async def transcribe_audio_file(file: UploadFile):
 
 @app.post(path="/back_end_mock_upload_file")
 def get_pdf_text(file: UploadFile):    
+    print(file.content_type)
     # Create a temporary file to save the uploaded PDF
     text = ""
     with tempfile.NamedTemporaryFile(suffix=".pdf", delete=True) as temp_file:
