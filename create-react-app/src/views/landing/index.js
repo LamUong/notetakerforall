@@ -183,8 +183,11 @@ const ContentSection = ({ matchDownSM }) => {
             { (!customization.is_recording_audio && !customization.input_type) && 
               <Drop
                 onLoaded={async (files) => {
-                    console.log(files[0].type)
-                    dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
+                    if (files[0].type == "application/pdf"){
+                      dispatch({ type: 'SET_INPUT_TYPE', payload: 'pdf' });
+                    } else {
+                      dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });                    
+                    }
                     navigate('/sample-page', {state: {file: files[0]}});
                 }}
               />
