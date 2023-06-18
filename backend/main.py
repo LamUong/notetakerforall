@@ -199,7 +199,6 @@ async def transcribe_audio_file(file: UploadFile):
         with tempfile.NamedTemporaryFile(suffix=".pdf", delete=True) as temp_file:
         
             temp_file.write(file.file.read())
-            print(file.file.read())
             temp_file.flush()
     
             command = "pdf2txt.py -t text " + temp_file.name
@@ -208,12 +207,9 @@ async def transcribe_audio_file(file: UploadFile):
             
         return {'transcript_with_ts': text}
         
-    print(file.content_type)
     with NamedTemporaryFile(delete=True) as temp_file:
         file_content = await file.read()
         file_buffer = BytesIO(file_content)
-        print("file.content_type")
-        print(file.content_type)
         source = {'buffer': file_buffer, 'mimetype': file.content_type}
         # Send the audio to Deepgram and get the response
         response = await dg_client.transcription.prerecorded(
