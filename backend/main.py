@@ -13,6 +13,9 @@ import openai
 import time
 import sys
 import re
+import tempfile
+import shutil
+import subprocess
 
 print(sys.path[0])
 print("lam")
@@ -202,7 +205,18 @@ async def transcribe_audio_file(file: UploadFile):
     with open('output_file.json') as json_file:
         response = json.load(json_file)
         return get_transcribed_text(response)
- 
+
+@app.post(path="/back_end_upload_pdf")
+def get_pdf_text(file: UploadFile):    
+    # Create a temporary file to save the uploaded PDF
+    text = ""
+    with tempfile.NamedTemporaryFile(suffix=".pdf") as temp_file:
+        # Save the uploaded file to the temporary file
+        shutil.copyfileobj(file.file, temp_file)
+        command = "pdf2txt.py -t html " + temp_file.name
+        result = subprocess.run(command, shell=True, capture_output=True, text=True)
+        text = result.stdout
+    return text
 
 @app.websocket("/back_end_stream_chat")
 async def stream(websocket: WebSocket):
