@@ -55,9 +55,11 @@ const MyCard = ({ onReplaceButtonClick }) => {
     
     socketRef.current.addEventListener('open', () => {
       // Send additional data to the server
+      const is_pdf = customization.input_type == "application/pdf" ? true : false ;
       const additionalData = {
         input_type: valueType,
-        input_text: customization.highlighted_notes.text
+        input_text: customization.highlighted_notes.text,
+        is_pdf: is_pdf
       };
       socketRef.current.send(JSON.stringify(additionalData));
     });
@@ -370,11 +372,12 @@ const SamplePage = () => {
   const location = useLocation();
   const customization = useSelector((state) => state.customization);
   
-  if (customization.input_type =='video'){
+  if (customization.input_type != null){
     const VideoTranscript = () => <VideoUpload file={location.state.file}/>;
     return <ContentTabs component={VideoTranscript} />
   }
-  return <div> hello </div>;
+
+  return <div> Please go to main page and upload something! </div>;
 };
 
 export default SamplePage;
