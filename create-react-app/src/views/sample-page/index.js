@@ -373,6 +373,7 @@ const SamplePage = () => {
   const customization = useSelector((state) => state.customization);
   
   if (customization.input_type != null){
+    console.log(customization.input_type);
     const VideoTranscript = () => <VideoUpload file={location.state.file}/>;
     return <ContentTabs component={VideoTranscript} />
   }
