@@ -63,7 +63,7 @@ def get_gpt_chat_response(messages, model="gpt-3.5-turbo", temperature=0.3, stre
     
 def get_outline(input_text, is_pdf):
     if is_pdf:    
-        prompt = f"The following is a section of a PDF:\n\n{input_text}\n\n . Please provide an outline of the content."
+        prompt = f"The following is a section of a PDF:\n\n{input_text}\n\n . Please provide an outline of the content in bullet points."
     else:
         prompt = f"The following is a transcription of a video which might have timestamps in seconds:\n\n{input_text}\n\n . If there are timestamps please make sure to keep the timestamps in seconds from the original input text. Then, please provide an outline of the content while mentioning the important timestamps, if they exist, in this example format: 'At timestamp <time_stamp>,'."
     message = [{"role": "system", "content": prompt}]
@@ -88,7 +88,7 @@ def get_summary(input_text, is_pdf):
     response = get_gpt_chat_response(message)
     return response
 
-def get_bullet_points(input_text):
+def get_bullet_points(input_text, is_pdf):
     if is_pdf:    
         prompt = f"The following is a section of a PDF:\n\n{input_text}\n\n . Can you keep all the sentences that contain specific details and output them in bullet points?"
     else:
