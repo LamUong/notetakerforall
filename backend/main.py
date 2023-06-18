@@ -146,11 +146,9 @@ def format_chat_response(input_text, input_type, is_pdf):
         if is_pdf:
             return input_text
         else:
-            to_return = generate_outline_with_timestamp_html(input_text)
-            if len(to_return.strip()) == 0:
-                return input_text
-            else:
-                return to_return
+            print("lam")
+            print(input_text)
+            return generate_outline_with_timestamp_html(input_text)
 
 def format_time(timestamp):
     minutes = timestamp // 60
