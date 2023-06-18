@@ -198,13 +198,13 @@ async def transcribe_audio_file(file: UploadFile):
                     )
         return get_transcribed_text(response)
 
-@app.post(path="/back_end_mock_upload_file")
-async def transcribe_audio_file(file: UploadFile):
-    with open('output_file.json') as json_file:
-        response = json.load(json_file)
-        return get_transcribed_text(response)
+#@app.post(path="/back_end_mock_upload_file")
+#async def transcribe_audio_file(file: UploadFile):
+#    with open('output_file.json') as json_file:
+#        response = json.load(json_file)
+#        return get_transcribed_text(response)
 
-@app.post(path="/back_end_upload_pdf")
+@app.post(path="/back_end_upload_file")
 def get_pdf_text(file: UploadFile):    
     # Create a temporary file to save the uploaded PDF
     text = ""
