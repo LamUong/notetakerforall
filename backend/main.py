@@ -209,7 +209,10 @@ def get_pdf_text(file: UploadFile):
     # Create a temporary file to save the uploaded PDF
     text = ""
     with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as temp_file:
+        pdf_data = file.getvalue()
         # Save the uploaded file to the temporary file
+        temp_file.write(pdf_data)
+        temp_file.flush()
         shutil.copyfileobj(file.file, temp_file)
         command = "pdf2txt.py -t html " + temp_file.name
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
