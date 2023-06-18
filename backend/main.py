@@ -148,6 +148,7 @@ def format_chat_response(input_text, input_type, is_pdf):
         else:
             print("lam")
             print(input_text)
+            print(generate_outline_with_timestamp_html(input_text))
             return generate_outline_with_timestamp_html(input_text)
 
 def format_time(timestamp):
