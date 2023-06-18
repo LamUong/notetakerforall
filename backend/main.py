@@ -178,6 +178,21 @@ def get_transcribed_text(response):
 
 @app.post(path="/back_end_upload_file")
 async def transcribe_audio_file(file: UploadFile):
+    if file.content_type == "application/pdf":
+        # Create a temporary file to save the uploaded PDF
+        text = ""
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=True) as temp_file:
+        
+            temp_file.write(file.file.read())
+            print(file.file.read())
+            temp_file.flush()
+    
+            command = "pdf2txt.py -t text " + temp_file.name
+            result = subprocess.run(command, shell=True, capture_output=True, text=True)
+            text = result.stdout
+            
+        return {'transcript_with_ts': text}
+        
     print(file.content_type)
     with NamedTemporaryFile(delete=True) as temp_file:
         file_content = await file.read()
@@ -198,29 +213,6 @@ async def transcribe_audio_file(file: UploadFile):
                       }
                     )
         return get_transcribed_text(response)
-
-#@app.post(path="/back_end_mock_upload_file")
-#async def transcribe_audio_file(file: UploadFile):
-#    with open('output_file.json') as json_file:
-#        response = json.load(json_file)
-#        return get_transcribed_text(response)
-
-@app.post(path="/back_end_mock_upload_file")
-def get_pdf_text(file: UploadFile):    
-    print(file.content_type)
-    # Create a temporary file to save the uploaded PDF
-    text = ""
-    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=True) as temp_file:
-    
-        temp_file.write(file.file.read())
-        print(file.file.read())
-        temp_file.flush()
-
-        command = "pdf2txt.py -t text " + temp_file.name
-        result = subprocess.run(command, shell=True, capture_output=True, text=True)
-        text = result.stdout
-        
-    return {'transcript_with_ts': text}
 
 @app.websocket("/back_end_stream_chat")
 async def stream(websocket: WebSocket):
