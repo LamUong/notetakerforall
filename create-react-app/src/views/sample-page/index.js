@@ -328,7 +328,7 @@ const VideoUpload = (props) => {
           }
         },
       });
-      console.log(response);
+      console.log(response.text());
 
       const stream = response.data;
 
