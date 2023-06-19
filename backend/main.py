@@ -205,8 +205,6 @@ def get_transcribed_text_from_responses(responses):
         deep_gram_responses.append(response['response'])       
     return get_transcribed_text(deep_gram_responses)
         
-        
-
 async def get_deepgram_transcript(index, source, callback):
     response = await dg_client.transcription.prerecorded(
                       source,
