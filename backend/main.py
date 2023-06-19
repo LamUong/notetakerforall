@@ -196,6 +196,20 @@ def get_transcribed_text(response):
     
     return results
 
+async def get_deepgram_transcript(source, callback):
+    response = await dg_client.transcription.prerecorded(
+                      source,
+                      {
+                        'model': 'whisper-large',
+                        'punctuate': True,
+                        'detect_language' : True,
+                        'diarize': True,
+                        'paragraphs': True,
+                        'summarize': True,
+                      }
+                    )
+    callback(response)
+        
 @app.post(path="/back_end_upload_file")
 async def transcribe_audio_file(file: UploadFile):
     if file.content_type == "application/pdf":
@@ -217,18 +231,13 @@ async def transcribe_audio_file(file: UploadFile):
         file_buffer = BytesIO(file_content)
         source = {'buffer': file_buffer, 'mimetype': file.content_type}
         # Send the audio to Deepgram and get the response
-        response = await dg_client.transcription.prerecorded(
-                      source,
-                      {
-                        'model': 'whisper-large',
-                        'punctuate': True,
-                        'detect_language' : True,
-                        'diarize': True,
-                        'paragraphs': True,
-                        'summarize': True,
-                      }
-                    )
-        return get_transcribed_text(response)
+        data = []
+        asyncio.ensure_future(get_deepgram_transcript(source, data.append))
+        while True:
+            await asyncio.sleep(1.0)
+            print("hello")
+            if len(data) > 0:   
+                return get_transcribed_text(data[0])
 
 @app.websocket("/back_end_stream_chat")
 async def stream(websocket: WebSocket):
