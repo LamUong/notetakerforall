@@ -230,6 +230,9 @@ async def transcribe_audio_file(file: UploadFile):
         file_content = await file.read()
         file_buffer = BytesIO(file_content)
         source = {'buffer': file_buffer, 'mimetype': file.content_type}
+        chunk_size = file_buffer.getbuffer().nbytes
+        print(f"Chunk size: {chunk_size} bytes")
+
         # Send the audio to Deepgram and get the response
         data = []
         asyncio.ensure_future(get_deepgram_transcript(source, data.append))
