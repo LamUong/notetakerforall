@@ -191,7 +191,7 @@ def get_transcribed_text(responses):
             }
             results['paragraphs'].append(paragraph_data)
             
-        response_start_timestamp += int(response['metadata']['duration])
+        response_start_timestamp += int(response['metadata']['duration'])
     
     processed_paragraphs = results['paragraphs']
     results['transcript'] = get_formatted_transcript(processed_paragraphs)
