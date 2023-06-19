@@ -315,6 +315,7 @@ const VideoUpload = (props) => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        responseType: 'stream',
         onUploadProgress: (progressEvent) => {
           const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
           console.log(progressEvent);
@@ -327,6 +328,17 @@ const VideoUpload = (props) => {
           }
         },
       });
+
+      const stream = response.data;
+
+      stream.on('data', data => {
+          console.log(data);
+      });
+      
+      stream.on('end', () => {
+          console.log("stream done");
+      });
+
       
       const paragraph_transcripts = addParagraphTags(response.data.transcript_with_ts);
       dispatch({ type: 'SET_TRANSCRIPT', payload: paragraph_transcripts });
