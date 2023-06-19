@@ -254,6 +254,8 @@ async def transcribe_audio_file(file: UploadFile):
         while True:
             await asyncio.sleep(1.0)
             print("hello")
+            print(len(data))
+            print(len(chunks))
             yield b"hello"
             if len(data) == len(chunks):   
                 yield get_transcribed_text_from_responses(data)['transcript_with_ts'].encode()
