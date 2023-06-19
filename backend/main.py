@@ -179,16 +179,19 @@ def get_transcribed_text(responses):
         'transcript_with_ts_and_speaker': ''
     }
 
+    response_start_timestamp = 0
     for response in responses:
         paragraphs = response['results']['channels'][0]['alternatives'][0]['paragraphs']['paragraphs']
         for paragraph in paragraphs:
             paragraph_data = {
                 'speaker': paragraph['speaker'],
-                'start': int(paragraph['start']),
-                'end': int(paragraph['end']),
+                'start': response_start_timestamp + int(paragraph['start']),
+                'end': response_start_timestamp + int(paragraph['end']),
                 'text': ' '.join(sentence['text'] for sentence in paragraph['sentences'])
             }
             results['paragraphs'].append(paragraph_data)
+            
+        response_start_timestamp += int(response['metadata']['duration])
     
     processed_paragraphs = results['paragraphs']
     results['transcript'] = get_formatted_transcript(processed_paragraphs)
