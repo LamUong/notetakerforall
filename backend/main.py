@@ -16,6 +16,7 @@ import re
 import tempfile
 import shutil
 import subprocess
+from fastapi.responses import StreamingResponse
 
 load_dotenv(dotenv_path = os.path.join(os.getcwd(), '.env'))
 
@@ -221,23 +222,8 @@ async def get_deepgram_transcript(index, source, callback):
                       }
                     )
     callback({'index': index, 'response': response})
-        
-@app.post(path="/back_end_upload_file")
-async def transcribe_audio_file(file: UploadFile):
-    if file.content_type == "application/pdf":
-        # Create a temporary file to save the uploaded PDF
-        text = ""
-        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=True) as temp_file:
-        
-            temp_file.write(file.file.read())
-            temp_file.flush()
-    
-            command = "pdf2txt.py -t text " + temp_file.name
-            result = subprocess.run(command, shell=True, capture_output=True, text=True)
-            text = result.stdout
-            
-        return {'transcript_with_ts': text}
-        
+
+async def transcribe_audio_file(file: UploadFile): 
     with NamedTemporaryFile(delete=True) as temp_file:
         file_content = await file.read()
         file_buffer = BytesIO(file_content)
@@ -266,8 +252,27 @@ async def transcribe_audio_file(file: UploadFile):
         while True:
             await asyncio.sleep(1.0)
             print("hello")
+            yield b"hello"
             if len(data) == len(chunks):   
-                return get_transcribed_text_from_responses(data)
+                yield get_transcribed_text_from_responses(data)['transcript_with_ts'].encode()
+    
+@app.post(path="/back_end_upload_file")
+async def get_upload_file_transcript(file: UploadFile):
+    if file.content_type == "application/pdf":
+        # Create a temporary file to save the uploaded PDF
+        text = ""
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=True) as temp_file:
+        
+            temp_file.write(file.file.read())
+            temp_file.flush()
+    
+            command = "pdf2txt.py -t text " + temp_file.name
+            result = subprocess.run(command, shell=True, capture_output=True, text=True)
+            text = result.stdout
+            
+        return {'transcript_with_ts': text}
+    
+    return StreamingResponse(transcribe_audio_file(file))
 
 @app.websocket("/back_end_stream_chat")
 async def stream(websocket: WebSocket):
