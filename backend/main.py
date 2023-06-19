@@ -261,7 +261,8 @@ async def transcribe_audio_file(file: UploadFile):
             print(len(data))
             print(len(chunks))
             yield b"hello"
-            if len(data) == len(chunks):   
+            if len(data) == len(chunks):
+                print(get_transcribed_text_from_responses(data)['transcript_with_ts'].encode())
                 yield get_transcribed_text_from_responses(data)['transcript_with_ts'].encode()
                 break
     
