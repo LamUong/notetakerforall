@@ -231,17 +231,20 @@ async def transcribe_audio_file(file: UploadFile):
         file_buffer = BytesIO(file_content)
         source = {'buffer': file_buffer, 'mimetype': file.content_type}
         
-        chunk_size = file_buffer.getbuffer().nbytes
+        left_over_bytes = file_buffer.getbuffer().nbytes
         print(f"Chunk size: {chunk_size} bytes")
 
         CHUNK_SIZE  = 4000000
         chunks = []
         while True:
-            chunk = file_buffer.read(CHUNK_SIZE)
-            if not chunk:
+            to_read = CHUNK_SIZE
+            if CHUNK_SIZE * 2 > left_over_bytes:
+                to_read = left_over_bytes
+            chunk = file_buffer.read(to_read)
+            left_over_bytes -= to_read
+            if left_over_bytes == 0:
                 break
             chunks.append(chunk)
-            print(BytesIO(chunk).getbuffer().nbytes)
 
         # Process each chunk asynchronously
         data = []
