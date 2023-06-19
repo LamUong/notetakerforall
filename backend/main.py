@@ -242,10 +242,10 @@ async def transcribe_audio_file(file: UploadFile):
                 to_read = left_over_bytes
             chunk = file_buffer.read(to_read)
             left_over_bytes -= to_read
+            chunks.append(chunk)
             if left_over_bytes == 0:
                 break
-            chunks.append(chunk)
-
+                
         # Process each chunk asynchronously
         data = []
         index = 0
