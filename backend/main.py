@@ -210,6 +210,7 @@ def get_transcribed_text_from_responses(responses):
     return get_transcribed_text(deep_gram_responses)
         
 async def get_deepgram_transcript(index, source, callback):
+    print("at start get response")
     response = await dg_client.transcription.prerecorded(
                       source,
                       {
@@ -221,6 +222,7 @@ async def get_deepgram_transcript(index, source, callback):
                         'summarize': True,
                       }
                     )
+    print("at end await")
     callback({'index': index, 'response': response})
 
 async def transcribe_audio_file(file: UploadFile): 
