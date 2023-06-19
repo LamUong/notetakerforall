@@ -232,7 +232,7 @@ async def transcribe_audio_file(file: UploadFile):
         source = {'buffer': file_buffer, 'mimetype': file.content_type}
         
         left_over_bytes = file_buffer.getbuffer().nbytes
-        print(f"Chunk size: {chunk_size} bytes")
+        print(f"left_over_bytes size: {left_over_bytes} bytes")
 
         CHUNK_SIZE  = 4000000
         chunks = []
