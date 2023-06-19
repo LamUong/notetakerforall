@@ -169,25 +169,26 @@ def get_formatted_transcript(paragraphs, get_timestamp=False, get_speaker=False)
             text += f"{time_string} "
         text += f"{paragraph['text']} \n"
         transcript += text
-    return transcript
-
-def get_transcribed_text(response):
+    return transcript    
+    
+def get_transcribed_text(responses):
     results = {
         'paragraphs': [],
         'transcript': '',
         'transcript_with_ts': '',
         'transcript_with_ts_and_speaker': ''
     }
-    
-    paragraphs = response['results']['channels'][0]['alternatives'][0]['paragraphs']['paragraphs']
-    for paragraph in paragraphs:
-        paragraph_data = {
-            'speaker': paragraph['speaker'],
-            'start': int(paragraph['start']),
-            'end': int(paragraph['end']),
-            'text': ' '.join(sentence['text'] for sentence in paragraph['sentences'])
-        }
-        results['paragraphs'].append(paragraph_data)
+
+    for response in responses:
+        paragraphs = response['results']['channels'][0]['alternatives'][0]['paragraphs']['paragraphs']
+        for paragraph in paragraphs:
+            paragraph_data = {
+                'speaker': paragraph['speaker'],
+                'start': int(paragraph['start']),
+                'end': int(paragraph['end']),
+                'text': ' '.join(sentence['text'] for sentence in paragraph['sentences'])
+            }
+            results['paragraphs'].append(paragraph_data)
     
     processed_paragraphs = results['paragraphs']
     results['transcript'] = get_formatted_transcript(processed_paragraphs)
@@ -196,7 +197,17 @@ def get_transcribed_text(response):
     
     return results
 
-async def get_deepgram_transcript(source, callback):
+def get_transcribed_text_from_responses(responses):    
+    # Sort the list by index using sorted()
+    sorted_responses = sorted(responses, key=lambda obj: obj['index'])
+    deep_gram_responses = []
+    for response in sorted_responses:
+        deep_gram_responses.append(response['response'])       
+    return get_transcribed_text(deep_gram_responses)
+        
+        
+
+async def get_deepgram_transcript(index, source, callback):
     response = await dg_client.transcription.prerecorded(
                       source,
                       {
@@ -208,7 +219,7 @@ async def get_deepgram_transcript(source, callback):
                         'summarize': True,
                       }
                     )
-    callback(response)
+    callback({'index': index, 'response': response})
         
 @app.post(path="/back_end_upload_file")
 async def transcribe_audio_file(file: UploadFile):
@@ -230,17 +241,32 @@ async def transcribe_audio_file(file: UploadFile):
         file_content = await file.read()
         file_buffer = BytesIO(file_content)
         source = {'buffer': file_buffer, 'mimetype': file.content_type}
+        
         chunk_size = file_buffer.getbuffer().nbytes
         print(f"Chunk size: {chunk_size} bytes")
 
-        # Send the audio to Deepgram and get the response
+        CHUNK_SIZE  = 4000000
+        chunks = []
+        while True:
+            chunk = file_buffer.read(CHUNK_SIZE)
+            if not chunk:
+                break
+            chunks.append(chunk)
+
+        # Process each chunk asynchronously
         data = []
-        asyncio.ensure_future(get_deepgram_transcript(source, data.append))
+        index = 0
+        for chunk in chunks:
+            index += 1
+            chunk_buffer = BytesIO(chunk)
+            chunk_source = {'buffer': chunk_buffer, 'mimetype': file.content_type}
+            task = asyncio.ensure_future(get_deepgram_transcript(index, chunk_source, data.append))
+            
         while True:
             await asyncio.sleep(1.0)
             print("hello")
-            if len(data) > 0:   
-                return get_transcribed_text(data[0])
+            if len(data) == len(chunks):   
+                return get_transcribed_text_from_responses(data)
 
 @app.websocket("/back_end_stream_chat")
 async def stream(websocket: WebSocket):
