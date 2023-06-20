@@ -260,10 +260,10 @@ async def transcribe_audio_file(file: UploadFile):
             print("hello")
             print(len(data))
             print(len(chunks))
-            yield b"hello"
+            yield "hello"
             if len(data) == len(chunks):
-                print(get_transcribed_text_from_responses(data)['transcript_with_ts'].encode())
-                yield get_transcribed_text_from_responses(data)['transcript_with_ts'].encode()
+                print(get_transcribed_text_from_responses(data)['transcript_with_ts'])
+                yield get_transcribed_text_from_responses(data)['transcript_with_ts']
                 break
     
 @app.post(path="/back_end_upload_file")
