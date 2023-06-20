@@ -4,4 +4,4 @@ deepgram-sdk
 openai
 python-dotenv
 python-multipart
-pdfminer
+pdfminer.six
