@@ -280,7 +280,7 @@ async def get_upload_file_transcript(file: UploadFile):
             command = "pdf2txt.py -t text " + temp_file.name
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
             text = result.stdout
-            
+        print(text)
         return text
     
     return StreamingResponse(transcribe_audio_file(file))
