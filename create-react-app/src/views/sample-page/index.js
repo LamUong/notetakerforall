@@ -328,20 +328,8 @@ const VideoUpload = (props) => {
           }
         },
       });
-      console.log(response);
-
-      const stream = response.data;
-
-      stream.on('data', data => {
-          console.log(data);
-      });
       
-      stream.on('end', () => {
-          console.log("stream done");
-      });
-
-      
-      const paragraph_transcripts = addParagraphTags(response.data.transcript_with_ts);
+      const paragraph_transcripts = addParagraphTags(response.data);
       dispatch({ type: 'SET_TRANSCRIPT', payload: paragraph_transcripts });
       dispatch({ type: 'SET_NOTES', payload: paragraph_transcripts });
       
