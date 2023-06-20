@@ -295,16 +295,6 @@ const VideoUpload = (props) => {
   const dispatch = useDispatch();
   const video = props.file;
   const customization = useSelector((state) => state.customization);
-    
-  function addParagraphTags(text) {
-    console.log(text);
-    const paragraphs = text.split('\n');
-    const formattedText = paragraphs.map((paragraph, index) => (
-      `<p key="${index}">${paragraph}</p>`
-    )).join('');
-
-    return formattedText;
-  }    
 
   const handleUpload = async () => {
     dispatch({ type: 'SET_IS_HANDLE_UPLOAD_CALLED', payload: true });
@@ -329,8 +319,8 @@ const VideoUpload = (props) => {
           }
         },
       });
-      
-      const paragraph_transcripts = addParagraphTags(response.data);
+      console.log(response);
+      const paragraph_transcripts = response.data;
       dispatch({ type: 'SET_TRANSCRIPT', payload: paragraph_transcripts });
       dispatch({ type: 'SET_NOTES', payload: paragraph_transcripts });
       
