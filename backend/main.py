@@ -279,7 +279,7 @@ async def get_upload_file_transcript(file: UploadFile):
             temp_file.flush()
             text = extract_text(temp_file.name)
         print(text)
-        return StreamingResponse(text)
+        return text
     
     return StreamingResponse(transcribe_audio_file(file))
 
