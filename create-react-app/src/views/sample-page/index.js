@@ -297,6 +297,7 @@ const VideoUpload = (props) => {
   const customization = useSelector((state) => state.customization);
     
   function addParagraphTags(text) {
+    console.log(text);
     const paragraphs = text.split('\n');
     const formattedText = paragraphs.map((paragraph, index) => (
       `<p key="${index}">${paragraph}</p>`
