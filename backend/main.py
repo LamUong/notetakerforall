@@ -240,7 +240,7 @@ async def transcribe_audio_file(file: UploadFile):
         left_over_bytes = file_buffer.getbuffer().nbytes
         print(f"left_over_bytes size: {left_over_bytes} bytes")
 
-        CHUNK_SIZE  = 4000000
+        CHUNK_SIZE  = 4000000000
         chunks = []
         while True:
             to_read = CHUNK_SIZE
