@@ -267,7 +267,12 @@ async def transcribe_audio_file(file: UploadFile):
                 print(toreturn)
                 yield toreturn
                 break
-    
+
+def add_paragraph_tags(text):
+    paragraphs = text.split('\n')
+    formatted_text = ''.join(f'<p key="{index}">{paragraph}</p>' for index, paragraph in enumerate(paragraphs))    
+    return formatted_text
+
 @app.post(path="/back_end_upload_file")
 async def get_upload_file_transcript(file: UploadFile):
     if file.content_type == "application/pdf":
@@ -278,6 +283,7 @@ async def get_upload_file_transcript(file: UploadFile):
             temp_file.write(file.file.read())
             temp_file.flush()
             text = extract_text(temp_file.name)
+            text = add_paragraph_tags(text)
         print(text)
         return text
     
