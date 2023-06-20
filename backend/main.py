@@ -226,6 +226,11 @@ async def get_deepgram_transcript(index, source, callback):
     print("at end await")
     callback({'index': index, 'response': response})
 
+def add_paragraph_tags(text):
+    paragraphs = text.split('\n')
+    formatted_text = ''.join(f'<p key="{index}">{paragraph}</p>' for index, paragraph in enumerate(paragraphs))    
+    return formatted_text
+    
 async def transcribe_audio_file(file: UploadFile): 
     with NamedTemporaryFile(delete=True) as temp_file:
         file_content = await file.read()
@@ -263,15 +268,10 @@ async def transcribe_audio_file(file: UploadFile):
             print(len(chunks))
             yield ""
             if len(data) == len(chunks):
-                toreturn = get_transcribed_text_from_responses(data)['transcript_with_ts']
+                toreturn = add_paragraph_tags(get_transcribed_text_from_responses(data)['transcript_with_ts'])
                 print(toreturn)
                 yield toreturn
                 break
-
-def add_paragraph_tags(text):
-    paragraphs = text.split('\n')
-    formatted_text = ''.join(f'<p key="{index}">{paragraph}</p>' for index, paragraph in enumerate(paragraphs))    
-    return formatted_text
 
 @app.post(path="/back_end_upload_file")
 async def get_upload_file_transcript(file: UploadFile):
