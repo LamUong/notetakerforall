@@ -17,6 +17,7 @@ import tempfile
 import shutil
 import subprocess
 from fastapi.responses import StreamingResponse
+from pdfminer.high_level import extract_text
 
 load_dotenv(dotenv_path = os.path.join(os.getcwd(), '.env'))
 
@@ -276,10 +277,7 @@ async def get_upload_file_transcript(file: UploadFile):
         
             temp_file.write(file.file.read())
             temp_file.flush()
-    
-            command = "pdf2txt.py -t text " + temp_file.name
-            result = subprocess.run(command, shell=True, capture_output=True, text=True)
-            text = result.stdout
+            text = extract_text(temp_file.name)
         print(text)
         return text
     
