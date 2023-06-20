@@ -260,10 +260,11 @@ async def transcribe_audio_file(file: UploadFile):
             print("hello")
             print(len(data))
             print(len(chunks))
-            yield "hello"
+            yield ""
             if len(data) == len(chunks):
-                print(get_transcribed_text_from_responses(data)['transcript_with_ts'])
-                yield get_transcribed_text_from_responses(data)['transcript_with_ts']
+                toreturn = get_transcribed_text_from_responses(data)['transcript_with_ts']
+                print(toreturn)
+                yield toreturn
                 break
     
 @app.post(path="/back_end_upload_file")
@@ -280,7 +281,7 @@ async def get_upload_file_transcript(file: UploadFile):
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
             text = result.stdout
             
-        return {'transcript_with_ts': text}
+        return text
     
     return StreamingResponse(transcribe_audio_file(file))
 
