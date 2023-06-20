@@ -315,7 +315,7 @@ const VideoUpload = (props) => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        responseType: 'blob',
+        responseType: 'text',
         onUploadProgress: (progressEvent) => {
           const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
           console.log(progressEvent);
@@ -328,7 +328,7 @@ const VideoUpload = (props) => {
           }
         },
       });
-      console.log(response.text());
+      console.log(response);
 
       const stream = response.data;
 
