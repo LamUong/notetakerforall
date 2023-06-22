@@ -209,7 +209,7 @@ def get_chunk_transcript(chunk, initial_offset):
         print(files)
         response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
         response_json = response.json()
-        get_formatted_transcript(get_lines_from_response(response_json, initial_offset), get_timestamp=True)
+        print(get_formatted_transcript(get_lines_from_response(response_json, initial_offset), get_timestamp=True))
         
 async def transcribe_audio_file(file: UploadFile): 
     with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_file:
@@ -219,7 +219,7 @@ async def transcribe_audio_file(file: UploadFile):
         temp_file.flush()
         
         audio = AudioSegment.from_file(temp_file.name, 'mp4')
-        chunk_duration = 50 * 1000  # 100 seconds (in milliseconds)
+        chunk_duration = 30 * 1000  # 100 seconds (in milliseconds)
         chunks = make_chunks(audio, chunk_duration)
 
         for i in range(0,len(chunks)):
@@ -228,7 +228,6 @@ async def transcribe_audio_file(file: UploadFile):
         while True:
             await asyncio.sleep(1.0)
             print("hello")
-            print(len(data))
             print(len(chunks))
             yield ""
             if len(data) == len(chunks):
