@@ -244,7 +244,7 @@ async def transcribe_audio_file(file: UploadFile):
         
         audio = AudioSegment.from_file(temp_file.name, 'mp4')
         chunk_duration = 100 * 1000  # 100 seconds (in milliseconds)
-        chunks = make_chunks(video, chunk_duration)
+        chunks = make_chunks(audio, chunk_duration)
 
         for chunk in chunks:
              get_chunk_transcript(chunk)
