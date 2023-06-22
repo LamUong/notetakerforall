@@ -19,7 +19,6 @@ import subprocess
 from fastapi.responses import StreamingResponse
 from pdfminer.high_level import extract_text
 import requests
-import ffmpeg
 import math
 from pydub import AudioSegment
 from pydub.utils import make_chunks
