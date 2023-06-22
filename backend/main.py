@@ -242,11 +242,8 @@ async def transcribe_audio_file(file: UploadFile):
             'x-gladia-key': '2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c',
         }
         files = {
-            'audio_file': (None, temp_file.name),
-            'language_behaviour': (None, 'automatic single language'),
-            'toggle_diarization': (None, 'true'),
+        'audio': (temp_file.name, open(temp_file.name, 'rb'), 'audio/mp4'),
         }
-        print(files)
         response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
         print(response.raise_for_status())
             
