@@ -221,9 +221,6 @@ def add_paragraph_tags(text):
 
 def get_chunk_transcript(chunk):
     with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_segment:
-        # Write the input .mp4 data to a temporary file
-        temp_segment.write(chunk)
-        temp_segment.flush()
         chunk.export(temp_segment.name, format="mp4")  # Adjust the format as needed
         headers = {
             'x-gladia-key': '2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c',
