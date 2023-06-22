@@ -175,51 +175,29 @@ def get_formatted_transcript(paragraphs, get_timestamp=False, get_speaker=False)
             text += f"{time_string} "
         text += f"{paragraph['text']} \n"
         transcript += text
-    return transcript    
-    
-def get_transcribed_text(responses):
-    results = {
-        'paragraphs': [],
-        'transcript': '',
-        'transcript_with_ts': '',
-        'transcript_with_ts_and_speaker': ''
-    }
+    return transcript
 
-    response_start_timestamp = 0
-    for response in responses:
-        paragraphs = response['results']['channels'][0]['alternatives'][0]['paragraphs']['paragraphs']
-        for paragraph in paragraphs:
-            paragraph_data = {
-                'speaker': paragraph['speaker'],
-                'start': response_start_timestamp + int(paragraph['start']),
-                'end': response_start_timestamp + int(paragraph['end']),
-                'text': ' '.join(sentence['text'] for sentence in paragraph['sentences'])
+def get_lines_from_response(response, initial_offset):
+    paragraphs = []
+    for line in response['prediction']:
+        transcription = line['transcription']
+        start = int(line['time_begin'] + initial_off_set)
+        end = int(line['time_end'] + initial_off_set)
+        paragraphs.append(
+            {
+                'start': int(line['time_begin'] + initial_off_set),
+                'end': int(line['time_end'] + initial_off_set),
+                'text': line['transcription'],
             }
-            results['paragraphs'].append(paragraph_data)
-            
-        response_start_timestamp += int(response['metadata']['duration'])
+        )
+    return paragraphs
     
-    processed_paragraphs = results['paragraphs']
-    results['transcript'] = get_formatted_transcript(processed_paragraphs)
-    results['transcript_with_ts'] = get_formatted_transcript(processed_paragraphs, get_timestamp=True)
-    results['transcript_with_ts_and_speaker'] = get_formatted_transcript(processed_paragraphs, get_timestamp=True, get_speaker=True)
-    
-    return results
-
-def get_transcribed_text_from_responses(responses):    
-    # Sort the list by index using sorted()
-    sorted_responses = sorted(responses, key=lambda obj: obj['index'])
-    deep_gram_responses = []
-    for response in sorted_responses:
-        deep_gram_responses.append(response['response'])       
-    return get_transcribed_text(deep_gram_responses)
-
 def add_paragraph_tags(text):
     paragraphs = text.split('\n')
     formatted_text = ''.join(f'<p key="{index}">{paragraph}</p>' for index, paragraph in enumerate(paragraphs))    
     return formatted_text
 
-def get_chunk_transcript(chunk):
+def get_chunk_transcript(chunk, initial_offset):
     with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_segment:
         chunk.export(temp_segment.name, format="mp4")  # Adjust the format as needed
         headers = {
@@ -230,7 +208,8 @@ def get_chunk_transcript(chunk):
         }
         print(files)
         response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
-        print(response.json())
+        response_json = response.json()
+        get_formatted_transcript(get_lines_from_response(response_json, initial_offset), get_timestamp=True)
         
 async def transcribe_audio_file(file: UploadFile): 
     with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_file:
@@ -240,11 +219,11 @@ async def transcribe_audio_file(file: UploadFile):
         temp_file.flush()
         
         audio = AudioSegment.from_file(temp_file.name, 'mp4')
-        chunk_duration = 100 * 1000  # 100 seconds (in milliseconds)
+        chunk_duration = 50 * 1000  # 100 seconds (in milliseconds)
         chunks = make_chunks(audio, chunk_duration)
 
-        for chunk in chunks:
-             get_chunk_transcript(chunk)
+        for i in range(0,len(chunks)):
+             get_chunk_transcript(chunk[i], int(i*chunk_duration/1000))
             
         while True:
             await asyncio.sleep(1.0)
