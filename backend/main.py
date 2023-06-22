@@ -244,7 +244,7 @@ async def transcribe_audio_file(file: UploadFile):
         temp_file.flush()
         
         file_duration = float(ffmpeg.probe(temp_file.name)["format"]["duration"])
-        chunk_size = 600
+        chunk_size = 200
         num_chunks = math.ceil(len(file_content) / chunk_size)
         chunks = split_binary_content(file_content, num_chunks)
         for chunk in chunks:
