@@ -239,7 +239,22 @@ def split_binary_content(content, num_chunks):
         start = chunk_end
 
     return chunks
-    
+
+def get_chunk_transcript(chunk):
+    with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_segment:
+        # Write the input .mp4 data to a temporary file
+        print(len(chunk))
+        temp_segment.write(chunk)
+        temp_segment.flush()
+        headers = {
+            'x-gladia-key': '2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c',
+        }
+        files = {
+            'audio': (temp_segment.name, open(temp_segment.name, 'rb'), 'audio/mp4'),
+        }
+        print(files)
+        response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
+        print(response.json())
 async def transcribe_audio_file(file: UploadFile): 
     with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_file:
         file_content = await file.read()
@@ -254,20 +269,7 @@ async def transcribe_audio_file(file: UploadFile):
         print(num_chunks)
         chunks = split_binary_content(file_content, num_chunks)
         for chunk in chunks:
-             with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_segment:
-                # Write the input .mp4 data to a temporary file
-                print(len(chunk))
-                temp_segment.write(chunk)
-                temp_segment.flush()
-                headers = {
-                    'x-gladia-key': '2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c',
-                }
-                files = {
-                    'audio': (temp_segment.name, open(temp_segment.name, 'rb'), 'audio/mp4'),
-                }
-                print(files)
-                response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
-                print(response.json())
+             get_chunk_transcript(chunk)
             
         while True:
             await asyncio.sleep(1.0)
