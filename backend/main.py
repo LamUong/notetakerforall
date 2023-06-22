@@ -21,6 +21,8 @@ from pdfminer.high_level import extract_text
 import requests
 import ffmpeg
 import math
+from pydub import AudioSegment
+from pydub.utils import make_chunks
 
 load_dotenv(dotenv_path = os.path.join(os.getcwd(), '.env'))
 
@@ -218,34 +220,12 @@ def add_paragraph_tags(text):
     formatted_text = ''.join(f'<p key="{index}">{paragraph}</p>' for index, paragraph in enumerate(paragraphs))    
     return formatted_text
 
-def split_binary_content(content, num_chunks):
-    total_size = len(content)
-    chunk_size = total_size // num_chunks
-    remaining_bytes = total_size % num_chunks
-
-    chunks = []
-    start = 0
-
-    for i in range(num_chunks):
-        chunk_end = start + chunk_size 
-        if i == num_chunks -1:
-            chunk_end += remaining_bytes
-        chunk = content[start:chunk_end]
-        print("lam")
-        print(start)
-        print(chunk_end)
-        print(len(chunk))
-        chunks.append(chunk)
-        start = chunk_end
-
-    return chunks
-
 def get_chunk_transcript(chunk):
     with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_segment:
         # Write the input .mp4 data to a temporary file
-        print(len(chunk))
         temp_segment.write(chunk)
         temp_segment.flush()
+        chunk.export(temp_segment.name, format="mp4")  # Adjust the format as needed
         headers = {
             'x-gladia-key': '2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c',
         }
@@ -255,6 +235,7 @@ def get_chunk_transcript(chunk):
         print(files)
         response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
         print(response.json())
+        
 async def transcribe_audio_file(file: UploadFile): 
     with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_file:
         file_content = await file.read()
@@ -262,12 +243,10 @@ async def transcribe_audio_file(file: UploadFile):
         temp_file.write(file_content)
         temp_file.flush()
         
-        file_duration = float(ffmpeg.probe(temp_file.name)["format"]["duration"])
-        print(file_duration)
-        chunk_duration = 200
-        num_chunks = math.ceil(file_duration / chunk_duration)
-        print(num_chunks)
-        chunks = split_binary_content(file_content, num_chunks)
+        audio = AudioSegment.from_file(temp_file.name, 'mp4')
+        chunk_duration = 100 * 1000  # 100 seconds (in milliseconds)
+        chunks = make_chunks(video, chunk_duration)
+
         for chunk in chunks:
              get_chunk_transcript(chunk)
             
