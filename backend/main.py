@@ -19,6 +19,8 @@ import subprocess
 from fastapi.responses import StreamingResponse
 from pdfminer.high_level import extract_text
 import requests
+import ffmpeg
+import math
 
 load_dotenv(dotenv_path = os.path.join(os.getcwd(), '.env'))
 
@@ -210,27 +212,29 @@ def get_transcribed_text_from_responses(responses):
     for response in sorted_responses:
         deep_gram_responses.append(response['response'])       
     return get_transcribed_text(deep_gram_responses)
-        
-async def get_deepgram_transcript(index, source, callback):
-    print("at start get response")
-    response = await dg_client.transcription.prerecorded(
-                      source,
-                      {
-                        'model': 'whisper-large',
-                        'punctuate': True,
-                        'detect_language' : True,
-                        'diarize': True,
-                        'paragraphs': True,
-                        'summarize': True,
-                      }
-                    )
-    print("at end await")
-    callback({'index': index, 'response': response})
 
 def add_paragraph_tags(text):
     paragraphs = text.split('\n')
     formatted_text = ''.join(f'<p key="{index}">{paragraph}</p>' for index, paragraph in enumerate(paragraphs))    
     return formatted_text
+
+def split_binary_content(content, num_chunks):
+    total_size = len(content)
+    chunk_size = total_size // num_chunks
+    remaining_bytes = total_size % num_chunks
+
+    chunks = []
+    start = 0
+
+    for i in range(num_chunks):
+        chunk_end = start + chunk_size 
+        if i == len(num_chunks) -1:
+            chunk_end += remaining_bytes
+        chunk = content[start:chunk_end]
+        chunks.append(chunk)
+        start = chunk_end
+
+    return chunks
     
 async def transcribe_audio_file(file: UploadFile): 
     with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_file:
@@ -238,14 +242,24 @@ async def transcribe_audio_file(file: UploadFile):
         # Write the input .mp4 data to a temporary file
         temp_file.write(file_content)
         temp_file.flush()
-        headers = {
-            'x-gladia-key': '2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c',
-        }
-        files = {
-        'audio': (temp_file.name, open(temp_file.name, 'rb'), 'audio/mp4'),
-        }
-        response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
-        print(response.json())
+        
+        file_duration = float(ffmpeg.probe(temp_file.name)["format"]["duration"])
+        chunk_size = 1200
+        num_chunks = math.ceil(len(file_content) / chunk_size)
+        chunks = split_binary_content(file_content, num_chunks)
+        for chunk in chunks:
+             with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_segment:
+                # Write the input .mp4 data to a temporary file
+                temp_segment.write(chunk)
+                temp_segment.flush()
+                headers = {
+                    'x-gladia-key': '2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c',
+                }
+                files = {
+                    'audio': (temp_segment.name, open(temp_segment.name, 'rb'), 'audio/mp4'),
+                }
+                response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
+                print(response.json())
             
         while True:
             await asyncio.sleep(1.0)
