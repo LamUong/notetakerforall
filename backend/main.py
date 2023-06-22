@@ -181,12 +181,12 @@ def get_lines_from_response(response, initial_offset):
     paragraphs = []
     for line in response['prediction']:
         transcription = line['transcription']
-        start = int(line['time_begin'] + initial_off_set)
-        end = int(line['time_end'] + initial_off_set)
+        start = int(line['time_begin'] + initial_offset)
+        end = int(line['time_end'] + initial_offset)
         paragraphs.append(
             {
-                'start': int(line['time_begin'] + initial_off_set),
-                'end': int(line['time_end'] + initial_off_set),
+                'start': int(line['time_begin'] + initial_offset),
+                'end': int(line['time_end'] + initial_offset),
                 'text': line['transcription'],
             }
         )
