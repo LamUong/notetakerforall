@@ -231,6 +231,10 @@ def split_binary_content(content, num_chunks):
         if i == num_chunks -1:
             chunk_end += remaining_bytes
         chunk = content[start:chunk_end]
+        print("lam")
+        print(start)
+        print(chunk_end)
+        print(len(chunk))
         chunks.append(chunk)
         start = chunk_end
 
