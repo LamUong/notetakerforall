@@ -245,7 +245,7 @@ async def transcribe_audio_file(file: UploadFile):
         'audio': (temp_file.name, open(temp_file.name, 'rb'), 'audio/mp4'),
         }
         response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
-        print(response.raise_for_status())
+        print(response.json())
             
         while True:
             await asyncio.sleep(1.0)
