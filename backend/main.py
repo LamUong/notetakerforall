@@ -18,6 +18,7 @@ import shutil
 import subprocess
 from fastapi.responses import StreamingResponse
 from pdfminer.high_level import extract_text
+import requests
 
 load_dotenv(dotenv_path = os.path.join(os.getcwd(), '.env'))
 
@@ -232,34 +233,21 @@ def add_paragraph_tags(text):
     return formatted_text
     
 async def transcribe_audio_file(file: UploadFile): 
-    with NamedTemporaryFile(delete=True) as temp_file:
+    with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_file:
         file_content = await file.read()
-        file_buffer = BytesIO(file_content)
-        source = {'buffer': file_buffer, 'mimetype': file.content_type}
-        
-        left_over_bytes = file_buffer.getbuffer().nbytes
-        print(f"left_over_bytes size: {left_over_bytes} bytes")
-
-        CHUNK_SIZE  = 4000000000
-        chunks = []
-        while True:
-            to_read = CHUNK_SIZE
-            if CHUNK_SIZE * 2 > left_over_bytes:
-                to_read = left_over_bytes
-            chunk = file_buffer.read(to_read)
-            left_over_bytes -= to_read
-            chunks.append(chunk)
-            if left_over_bytes == 0:
-                break
-                
-        # Process each chunk asynchronously
-        data = []
-        index = 0
-        for chunk in chunks:
-            index += 1
-            chunk_buffer = BytesIO(chunk)
-            chunk_source = {'buffer': chunk_buffer, 'mimetype': file.content_type}
-            task = asyncio.ensure_future(get_deepgram_transcript(index, chunk_source, data.append))
+        # Write the input .mp4 data to a temporary file
+        temp_file.write(file_content)
+        temp_file.flush()
+        headers = {
+            'x-gladia-key': '2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c',
+        }
+        files = {
+            'audio-file': (None, temp_file.name),
+            'language_behaviour': (None, 'automatic single language'),
+            'toggle_diarization': (None, 'true'),
+        }
+        response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
+        print(response)
             
         while True:
             await asyncio.sleep(1.0)
