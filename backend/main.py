@@ -223,7 +223,7 @@ async def transcribe_audio_file(file: UploadFile):
         chunks = make_chunks(audio, chunk_duration)
 
         for i in range(0,len(chunks)):
-             get_chunk_transcript(chunk[i], int(i*chunk_duration/1000))
+             get_chunk_transcript(chunks[i], int(i*chunk_duration/1000))
             
         while True:
             await asyncio.sleep(1.0)
