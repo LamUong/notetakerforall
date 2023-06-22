@@ -252,6 +252,7 @@ async def transcribe_audio_file(file: UploadFile):
         for chunk in chunks:
              with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_segment:
                 # Write the input .mp4 data to a temporary file
+                print(len(chunk))
                 temp_segment.write(chunk)
                 temp_segment.flush()
                 headers = {
@@ -260,6 +261,7 @@ async def transcribe_audio_file(file: UploadFile):
                 files = {
                     'audio': (temp_segment.name, open(temp_segment.name, 'rb'), 'audio/mp4'),
                 }
+                print(files)
                 response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
                 print(response.json())
             
