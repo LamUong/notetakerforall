@@ -242,7 +242,7 @@ async def transcribe_audio_file(file: UploadFile):
             'x-gladia-key': '2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c',
         }
         files = {
-            'audio-file': (None, temp_file.name),
+            'audio_file': (None, temp_file.name),
             'language_behaviour': (None, 'automatic single language'),
             'toggle_diarization': (None, 'true'),
         }
