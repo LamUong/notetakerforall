@@ -197,7 +197,7 @@ def get_lines_from_response(response, initial_offset):
     text = ''
     for i in range(0, len(lines)):
         line = lines[i]
-        if i % 2 == 0:
+        if i % 10 == 0:
             every_five_lines.append({
                 'start': int(line['start'] + initial_offset),
                 'end': int(line['end'] + initial_offset),
@@ -224,9 +224,9 @@ def get_chunk_transcript(chunk, initial_offset):
             'audio': (temp_segment.name, open(temp_segment.name, 'rb'), 'audio/mp4'),
         }
         print(files)
-        #response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
-        #response_json = response.json()
-        response_json = json.load(open('output_file.json'))
+        response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
+        response_json = response.json()
+        #response_json = json.load(open('output_file.json'))
         return add_paragraph_tags(get_formatted_transcript(get_lines_from_response(response_json, initial_offset), get_timestamp=True))
         
 async def transcribe_audio_file(file: UploadFile): 
