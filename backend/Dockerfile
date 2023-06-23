@@ -4,6 +4,7 @@ WORKDIR /backend
 RUN pip install --upgrade pip
 COPY ./requirements.txt /backend/requirements.txt
 RUN pip install -r requirements.txt
+RUN apt-get update && apt-get install -y ffmpeg
 COPY . /backend
 
 CMD ["uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8080"]
