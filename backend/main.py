@@ -175,8 +175,6 @@ def get_formatted_transcript(paragraphs, get_timestamp=False, get_speaker=False)
             text += f"{time_string} "
         text += f"{paragraph['text']} \n"
         transcript += text
-    print("hello lam")
-    print(transcript)
     return transcript
 
 def get_lines_from_response(response, initial_offset):
@@ -195,6 +193,7 @@ def get_lines_from_response(response, initial_offset):
     return paragraphs
     
 def add_paragraph_tags(text):
+    print(text)
     paragraphs = text.split('\n')
     formatted_text = ''.join(f'<p key="{index}">{paragraph}</p>' for index, paragraph in enumerate(paragraphs))    
     return formatted_text
@@ -211,7 +210,7 @@ def get_chunk_transcript(chunk, initial_offset):
         print(files)
         response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
         response_json = response.json()
-        return get_formatted_transcript(get_lines_from_response(response_json, initial_offset), get_timestamp=True)
+        return add_paragraph_tags(get_formatted_transcript(get_lines_from_response(response_json, initial_offset), get_timestamp=True))
         
 async def transcribe_audio_file(file: UploadFile): 
     with NamedTemporaryFile(delete=True) as temp_file:
