@@ -175,6 +175,8 @@ def get_formatted_transcript(paragraphs, get_timestamp=False, get_speaker=False)
             text += f"{time_string} "
         text += f"{paragraph['text']} \n"
         transcript += text
+    print("hello lam")
+    print(transcript)
     return transcript
 
 def get_lines_from_response(response, initial_offset):
