@@ -212,13 +212,13 @@ def get_chunk_transcript(chunk, initial_offset):
         return get_formatted_transcript(get_lines_from_response(response_json, initial_offset), get_timestamp=True)
         
 async def transcribe_audio_file(file: UploadFile): 
-    with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_file:
+    with NamedTemporaryFile(delete=True) as temp_file:
         file_content = await file.read()
         # Write the input .mp4 data to a temporary file
         temp_file.write(file_content)
         temp_file.flush()
         
-        audio = AudioSegment.from_file(temp_file.name, 'mp4')
+        audio = AudioSegment.from_file(temp_file.name)
         chunk_duration = 300 * 1000  # 300 seconds (in milliseconds)
         chunks = make_chunks(audio, chunk_duration)
 
