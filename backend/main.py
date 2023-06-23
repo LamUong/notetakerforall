@@ -197,7 +197,7 @@ def get_lines_from_response(response, initial_offset):
     text = ''
     for i in range(0, len(lines)):
         line = lines[i]
-        if i % 5 == 0:
+        if i % 2 == 0:
             every_five_lines.append({
                 'start': int(line['start'] + initial_offset),
                 'end': int(line['end'] + initial_offset),
