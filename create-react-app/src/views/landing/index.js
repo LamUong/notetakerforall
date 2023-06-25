@@ -41,7 +41,7 @@ const AudioRecorder = () => {
       setTotalSeconds((prevTotalSeconds) => prevTotalSeconds + 1);
     }, 1000);
     
-    socketRef.current = new WebSocket('wss://3.125.247.51/stream_audio');
+    socketRef.current = new WebSocket('wss://3.125.247.51:8000/stream_audio');
  
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then((stream) => {
