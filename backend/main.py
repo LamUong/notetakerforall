@@ -296,7 +296,6 @@ async def websocket_endpoint(websocket: WebSocket):
         try:
             while True:
                 data = await websocket.receive_bytes()
-                print(data)
                 await gladia_socket.send(json.dumps({
                     "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c",
                     "sample_rate": 16000,
