@@ -25,6 +25,7 @@ from pydub.utils import make_chunks
 import json
 import asyncio
 import websockets
+import base64
 
 load_dotenv(dotenv_path = os.path.join(os.getcwd(), '.env'))
 
@@ -299,7 +300,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 await gladia_socket.send(json.dumps({
                     "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c",
                     "sample_rate": 16000,
-                    "frames": data,
+                    "frames": base64.b64encode(data),
                 }))  
                 response = await gladia_socket.recv() 
                 print(response)
