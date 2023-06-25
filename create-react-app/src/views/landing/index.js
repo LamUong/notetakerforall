@@ -46,7 +46,7 @@ const AudioRecorder = () => {
         const mediaRecorder = new MediaRecorder(stream);
         
         socketRef.current = new WebSocket('wss://3.125.247.51/back_end_stream_audio');
-        socketRef.current.onopen = () => {
+        socketRef.current.addEventListener('open', () => {
             console.log({ event: 'onopen' });
             mediaRecorder.addEventListener('dataavailable', async (event) => {
               if (event.data.size > 0 && socket.readyState == 1) {
