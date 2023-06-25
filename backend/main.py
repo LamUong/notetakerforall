@@ -23,6 +23,8 @@ import math
 from pydub import AudioSegment
 from pydub.utils import make_chunks
 import json
+import asyncio
+import websockets
 
 load_dotenv(dotenv_path = os.path.join(os.getcwd(), '.env'))
 
@@ -282,7 +284,32 @@ async def stream(websocket: WebSocket):
         await websocket.send_text(f"{formatted_answer}")
 
     await websocket.close()
-  
+
+@app.websocket("/listen_audio_stream")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+
+    uri = "wss://api.gladia.io/audio/text/audio-transcription"  
+    config = {
+        "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c",
+        "sample_rate": 16000,
+        "encoding": "mp3"
+    }
+    async with websockets.connect(uri) as gladia_socket:
+        try:
+        while True:
+            data = await websocket.receive_bytes()
+            await gladia_socket.send({
+                "frames": data
+            })  
+            response = await gladia_socket.recv() 
+            print(response)
+        except Exception as e:
+            raise Exception(f'Could not process audio: {e}')
+        finally:
+            await websocket.close()
+
+
 @app.get("/back_end")
 async def root():
     return {"message": "Hello World"}
