@@ -297,13 +297,13 @@ async def websocket_endpoint(websocket: WebSocket):
     }
     async with websockets.connect(uri) as gladia_socket:
         try:
-        while True:
-            data = await websocket.receive_bytes()
-            await gladia_socket.send({
-                "frames": data
-            })  
-            response = await gladia_socket.recv() 
-            print(response)
+            while True:
+                data = await websocket.receive_bytes()
+                await gladia_socket.send({
+                    "frames": data
+                })  
+                response = await gladia_socket.recv() 
+                print(response)
         except Exception as e:
             raise Exception(f'Could not process audio: {e}')
         finally:
