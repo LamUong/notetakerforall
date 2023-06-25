@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery, Button, Box } from '@mui/material';
 import MicIcon from "@material-ui/icons/Mic";
@@ -20,9 +20,7 @@ const LogoSection = () => (
 
 const AudioRecorder = () => {
   const [totalSeconds, setTotalSeconds] = useState(0);
-  const navigate = useNavigate();
   const mediaRecorderRef = useRef(null);
-  const recordedChunksRef = useRef([]);
   const dispatch = useDispatch();
   const customization = useSelector((state) => state.customization);
   const socketRef = useRef(null);
