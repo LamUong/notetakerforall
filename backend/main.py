@@ -299,9 +299,10 @@ async def websocket_endpoint(websocket: WebSocket):
         try:
             while True:
                 data = await websocket.receive_bytes()
-                await gladia_socket.send(json.dumps({
+                send = await gladia_socket.send(json.dumps({
                     "frames": base64.b64encode(data).decode('utf-8'),
                 }))
+                print(send)
                 response = await gladia_socket.recv() 
                 print(response)
         except Exception as e:
