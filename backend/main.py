@@ -285,7 +285,7 @@ async def stream(websocket: WebSocket):
 
     await websocket.close()
 
-@app.websocket("/listen_audio_stream")
+@app.websocket("/stream_audio")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
 
