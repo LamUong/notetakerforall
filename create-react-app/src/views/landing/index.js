@@ -42,6 +42,7 @@ const AudioRecorder = () => {
     }, 1000);
     
     socketRef.current = new WebSocket('wss://3.125.247.51/stream_audio');
+    console.log("Lam is here");
  
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then((stream) => {
