@@ -25,6 +25,7 @@ const AudioRecorder = () => {
   const recordedChunksRef = useRef([]);
   const dispatch = useDispatch();
   const customization = useSelector((state) => state.customization);
+  const socketRef = useRef(null);
 
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -40,6 +41,8 @@ const AudioRecorder = () => {
       setTotalSeconds((prevTotalSeconds) => prevTotalSeconds + 1);
     }, 1000);
     
+    socketRef.current = new WebSocket('wss://3.125.247.51/stream_audio');
+ 
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then((stream) => {
         const mediaRecorder = new MediaRecorder(stream);
@@ -65,6 +68,7 @@ const AudioRecorder = () => {
   const handleDataAvailable = (event) => {
     console.log('dataavailable');
     recordedChunksRef.current.push(event.data);
+    socketRef.current.send(event.data);
   };
   
   const handleStop = () => {
