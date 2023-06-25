@@ -287,6 +287,7 @@ async def stream(websocket: WebSocket):
 
 @app.websocket("/back_end_stream_audio")
 async def websocket_endpoint(websocket: WebSocket):
+    print("lam hehe")
     await websocket.accept()
 
     uri = "wss://api.gladia.io/audio/text/audio-transcription"  
