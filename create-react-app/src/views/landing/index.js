@@ -69,21 +69,6 @@ const AudioRecorder = () => {
     }
   };
 
-  const handleDataAvailable = (event) => {
-    console.log('dataavailable');
-    recordedChunksRef.current.push(event.data);
-    socketRef.current.send(event.data);
-  };
-  
-  const handleStop = () => {
-    const blob = new Blob(recordedChunksRef.current, { type: 'audio/webm' });
-    console.log(blob);
-    dispatch({ type: 'SET_IS_RECORDING_AUDIO', payload: false });
-    dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
-    navigate('/sample-page', {state: {file: blob}});
-  };
-
-
   return (
     <div>
       {customization.is_recording_audio &&
