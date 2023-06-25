@@ -49,12 +49,12 @@ const AudioRecorder = () => {
         socketRef.current.addEventListener('open', () => {
             console.log({ event: 'onopen' });
             mediaRecorder.addEventListener('dataavailable', async (event) => {
-              if (event.data.size > 0 && socket.readyState == 1) {
+              if (event.data.size > 0 && socketRef.current.readyState == 1) {
                   socketRef.current.send(event.data);
               }
             })
             mediaRecorder.start(250);
-        }
+        });                                       
       })
       .catch((error) => {
         console.error('Error accessing microphone:', error);
