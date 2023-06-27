@@ -317,7 +317,7 @@ async def websocket_endpoint(front_end_socket: WebSocket):
 
     gladia_socket.on_message = on_message
     gladia_socket.on_error = on_error
-    gladia_socket.on_open = lambda ws: asyncio.get_event_loop().run_until_complete(on_open(ws, front_end_socket=front_end_socket))  # Await the coroutine
+    asyncio.ensure_future(on_open(gladia_socket, front_end_socket=front_end_socket))
     gladia_socket.run_forever()
 
 
