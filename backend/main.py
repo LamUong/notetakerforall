@@ -295,8 +295,13 @@ async def websocket_endpoint(websocket: WebSocket):
     uri = "wss://api.gladia.io/audio/text/audio-transcription"  
     with connect(uri) as gladia_socket:
         gladia_socket.send(json.dumps({
-            "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-asdassadasdassda",
+            "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c",
         }))
+        print(gladia_socket.recv())
+        print(gladia_socket.recv())
+        print(gladia_socket.recv())
+        print(gladia_socket.recv())
+
         try:
             while True:
                 data = await websocket.receive_bytes()
