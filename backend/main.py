@@ -26,6 +26,7 @@ import json
 import asyncio
 import websockets
 import base64
+from websockets.sync.client import connect
 
 load_dotenv(dotenv_path = os.path.join(os.getcwd(), '.env'))
 
@@ -292,18 +293,18 @@ async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
 
     uri = "wss://api.gladia.io/audio/text/audio-transcription"  
-    async with websockets.connect(uri) as gladia_socket:
-        await gladia_socket.send(json.dumps({
+    with connect(uri) as gladia_socket:
+        gladia_socket.send(json.dumps({
             "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c",
         }))
         try:
             while True:
                 data = await websocket.receive_bytes()
-                send = await gladia_socket.send(json.dumps({
+                send = gladia_socket.send(json.dumps({
                     "frames": base64.b64encode(data).decode('utf-8'),
                 }))
                 print(send)
-                response = await gladia_socket.recv() 
+                response = gladia_socket.recv() 
                 print(response)
         except Exception as e:
             raise Exception(f'Could not process audio: {e}')
