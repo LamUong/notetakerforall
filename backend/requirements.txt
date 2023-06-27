@@ -8,3 +8,4 @@ pdfminer.six
 pydub
 ffmpeg-python
 websockets
+websocket-client
