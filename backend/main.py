@@ -297,19 +297,14 @@ async def websocket_endpoint(websocket: WebSocket):
         gladia_socket.send(json.dumps({
             "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c",
         }))
-        print(gladia_socket.recv())
-        print(gladia_socket.recv())
-        print(gladia_socket.recv())
-        print(gladia_socket.recv())
-
         try:
             while True:
                 data = await websocket.receive_bytes()
-                send = gladia_socket.send(json.dumps({
+                send = await gladia_socket.send(json.dumps({
                     "frames": base64.b64encode(data).decode('utf-8'),
                 }))
                 print(send)
-                response = gladia_socket.recv() 
+                response = await gladia_socket.recv() 
                 print(response)
         except Exception as e:
             raise Exception(f'Could not process audio: {e}')
