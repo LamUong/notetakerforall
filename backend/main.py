@@ -300,28 +300,28 @@ def on_open(ws):
     ws.send(json.dumps(configuration))
     
 @app.websocket("/back_end_stream_audio")
-async def websocket_endpoint(websocket: WebSocket):
+async def websocket_endpoint(front_end_socket: WebSocket):
     print("lam hehe")
-    await websocket.accept()
+    await front_end_socket.accept()
 
     gladia_url = "wss://api.gladia.io/audio/text/audio-transcription"
-    socket = websocket.WebSocketApp(gladia_url)
+    gladia_socket = websocket.WebSocketApp(gladia_url)
     
-    socket.on_message = on_message
-    socket.on_error = on_error
-    socket.on_open = on_open
+    gladia_socket.on_message = on_message
+    gladia_socket.on_error = on_error
+    gladia_socket.on_open = on_open
 
     try:
         while True:
-            data = await websocket.receive_bytes()
-            send = socket.send(json.dumps({
+            data = await front_end_socket.receive_bytes()
+            send = gladia_socket.send(json.dumps({
                 "frames": base64.b64encode(data).decode('utf-8'),
             }))
             print(send)
     except Exception as e:
         raise Exception(f'Could not process audio: {e}')
     finally:
-        await websocket.close()
+        await front_end_socket.close()
 
 
 @app.get("/back_end")
