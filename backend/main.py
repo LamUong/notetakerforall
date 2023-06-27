@@ -292,29 +292,29 @@ def on_message(ws, message):
 def on_error(ws, error):
     print(error)
 
-async def on_open(ws, front_end_socket = None):
+async def on_open(ws, front_end_socket=None):
     # Configure stream with a configuration message
     configuration = {
         "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c",
     }
     ws.send(json.dumps(configuration))
-    print("lam while True")
+    print("inside while True")
     while True:
         data = await front_end_socket.receive_bytes()
         print(data)
-        send = gladia_socket.send(json.dumps({
+        send = ws.send(json.dumps({
             "frames": base64.b64encode(data).decode('utf-8'),
         }))
         print(send)
     
 @app.websocket("/back_end_stream_audio")
 async def websocket_endpoint(front_end_socket: WebSocket):
-    print("lam hehe")
+    print("inside websocket_endpoint")
     await front_end_socket.accept()
 
     gladia_url = "wss://api.gladia.io/audio/text/audio-transcription"
     gladia_socket = websocket.WebSocketApp(gladia_url)
-    
+
     gladia_socket.on_message = on_message
     gladia_socket.on_error = on_error
     gladia_socket.on_open = lambda ws: on_open(ws, front_end_socket=front_end_socket)  # Pass the optional variable here
