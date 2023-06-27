@@ -315,6 +315,7 @@ async def websocket_endpoint(front_end_socket: WebSocket):
     try:
         while True:
             data = await front_end_socket.receive_bytes()
+            print(data)
             send = gladia_socket.send(json.dumps({
                 "frames": base64.b64encode(data).decode('utf-8'),
             }))
