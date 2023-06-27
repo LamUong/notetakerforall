@@ -319,6 +319,7 @@ async def websocket_endpoint(front_end_socket: WebSocket):
             }))
             print(send)
     except Exception as e:
+        print(e)
         raise Exception(f'Could not process audio: {e}')
     finally:
         await front_end_socket.close()
