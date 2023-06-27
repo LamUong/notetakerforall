@@ -285,27 +285,6 @@ async def stream(websocket: WebSocket):
         await websocket.send_text(f"{formatted_answer}")
 
     await websocket.close()
-
-def on_message(ws, message):
-    print(message)
-
-def on_error(ws, error):
-    print(error)
-
-async def on_open(ws, front_end_socket=None):
-    # Configure stream with a configuration message
-    configuration = {
-        "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c",
-    }
-    ws.send(json.dumps(configuration))
-    print("inside while True")
-    while True:
-        data = await front_end_socket.receive_bytes()
-        print(data)
-        send = ws.send(json.dumps({
-            "frames": base64.b64encode(data).decode('utf-8'),
-        }))
-        print(send)
     
 @app.websocket("/back_end_stream_audio")
 async def websocket_endpoint(front_end_socket: WebSocket):
@@ -313,12 +292,19 @@ async def websocket_endpoint(front_end_socket: WebSocket):
     await front_end_socket.accept()
 
     gladia_url = "wss://api.gladia.io/audio/text/audio-transcription"
-    gladia_socket = websocket.WebSocketApp(gladia_url)
-
-    gladia_socket.on_message = on_message
-    gladia_socket.on_error = on_error
-    asyncio.ensure_future(on_open(gladia_socket, front_end_socket=front_end_socket))
-    gladia_socket.run_forever()
+    ws = websocket.WebSocket()
+    ws.connect(gladia_url)
+    configuration = {
+        "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c",
+    }
+    ws.send(json.dumps(configuration))
+    while True:
+        data = await front_end_socket.receive_bytes()
+        print(data)
+        send = ws.send(json.dumps({
+            "frames": base64.b64encode(data).decode('utf-8'),
+        }))
+        print(send)
 
 
 @app.get("/back_end")
