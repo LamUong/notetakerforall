@@ -300,7 +300,6 @@ async def websocket_endpoint(front_end_socket: WebSocket):
     ws.send(json.dumps(configuration))
     while True:
         data = await front_end_socket.receive_bytes()
-        print(data)
         send = ws.send(json.dumps({
             "frames": base64.b64encode(data).decode('utf-8'),
         }))
