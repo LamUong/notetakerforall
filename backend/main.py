@@ -310,6 +310,7 @@ async def websocket_endpoint(front_end_socket: WebSocket):
     gladia_socket.on_message = on_message
     gladia_socket.on_error = on_error
     gladia_socket.on_open = on_open
+    gladia_socket.run_forever()
 
     try:
         while True:
