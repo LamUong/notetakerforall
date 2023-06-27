@@ -53,7 +53,7 @@ const AudioRecorder = () => {
                   socketRef.current.send(event.data);
               }
             })
-            mediaRecorder.start(2000);
+            mediaRecorder.start(5000);
         });                                       
       })
       .catch((error) => {
