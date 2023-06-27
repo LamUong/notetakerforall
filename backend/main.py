@@ -298,6 +298,7 @@ async def on_open(ws, front_end_socket = None):
         "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c",
     }
     ws.send(json.dumps(configuration))
+    print("lam while True")
     while True:
         data = await front_end_socket.receive_bytes()
         print(data)
