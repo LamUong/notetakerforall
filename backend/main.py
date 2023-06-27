@@ -292,7 +292,7 @@ def on_message(ws, message):
 def on_error(ws, error):
     print(error)
 
-def on_open(ws, front_end_socket = None):
+async def on_open(ws, front_end_socket = None):
     # Configure stream with a configuration message
     configuration = {
         "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c",
