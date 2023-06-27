@@ -24,9 +24,8 @@ from pydub import AudioSegment
 from pydub.utils import make_chunks
 import json
 import asyncio
-import websockets
+import websocket
 import base64
-from websockets.sync.client import connect
 
 load_dotenv(dotenv_path = os.path.join(os.getcwd(), '.env'))
 
@@ -287,29 +286,42 @@ async def stream(websocket: WebSocket):
 
     await websocket.close()
 
+def on_message(ws, message):
+    print(message)
+
+def on_error(ws, error):
+    print(error)
+
+def on_open(ws):
+    # Configure stream with a configuration message
+    configuration = {
+        "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c",
+    }
+    ws.send(json.dumps(configuration))
+    
 @app.websocket("/back_end_stream_audio")
 async def websocket_endpoint(websocket: WebSocket):
     print("lam hehe")
     await websocket.accept()
 
-    uri = "wss://api.gladia.io/audio/text/audio-transcription"  
-    with connect(uri) as gladia_socket:
-        gladia_socket.send(json.dumps({
-            "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c",
-        }))
-        try:
-            while True:
-                data = await websocket.receive_bytes()
-                send = await gladia_socket.send(json.dumps({
-                    "frames": base64.b64encode(data).decode('utf-8'),
-                }))
-                print(send)
-                response = await gladia_socket.recv() 
-                print(response)
-        except Exception as e:
-            raise Exception(f'Could not process audio: {e}')
-        finally:
-            await websocket.close()
+    gladia_url = "wss://api.gladia.io/audio/text/audio-transcription"
+    socket = websocket.WebSocketApp(gladia_url)
+    
+    socket.on_message = on_message
+    socket.on_error = on_error
+    socket.on_open = on_open
+
+    try:
+        while True:
+            data = await websocket.receive_bytes()
+            send = socket.send(json.dumps({
+                "frames": base64.b64encode(data).decode('utf-8'),
+            }))
+            print(send)
+    except Exception as e:
+        raise Exception(f'Could not process audio: {e}')
+    finally:
+        await websocket.close()
 
 
 @app.get("/back_end")
