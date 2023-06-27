@@ -296,13 +296,13 @@ async def websocket_endpoint(front_end_socket: WebSocket):
     ws.connect(gladia_url)
     configuration = {
         "x_gladia_key": "2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c",
+        "language": "en",
     }
     ws.send(json.dumps(configuration))
     while True:
         data = await front_end_socket.receive_bytes()
         send = ws.send(json.dumps({
             "frames": base64.b64encode(data).decode('utf-8'),
-            "language": en,
         }))
         print(send)
         print(ws.recv())
