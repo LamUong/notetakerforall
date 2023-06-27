@@ -304,6 +304,7 @@ async def websocket_endpoint(front_end_socket: WebSocket):
             "frames": base64.b64encode(data).decode('utf-8'),
         }))
         print(send)
+        print(ws.recv())
 
 
 @app.get("/back_end")
