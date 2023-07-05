@@ -20,10 +20,11 @@ const LogoSection = () => (
 
 const AudioRecorder = () => {
   const [totalSeconds, setTotalSeconds] = useState(0);
+  const navigate = useNavigate();
   const mediaRecorderRef = useRef(null);
+  const recordedChunksRef = useRef([]);
   const dispatch = useDispatch();
   const customization = useSelector((state) => state.customization);
-  const socketRef = useRef(null);
 
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -39,22 +40,16 @@ const AudioRecorder = () => {
       setTotalSeconds((prevTotalSeconds) => prevTotalSeconds + 1);
     }, 1000);
     
-    console.log("Lam is here");
- 
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then((stream) => {
         const mediaRecorder = new MediaRecorder(stream);
-        
-        socketRef.current = new WebSocket('wss://3.125.247.51/back_end_stream_audio');
-        socketRef.current.addEventListener('open', () => {
-            console.log({ event: 'onopen' });
-            mediaRecorder.addEventListener('dataavailable', async (event) => {
-              if (event.data.size > 0 && socketRef.current.readyState == 1) {
-                  socketRef.current.send(event.data);
-              }
-            })
-            mediaRecorder.start(5000);
-        });                                       
+        mediaRecorderRef.current = mediaRecorder;
+
+        mediaRecorder.addEventListener('dataavailable', handleDataAvailable);
+        mediaRecorder.addEventListener('stop', handleStop);
+
+        mediaRecorder.start();
+
       })
       .catch((error) => {
         console.error('Error accessing microphone:', error);
@@ -66,6 +61,20 @@ const AudioRecorder = () => {
       mediaRecorderRef.current.stop();
     }
   };
+
+  const handleDataAvailable = (event) => {
+    console.log('dataavailable');
+    recordedChunksRef.current.push(event.data);
+  };
+  
+  const handleStop = () => {
+    const blob = new Blob(recordedChunksRef.current, { type: 'audio/mp3' });
+    console.log(blob);
+    dispatch({ type: 'SET_IS_RECORDING_AUDIO', payload: false });
+    dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
+    navigate('/sample-page', {state: {file: blob}});
+  };
+
 
   return (
     <div>
