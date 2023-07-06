@@ -42,7 +42,14 @@ const AudioRecorder = () => {
     
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then((stream) => {
-        const mediaRecorder = new MediaRecorder(stream);
+        if (MediaRecorder.isTypeSupported('audio/webm')) {
+            const options = {mimeType: 'audio/webm'};
+        } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
+            const options = {mimeType: 'audio/mp4', videoBitsPerSecond : 100000};
+        } else {
+            console.error("no suitable mimetype found for this device");
+        }
+        const mediaRecorder = new MediaRecorder(stream, options);
         mediaRecorderRef.current = mediaRecorder;
 
         mediaRecorder.addEventListener('dataavailable', handleDataAvailable);
@@ -68,7 +75,14 @@ const AudioRecorder = () => {
   };
   
   const handleStop = () => {
-    const blob = new Blob(recordedChunksRef.current, { type: 'audio/mp3' });
+    if (MediaRecorder.isTypeSupported('audio/webm')) {
+        const type = 'audio/webm';
+    } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
+        const type = 'audio/mp4';
+    } else {
+        console.error("no suitable mimetype found for this device");
+    }
+    const blob = new Blob(recordedChunksRef.current, { type: type });
     console.log(blob);
     dispatch({ type: 'SET_IS_RECORDING_AUDIO', payload: false });
     dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
