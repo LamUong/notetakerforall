@@ -6,6 +6,5 @@ python-dotenv
 python-multipart
 pdfminer.six
 pydub
-ffmpeg-python
 websockets
 websocket-client
