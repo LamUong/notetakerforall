@@ -51,6 +51,7 @@ const AudioRecorder = () => {
         } else {
           console.error("no suitable mimetype found for this device");
         }
+        console.log(options);
         const mediaRecorder = new MediaRecorder(stream, options);
         mediaRecorderRef.current = mediaRecorder;
 
@@ -77,13 +78,15 @@ const AudioRecorder = () => {
   };
   
   const handleStop = () => {
+    let type = ''
     if (MediaRecorder.isTypeSupported('audio/webm')) {
-        const type = 'audio/webm';
+        type = 'audio/webm';
     } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
-        const type = 'audio/mp4';
+        type = 'audio/mp4';
     } else {
         console.error("no suitable mimetype found for this device");
     }
+    console.log(type);
     const blob = new Blob(recordedChunksRef.current, { type: type });
     console.log(blob);
     dispatch({ type: 'SET_IS_RECORDING_AUDIO', payload: false });
