@@ -234,16 +234,13 @@ def get_chunk_transcript(chunk, initial_offset):
         
 async def transcribe_audio_file(file: UploadFile): 
     mime_type = file.content_type
-    print(file.content_type)
-    return 
     audio_format = None
-
-    if mime_type == 'audio/mpeg':
-        audio_format = 'mp3'
-    elif mime_type == 'audio/wav':
-        audio_format = 'wav'
+    if mime_type == 'audio/webm':
+        audio_format = 'webm'
+    elif mime_type == 'audio/mp4':
+        audio_format = 'mp4'
         
-    audio = AudioSegment.from_file(file.file, format="your_audio_format")    
+    audio = AudioSegment.from_file(file.file, format=audio_format)    
     chunk_duration = 900 * 1000  # 300 seconds (in milliseconds)
     chunks = make_chunks(audio, chunk_duration)
 
