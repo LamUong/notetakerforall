@@ -42,12 +42,14 @@ const AudioRecorder = () => {
     
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then((stream) => {
+        let options = {};
+
         if (MediaRecorder.isTypeSupported('audio/webm')) {
-            const options = {mimeType: 'audio/webm'};
+          options = {mimeType: 'audio/webm'};
         } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
-            const options = {mimeType: 'audio/mp4', videoBitsPerSecond : 100000};
+          options = {mimeType: 'audio/mp4', videoBitsPerSecond : 100000};
         } else {
-            console.error("no suitable mimetype found for this device");
+          console.error("no suitable mimetype found for this device");
         }
         const mediaRecorder = new MediaRecorder(stream, options);
         mediaRecorderRef.current = mediaRecorder;
