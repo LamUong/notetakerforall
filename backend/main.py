@@ -233,20 +233,24 @@ def get_chunk_transcript(chunk, initial_offset):
         return add_paragraph_tags(get_formatted_transcript(get_lines_from_response(response_json, initial_offset), get_timestamp=True))
         
 async def transcribe_audio_file(file: UploadFile): 
-    with NamedTemporaryFile(delete=True) as temp_file:
-        file_content = await file.read()
-        # Write the input .mp4 data to a temporary file
-        temp_file.write(file_content)
-        temp_file.flush()
-        
-        audio = AudioSegment.from_file(temp_file.name)
-        chunk_duration = 900 * 1000  # 300 seconds (in milliseconds)
-        chunks = make_chunks(audio, chunk_duration)
+    mime_type = file.content_type
+    print(file.content_type)
+    return 
+    audio_format = None
 
-        for i in range(0,len(chunks)):
-            transcript = get_chunk_transcript(chunks[i], int(i*chunk_duration/1000))
-            print(transcript)
-            yield transcript
+    if mime_type == 'audio/mpeg':
+        audio_format = 'mp3'
+    elif mime_type == 'audio/wav':
+        audio_format = 'wav'
+        
+    audio = AudioSegment.from_file(file.file, format="your_audio_format")    
+    chunk_duration = 900 * 1000  # 300 seconds (in milliseconds)
+    chunks = make_chunks(audio, chunk_duration)
+
+    for i in range(0,len(chunks)):
+        transcript = get_chunk_transcript(chunks[i], int(i*chunk_duration/1000))
+        print(transcript)
+        yield transcript
 
 @app.post(path="/back_end_upload_file")
 async def get_upload_file_transcript(file: UploadFile):
