@@ -231,16 +231,16 @@ def get_chunk_transcript(chunk_file_path, initial_offset):
     return add_paragraph_tags(get_formatted_transcript(get_lines_from_response(response_json, initial_offset), get_timestamp=True))
 
 async def transcribe_audio_file(file: UploadFile): 
-    # Split the audio into chunks using ffmpeg
     output_dir = '/tmp'
     chunk_duration = 30  # Chunk duration in seconds
 
-    # Create the output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
 
-    with NamedTemporaryFile("wb", delete=True) as temp_input_file:    
+    # Create a temporary file to save the uploaded file
+    with NamedTemporaryFile("wb", delete=True) as temp_input_file:
+        # Write the contents of the uploaded file to the temporary file
         contents = await file.read()
-        await temp_input_file.write(contents)
+        temp_input_file.write(contents)
 
         # Use ffmpeg-python to split the input file into chunks
         (
@@ -257,9 +257,8 @@ async def transcribe_audio_file(file: UploadFile):
         if filename.startswith('output_') and filename.endswith('.mp4')
     ]
 
-    for i in range(0,len(output_files)):
-        transcript = get_chunk_transcript(output_files[i], int(i*chunk_duration))
-        print(transcript)
+    for i, output_file in enumerate(output_files):
+        transcript = await get_chunk_transcript(output_file, i * chunk_duration)
         yield transcript
 
 @app.post(path="/back_end_upload_file")
