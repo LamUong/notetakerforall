@@ -242,8 +242,6 @@ async def transcribe_audio_file(file: UploadFile):
         
     print("lam is mime_type")
     print(mime_type)
-    print("file size")
-    print(len(file.file))
         
     audio = AudioSegment.from_file(file.file, format=audio_format)  
     print("length audiosegment")
