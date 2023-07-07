@@ -238,10 +238,10 @@ async def transcribe_audio_file(file: UploadFile):
     # Create the output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
 
-    with NamedTemporaryFile() as temp_input_file:    
-        contents = file.file.read()
-        temp_input_file.write(contents)
-        temp_input_file.flush()
+    with NamedTemporaryFile("wb", delete=True) as temp_input_file:    
+        contents = await file.read()
+        await temp_input_file.write(contents)
+
         # Use ffmpeg-python to split the input file into chunks
         (
             ffmpeg
