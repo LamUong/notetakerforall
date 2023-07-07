@@ -239,10 +239,15 @@ async def transcribe_audio_file(file: UploadFile):
         audio_format = 'webm'
     elif mime_type == 'audio/mp4':
         audio_format = 'mp4'
+        
     print("lam is mime_type")
     print(mime_type)
+    print("file size")
+    print(file.filesize)
         
-    audio = AudioSegment.from_file(file.file, format=audio_format)    
+    audio = AudioSegment.from_file(file.file, format=audio_format)  
+    print("length audiosegment")
+    print(audio_segment.duration_seconds)
     chunk_duration = 900 * 1000  # 300 seconds (in milliseconds)
     chunks = make_chunks(audio, chunk_duration)
 
