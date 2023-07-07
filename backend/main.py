@@ -20,12 +20,13 @@ from fastapi.responses import StreamingResponse
 from pdfminer.high_level import extract_text
 import requests
 import math
-from pydub import AudioSegment
-from pydub.utils import make_chunks
 import json
 import asyncio
 import websocket
 import base64
+import ffmpeg
+import os
+
 
 load_dotenv(dotenv_path = os.path.join(os.getcwd(), '.env'))
 
