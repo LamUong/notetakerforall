@@ -245,7 +245,7 @@ async def transcribe_audio_file(file: UploadFile):
         # Use ffmpeg-python to split the input file into chunks
         (
             ffmpeg
-            .input(temp_input_file.filename)
+            .input(temp_input_file.name)
             .output(os.path.join(output_dir, 'output_%03d.mp4'), segment_time=chunk_duration, format='segment')
             .run()
         )
