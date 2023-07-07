@@ -258,7 +258,7 @@ async def transcribe_audio_file(file: UploadFile):
     ]
 
     for i, output_file in enumerate(output_files):
-        transcript = await get_chunk_transcript(output_file, i * chunk_duration)
+        transcript = get_chunk_transcript(output_file, i * chunk_duration)
         yield transcript
 
 @app.post(path="/back_end_upload_file")
