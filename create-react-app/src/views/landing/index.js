@@ -78,7 +78,7 @@ const AudioRecorder = () => {
     recordedChunksRef.current.push(event.data);
   };
   
-  const handleStop = () => {
+  const handleStop = async () => {
     let type = ''
     if (MediaRecorder.isTypeSupported('audio/webm')) {
         type = 'audio/webm';
