@@ -91,7 +91,7 @@ const AudioRecorder = () => {
     let blob = new Blob(recordedChunksRef.current, { type: type });
     if (type == 'audio/webm'){
       console.log("fixed_duration");
-      blob = await fixWebmDuration(blob);
+      blob = await ysFixWebmDuration(blob);
     }
     dispatch({ type: 'SET_IS_RECORDING_AUDIO', payload: false });
     dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
