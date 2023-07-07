@@ -231,7 +231,7 @@ def get_chunk_transcript(chunk_file_path, initial_offset):
 
 async def transcribe_audio_file(file: UploadFile): 
     # Split the audio into chunks using ffmpeg
-    output_dir = '/path/to/output/directory'
+    output_dir = '/tmp'
     chunk_duration = 30  # Chunk duration in seconds
 
     # Create the output directory if it doesn't exist
