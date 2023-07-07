@@ -217,40 +217,43 @@ def add_paragraph_tags(text):
     formatted_text = ''.join(f'<p key="{index}">{paragraph}</p>' for index, paragraph in enumerate(paragraphs))    
     return formatted_text
 
-def get_chunk_transcript(chunk, initial_offset):
-    with NamedTemporaryFile(delete=True, suffix=".mp4") as temp_segment:
-        chunk.export(temp_segment.name, format="mp4")  # Adjust the format as needed
-        headers = {
-            'x-gladia-key': '2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c',
-        }
-        files = {
-            'audio': (temp_segment.name, open(temp_segment.name, 'rb'), 'audio/mp4'),
-        }
-        print(files)
-        response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
-        response_json = response.json()
-        #response_json = json.load(open('output_file.json'))
-        return add_paragraph_tags(get_formatted_transcript(get_lines_from_response(response_json, initial_offset), get_timestamp=True))
-        
-async def transcribe_audio_file(file: UploadFile): 
-    mime_type = file.content_type
-    audio_format = None
-    if mime_type == 'audio/webm':
-        audio_format = 'webm'
-    elif mime_type == 'audio/mp4':
-        audio_format = 'mp4'
-        
-    print("lam is mime_type")
-    print(mime_type)
-        
-    audio = AudioSegment.from_file(file.file, format=audio_format)  
-    print("length audiosegment")
-    print(audio.duration_seconds)
-    chunk_duration = 900 * 1000  # 300 seconds (in milliseconds)
-    chunks = make_chunks(audio, chunk_duration)
+def get_chunk_transcript(chunk_file_path, initial_offset):
+    headers = {
+        'x-gladia-key': '2c1c6dc9-6adb-47ec-9296-eca84c7d0f8c',
+    }
+    files = {
+        'audio': (chunk_file_path, open(chunk_file_path, 'rb'), 'audio/mp4'),
+    }
+    print(files)
+    response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
+    response_json = response.json()
+    return add_paragraph_tags(get_formatted_transcript(get_lines_from_response(response_json, initial_offset), get_timestamp=True))
 
-    for i in range(0,len(chunks)):
-        transcript = get_chunk_transcript(chunks[i], int(i*chunk_duration/1000))
+async def transcribe_audio_file(file: UploadFile): 
+    # Split the audio into chunks using ffmpeg
+    output_dir = '/path/to/output/directory'
+    chunk_duration = 30  # Chunk duration in seconds
+
+    # Create the output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Use ffmpeg-python to split the input file into chunks
+    (
+        ffmpeg
+        .input(input_file)
+        .output(os.path.join(output_dir, 'output_%03d.mp4'), segment_time=chunk_duration, format='segment')
+        .run()
+    )
+
+    # Get a list of all output file names
+    output_files = [
+        os.path.join(output_dir, filename)
+        for filename in os.listdir(output_dir)
+        if filename.startswith('output_') and filename.endswith('.mp4')
+    ]
+
+    for i in range(0,len(output_files)):
+        transcript = get_chunk_transcript(output_files[i], int(i*chunk_duration))
         print(transcript)
         yield transcript
 
