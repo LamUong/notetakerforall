@@ -9,7 +9,6 @@ import Drop from "./Drop";
 import Logo from 'ui-component/Logo';
 import { useDispatch, useSelector } from 'react-redux';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-import { fixWebmDuration } from 'fix-webm-duration';
 
 const LogoSection = () => (
   <Grid item sx={{ mb: 3 }}>
@@ -89,10 +88,6 @@ const AudioRecorder = () => {
     }
     console.log(type);
     let blob = new Blob(recordedChunksRef.current, { type: type });
-    if (type == 'audio/webm'){
-      console.log("fixed_duration");
-      blob = await fixWebmDuration(blob, totalSeconds);
-    }
     dispatch({ type: 'SET_IS_RECORDING_AUDIO', payload: false });
     dispatch({ type: 'SET_INPUT_TYPE', payload: 'video' });
     navigate('/sample-page', {state: {file: blob}});
