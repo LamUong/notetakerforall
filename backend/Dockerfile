@@ -1,4 +1,7 @@
-FROM python:3.8-slim-buster
+# Use the official Ubuntu 18.04 base image
+FROM ubuntu:18.04
+# Install Python and pip
+RUN apt-get update && apt-get install -y python3 python3-pip
 ENV PYTHONUNBUFFERED=1
 WORKDIR /backend
 RUN pip install --upgrade pip
