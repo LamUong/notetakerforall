@@ -6,6 +6,8 @@ ENV PYTHONUNBUFFERED=1
 # Set the working directory in the container
 WORKDIR /backend
 
+RUN pip install --upgrade pip
+
 # Copy requirements.txt and install Python dependencies
 COPY ./requirements.txt /backend/requirements.txt
 RUN pip install -r requirements.txt
