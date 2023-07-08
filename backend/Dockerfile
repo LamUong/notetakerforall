@@ -1,12 +1,4 @@
-# Use the official Ubuntu 18.04 base image
-FROM ubuntu:18.04
-
-# Set the default language environment to UTF-8
-ENV LANG C.UTF-8
-
-# Install Python and pip
-RUN apt-get update && apt-get install -y python3 python3-pip
-RUN pip3 install --upgrade pip
+FROM python:3.11.0
 
 # Set environment variable
 ENV PYTHONUNBUFFERED=1
@@ -16,7 +8,7 @@ WORKDIR /backend
 
 # Copy requirements.txt and install Python dependencies
 COPY ./requirements.txt /backend/requirements.txt
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Install additional dependencies
 RUN apt-get update && apt-get -y install ffmpeg libavcodec-extra
