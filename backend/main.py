@@ -228,6 +228,7 @@ def get_chunk_transcript(chunk_file_path, initial_offset):
     print(files)
     response = requests.post('https://api.gladia.io/audio/text/audio-transcription/', headers=headers, files=files)
     response_json = response.json()
+    print(response_json)
     return add_paragraph_tags(get_formatted_transcript(get_lines_from_response(response_json, initial_offset), get_timestamp=True))
 
 async def transcribe_audio_file(file: UploadFile): 
