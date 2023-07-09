@@ -7,7 +7,7 @@ ARG FFMPEG_VERSION=4.4
 
 RUN apt-get update && apt-get install -y wget gnupg2
 RUN echo "deb http://deb.debian.org/debian buster-backports main" >> /etc/apt/sources.list
-RUN apt-get update && apt-get install -y ffmpeg=4.4
+RUN apt-get update && apt-get install -y ffmpeg=4.4.2
 
 # Set the working directory in the container
 WORKDIR /backend
