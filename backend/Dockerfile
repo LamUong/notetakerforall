@@ -3,11 +3,17 @@ FROM python:3.9-bullseye
 # Set environment variable
 ENV PYTHONUNBUFFERED=1
 
-ARG FFMPEG_VERSION=4.4
+RUN apt-get update && apt-get install -y gnupg2 wget
 
-RUN apt-get update && apt-get install -y wget gnupg2
 RUN echo "deb http://deb.debian.org/debian buster-backports main" >> /etc/apt/sources.list
-RUN apt-get update && apt-get install -y ffmpeg=4.4.2
+RUN echo "deb http://deb.debian.org/debian buster-backports-sloppy main" >> /etc/apt/sources.list
+
+RUN apt-get update && apt-get install -y ffmpeg
+
+# Specify the desired FFmpeg version
+ARG FFMPEG_VERSION=4.4.2
+
+RUN apt-get update && apt-get install -y -t buster-backports-sloppy ffmpeg=$FFMPEG_VERSION
 
 # Set the working directory in the container
 WORKDIR /backend
