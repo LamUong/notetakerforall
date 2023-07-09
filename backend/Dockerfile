@@ -1,4 +1,4 @@
-FROM python:3.11.4-bookworm
+FROM python:3.11.4-slim
 
 # Set environment variable
 ENV PYTHONUNBUFFERED=1
