@@ -1,4 +1,4 @@
-FROM python:3.9-bullseye
+FROM python:3.12-rc-bookworm
 
 # Set environment variable
 ENV PYTHONUNBUFFERED=1
